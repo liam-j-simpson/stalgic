@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
     /**
      * TODO: replace domain, clientId, and audience
+     * Adding routes for specific pages (see pages on ticket!), base off rcmndr
      */
     <Auth0Provider
       domain=""

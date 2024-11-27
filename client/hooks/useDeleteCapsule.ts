@@ -1,0 +1,1 @@
+// Delete a capsule completely from database by ID
