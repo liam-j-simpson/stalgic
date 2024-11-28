@@ -8,7 +8,7 @@ export async function seed(knex) {
       time: '22/12/2035 14:00',
       description: 'This Prediction I want to keep for 10 years',
       tags: JSON.stringify(['memory', 'future', 'prediction']),
-      user_id: 'auth0|1234567890',
+      user_id: 'auth0|6747c8bd793f0b9a3e761250',
     },
     {
       id: 2,
