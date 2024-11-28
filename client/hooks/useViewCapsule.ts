@@ -1,2 +1,25 @@
 // View all Capsules
-// View one capsule 
+// View one capsule
+import { useQuery } from '@tanstack/react-query'
+import { useAuth0 } from '@auth0/auth0-react'
+
+import * as api from '../apis/api.ts'
+
+// -- GET ALL CAPSULES -- //
+
+export async function useViewCapsules() {
+  const { user, getAccessTokenSilently } = useAuth0
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['capsules'],
+    queryFn: async () => {
+      const accessToken = await getAccessTokenSilently()
+      if (user && user.sub) {
+        const response = await api.getCapsules(accessToken)
+        return response
+      }
+    },
+  })
+
+  return { data, isLoading, isError }
+}
