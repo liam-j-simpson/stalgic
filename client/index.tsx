@@ -11,17 +11,12 @@ const queryClient = new QueryClient()
 
 document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
-    /**
-     * TODO: replace domain, clientId, and audience
-     * Adding routes for specific pages (see pages on ticket!), base off rcmndr
-     */
     <Auth0Provider
       domain="pohutukawa-team-capsule.au.auth0.com"
-      clientId="QS4QbabOn2jHsO2BEhpu3b4mViiKhndF
-client secret: ajxrmg93NyjZt-kn982hUPxkcH63WVFlz5Si3JsBPjEA1ztZosh9qvWcRfKEvz7c"
+      clientId="QS4QbabOn2jHsO2BEhpu3b4mViiKhndF"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: 'https://stalgic/api',
+        audience: '',
       }}
     >
       <QueryClientProvider client={queryClient}>
