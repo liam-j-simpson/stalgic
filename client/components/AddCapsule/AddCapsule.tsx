@@ -8,6 +8,7 @@ import { DatePicker } from '../../ui/DatePicker'
 import { Input } from '../../ui/Input'
 import { Label } from '../../ui/Label'
 import { useAddCapsule } from '../../hooks/useAddCapsule'
+import { Accordion } from '../../ui/Accordian'
 
 function AddCapsule({ setTitle, setDescription, setTags, setDate, date }) {
   //multi input function
