@@ -1,14 +1,10 @@
-import AddCapsulePage from '../Pages/AddCapsulePage.tsx'
-
-import Nav from './Navigation/Nav'
-
+import { Outlet } from 'react-router-dom'
 
 function App() {
   return (
     <>
       <div className="app">
-        <Nav />
-        <AddCapsulePage />
+        <Outlet />
       </div>
     </>
   )
