@@ -1,9 +1,19 @@
-// Single capsule that can be mapped over 
-import React from "react"
+// Single capsule that can be mapped over
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React from 'react'
+import { Capsule } from '../../../models/capsule'
 
-function CapsuleListItem() {
+interface Props {
+  capsule: Capsule
+}
+
+function CapsuleListItem(props: Props) {
+  const { capsule } = props
+
   return (
-    <h1>I am a capsule</h1>
+    <>
+      <div className="dashboard-capsule"></div>
+    </>
   )
 }
 
