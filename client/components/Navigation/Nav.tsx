@@ -23,10 +23,12 @@ function Nav() {
     <>
       <div className="flex items-center justify-between bg-[#13A25B] p-4">
         <div className="pt-12">
-          <h1 className="pl-16 text-2xl font-bold text-white">STALGIC</h1>
+          <h1 className="font-lalezar pl-16 text-3xl font-bold text-white">
+            STALGIC
+          </h1>
         </div>
 
-        <div className="flex items-center space-x-4 pr-16 pt-12 flex-col items-end">
+        <div className="flex flex-col items-end items-center space-x-4 pr-16 pt-12">
           <IfAuthenticated>
             {user && (
               <div className="flex items-center space-x-2">
@@ -40,7 +42,7 @@ function Nav() {
             )}
             <button
               onClick={handleSignOut}
-              className="text-white hover:underline"
+              className="font-labrada text-xl text-white hover:underline"
             >
               Sign out
             </button>
@@ -48,7 +50,7 @@ function Nav() {
           <IfNotAuthenticated>
             <button
               onClick={handleSignIn}
-              className="text-white hover:underline"
+              className="font-labrada text-xl text-white hover:underline"
             >
               Sign in
             </button>
