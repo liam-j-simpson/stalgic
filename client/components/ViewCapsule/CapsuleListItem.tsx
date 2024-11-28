@@ -12,7 +12,15 @@ function CapsuleListItem(props: Props) {
 
   return (
     <>
-      <div className="dashboard-capsule"></div>
+    
+      <div className="m-8">
+        <h1>{capsule.time}</h1>
+        <h2>{capsule.title}</h2>
+        <p>{capsule.description}</p>
+        <ul>
+          <li>{capsule.tags}</li>
+        </ul>
+      </div>
     </>
   )
 }
