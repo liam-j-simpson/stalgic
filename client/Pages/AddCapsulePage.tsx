@@ -1,12 +1,12 @@
-import { AddCapsule } from '../components/AddCapsule/AddCapsule'
+import AddCapsule from '../components/AddCapsule/AddCapsule'
 function AddCapsulePage() {
   //include all the hooks and smart data that gets passed to the apis
 
   return (
     <body>
       <header></header>
-      <h1>Create</h1>
-      {<AddCapsule />}
+      <h1>Create a Capsule</h1>
+      <AddCapsule />
     </body>
   )
 }
