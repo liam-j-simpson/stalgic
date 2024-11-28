@@ -20,7 +20,7 @@ export async function upsertProfile(user: User) {
   } catch (error) {
     console.error('Error adding user:', error)
     throw new Error(
-      ` ${error instanceof Error ? error.message : 'Failed to add or update user:'}`,
+      ` ${error instanceof Error ? error.message : 'Failed to add or update user'}`,
     )
   }
 }
