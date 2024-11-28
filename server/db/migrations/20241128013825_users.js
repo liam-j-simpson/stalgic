@@ -2,8 +2,9 @@ export function up(knex) {
   return knex.schema.createTable('users', (table) => {
     table.string('auth0_id').primary()
     table.string('name').notNullable()
-    table.string('email').notNullable().unique()
+    table.string('email').notNullable()
     table.string('dob').notNullable()
+    table.string('profile_image')
   })
 }
 
