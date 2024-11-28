@@ -4,7 +4,7 @@ function Dashboard() {
   return (
     <>
       <div>
-        <ListAllCapsules />
+        <ListAllCapsules userId={''} />
       </div>
     </>
   )

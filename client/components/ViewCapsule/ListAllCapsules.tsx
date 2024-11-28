@@ -20,19 +20,19 @@ function ListAllCapsules(props: Props) {
   const capsules: Capsule[] = [
     {
       title: 'Guasha Progress',
-      time: '12y 30d',
+      time: '22/12/2030 14:00',
       description: 'Contour that face',
       tags: ['health', 'wellbeing'],
     },
     {
       title: '30th Birthday',
-      time: '8y 2d',
+      time: '18/06/2050 17:00',
       description: 'Collection of photos for my 30th',
       tags: ['birthday', 'memories'],
     },
     {
       title: 'Painting',
-      time: '12m 1d',
+      time: '01/08/2025 09:00',
       description: 'Photos from over the years, super cool',
       tags: ['art', 'design'],
     },
@@ -52,15 +52,25 @@ function ListAllCapsules(props: Props) {
 
   return (
     <>
-      <h1>Capsules</h1>
-
-      {capsules.map((capsule: Capsule) => {
-        return (
-          <>
-            <CapsuleListItem key={capsule.title} {...{ capsule, myCapsules }} />
-          </>
-        )
-      })}
+      <section className="bg-[#13A25B] pl-16">
+        <div className="flex flex-row">
+          <h1 className="be-cover pt-20 text-[118px] font-bold text-white">
+            CAPSULES
+          </h1>
+        </div>
+        <div className="flex flex-row">
+          {capsules.map((capsule: Capsule) => {
+            return (
+              <>
+                <CapsuleListItem
+                  key={capsule.title}
+                  {...{ capsule, myCapsules }}
+                />
+              </>
+            )
+          })}
+        </div>
+      </section>
     </>
   )
 }
