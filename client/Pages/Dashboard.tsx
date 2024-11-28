@@ -1,10 +1,10 @@
-import ViewAllCapsules from '../components/ViewCapsule/ViewCapsule'
+import ListAllCapsules from '../components/ViewCapsule/ListAllCapsules'
 
 function Dashboard() {
   return (
     <>
       <div>
-        <ViewAllCapsules />
+        <ListAllCapsules />
       </div>
     </>
   )

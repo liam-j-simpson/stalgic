@@ -7,8 +7,8 @@ import * as api from '../apis/api.ts'
 
 // -- GET ALL CAPSULES -- //
 
-export async function useViewCapsules() {
-  const { user, getAccessTokenSilently } = useAuth0
+export function useViewCapsules() {
+  const { user, getAccessTokenSilently } = useAuth0()
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['capsules'],
