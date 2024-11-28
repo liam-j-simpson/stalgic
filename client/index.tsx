@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       clientId="QS4QbabOn2jHsO2BEhpu3b4mViiKhndF"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: '',
+        audience: 'https://stalgic/api',
       }}
     >
       <QueryClientProvider client={queryClient}>

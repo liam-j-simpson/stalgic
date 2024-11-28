@@ -1,4 +1,5 @@
-import { Button } from '../ui/Button.tsx'
+import AddCapsulePage from '../Pages/AddCapsulePage.tsx'
+
 import Nav from './Navigation/Nav'
 import Dashboard from '../Pages/Dashboard'
 import React from 'react'
