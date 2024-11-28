@@ -21,41 +21,35 @@ function Nav() {
 
   return (
     <>
-      <div className="flex items-center justify-between bg-[#13A25B] p-4">
-        <div className="pt-12">
-          <h1 className="font-lalezar pl-16 text-3xl font-bold text-white">
-            STALGIC
-          </h1>
-        </div>
+      <div className="flex items-center justify-between bg-[#13A25B]">
+        <h1 className="font-lalezar pb-5 pl-16 pt-10 text-3xl font-bold text-white">
+          STALGIC
+        </h1>
 
-        <div className="flex flex-col items-end items-center space-x-4 pr-16 pt-12">
+        <div className="flex pr-16 text-white">
           <IfAuthenticated>
-            {user && (
-              <div className="flex items-center space-x-2">
-                <p className="text-white">{user?.name}</p>
-                <img
-                  src={user?.picture}
-                  alt={user?.name}
-                  className="h-10 w-10 rounded-full object-cover"
-                />
-              </div>
-            )}
-            <button
-              onClick={handleSignOut}
-              className="font-labrada text-xl text-white hover:underline"
-            >
-              Sign out
-            </button>
+            <div className="flex items-center hover:underline">
+              <p className="font-labrada text-l space-l mr-3">{user?.name}</p>
+              <img
+                src={user?.picture}
+                alt={user?.name}
+                className="h-10 w-10 rounded-full mr-3"
+              />
+              <button onClick={handleSignOut}>
+                <p className="font-labrada text-l space-l">Sign out</p>
+              </button>
+            </div>
           </IfAuthenticated>
+
           <IfNotAuthenticated>
-            <button
-              onClick={handleSignIn}
-              className="font-labrada text-xl text-white hover:underline"
-            >
-              Sign in
-            </button>
+            <div className="flex items-center hover:underline">
+              <button onClick={handleSignIn}>
+                <p className="font-labrada text-l space-l">Sign in</p>
+              </button>
+            </div>
           </IfNotAuthenticated>
         </div>
+        
       </div>
     </>
   )
