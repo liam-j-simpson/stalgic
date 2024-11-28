@@ -60,7 +60,7 @@ function AddCapsule({ setTitle, setDescription, setTags, setDate, date }) {
         <Label htmlFor="tags">Tags</Label>
         <Input onChange={handleTagsChange} id="tags" placeholder="Enter tags" />
 
-        {/* <Button onSubmit={handleSubmit}>Submit</Button> */}
+        <Button>Submit</Button>
       </main>
     </>
   )
