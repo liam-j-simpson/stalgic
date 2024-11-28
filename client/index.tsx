@@ -16,11 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * Adding routes for specific pages (see pages on ticket!), base off rcmndr
      */
     <Auth0Provider
-      domain=""
-      clientId=""
+      domain="pohutukawa-team-capsule.au.auth0.com"
+      clientId="QS4QbabOn2jHsO2BEhpu3b4mViiKhndF
+client secret: ajxrmg93NyjZt-kn982hUPxkcH63WVFlz5Si3JsBPjEA1ztZosh9qvWcRfKEvz7c"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: '',
+        audience: 'https://stalgic/api',
       }}
     >
       <QueryClientProvider client={queryClient}>
