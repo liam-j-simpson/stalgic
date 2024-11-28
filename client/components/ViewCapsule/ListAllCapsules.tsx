@@ -6,6 +6,7 @@ import { Capsule } from '../../../models/capsule'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react'
 import { IfAuthenticated, IfNotAuthenticated } from '../Authentication/Authenticated'
+import { IfAuthenticated, IfNotAuthenticated } from '../Authentication/Authenticated'
 
 interface Props {
   userId: string
@@ -22,17 +23,20 @@ function ListAllCapsules(props: Props) {
     {
       title: 'Guasha Progress',
       time: '22/12/2030 14:00',
+      time: '22/12/2030 14:00',
       description: 'Contour that face',
       tags: ['health', 'wellbeing'],
     },
     {
       title: '30th Birthday',
       time: '18/06/2050 17:00',
+      time: '18/06/2050 17:00',
       description: 'Collection of photos for my 30th',
       tags: ['birthday', 'memories'],
     },
     {
       title: 'Painting',
+      time: '01/08/2025 09:00',
       time: '01/08/2025 09:00',
       description: 'Photos from over the years, super cool',
       tags: ['art', 'design'],
