@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/react-vite'
 import { MemoryRouter } from 'react-router-dom'
 import React from 'react'
 import '../public/output.css'
