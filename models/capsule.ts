@@ -3,7 +3,7 @@ export interface Capsule {
   time: string
   description: string
   tags: string[]
-  users?: string[]
+  user_id: string
 }
 
 export interface CapsuleData extends Capsule {
