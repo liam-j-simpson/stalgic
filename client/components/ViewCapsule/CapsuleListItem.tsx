@@ -1,14 +1,14 @@
-// Single capsule that can be mapped over
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useEffect, useState } from 'react'
 
 import { Capsule } from '../../../models/capsule'
-
 interface Props {
   capsule: Capsule
 }
 
 function CapsuleListItem(props: Props) {
+  // TODO: add tracker for how many items are in a capsule
+
   const { capsule } = props
   const [timeRemaining, setTimeRemaining] = useState<{
     years: number
@@ -51,12 +51,10 @@ function CapsuleListItem(props: Props) {
     return () => clearInterval(interval)
   }, [capsule.time])
 
-  // TODO: add tracker for how many items are in a capsule
-
   return (
     <>
       <div className="mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]">
-        <div className="font-bold text-[#13A25B]">
+        <div className="font-bold text-[#13A25B] hover:text-[#FE5801]">
           {timeRemaining ? (
             <div className="">
               <div className="text-[48px]">
@@ -81,8 +79,8 @@ function CapsuleListItem(props: Props) {
         </div>
 
         <div className="pb-4">
-          <h2 className="pt-4 pb-2 font-bold">{capsule.title}</h2>
-          <p>{capsule.description}</p>
+          <h2 className="pt-4 pb-2 font-bold hover:text-[#FE5801]">{capsule.title}</h2>
+          <p className="hover:text-[#FE5801]">{capsule.description}</p>
         </div>
         <ul>
           {capsule.tags.map((item, idx) => (
