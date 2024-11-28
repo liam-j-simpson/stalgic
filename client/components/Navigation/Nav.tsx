@@ -33,7 +33,7 @@ function Nav() {
               <img
                 src={user?.picture}
                 alt={user?.name}
-                className="h-10 w-10 rounded-full mr-3"
+                className="mr-3 h-10 w-10 rounded-full"
               />
               <button onClick={handleSignOut}>
                 <p className="font-labrada text-l space-l">Sign out</p>
@@ -49,7 +49,6 @@ function Nav() {
             </div>
           </IfNotAuthenticated>
         </div>
-        
       </div>
     </>
   )
