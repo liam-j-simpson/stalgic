@@ -14,8 +14,7 @@ function AddCapsulePage() {
 
   return (
     <body>
-      <header></header>
-      <h1>Create a Capsule</h1>
+      <h1 className="font-lalezar text-9xl">Create a Capsule</h1>
       <AddCapsule
         setTitle={setTitle}
         setDescription={setDescription}
