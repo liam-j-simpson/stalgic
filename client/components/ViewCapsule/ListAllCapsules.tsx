@@ -5,6 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useViewCapsules } from '../../hooks/useViewCapsule'
 import CapsuleListItem from './CapsuleListItem'
 import { Capsule } from '../../../models/capsule'
+import React from 'react'
 
 interface Props {
   userId: string
