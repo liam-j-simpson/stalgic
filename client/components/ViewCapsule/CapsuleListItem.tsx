@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useEffect, useState } from 'react'
-import React, { useEffect, useState } from 'react'
 
 import { Capsule } from '../../../models/capsule'
 interface Props {
@@ -53,47 +52,7 @@ function CapsuleListItem(props: Props) {
 
     return () => clearInterval(interval)
   }, [capsule.time])
-  const [timeRemaining, setTimeRemaining] = useState<{
-    years: number
-    days: number
-    hours: number
-    minutes: number
-    seconds: number
-  } | null>(null)
-
-  const parseTime = (time: string): Date => {
-    const [day, month, yearAndTime] = time.split('/')
-    const [year, timePart] = yearAndTime.split(' ')
-    const dateString = `${year}-${month}-${day}T${timePart}:00`
-    return new Date(dateString)
-  }
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date()
-      const openingTime = parseTime(capsule.time)
-      const timeDiff = openingTime.getTime() - now.getTime()
-
-      if (timeDiff <= 0) {
-        setTimeRemaining(null)
-        clearInterval(interval)
-      } else {
-        const totalSeconds = Math.floor(timeDiff / 1000)
-        const years = Math.floor(totalSeconds / (60 * 60 * 24 * 365))
-        const days = Math.floor(
-          (totalSeconds % (60 * 60 * 24 * 365)) / (60 * 60 * 24),
-        )
-        const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60))
-        const minutes = Math.floor((totalSeconds % (60 * 60)) / 60)
-        const seconds = totalSeconds % 60
-
-        setTimeRemaining({ years, days, hours, minutes, seconds })
-      }
-    }, 1000)
-
-    return () => clearInterval(interval)
-  }, [capsule.time])
-
+  
   return (
     <>
       <div className="mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B] hover:bg-[#FE5801] hover:text-[#ffffff]">
