@@ -14,7 +14,7 @@ function AddCapsulePage() {
 
   return (
     <body>
-      <h1 className="font-lalezar  pt-100 m-100 text-9xl">Create a Capsule</h1>
+      <h1 className="font-lalezar text-9xl">Create a Capsule</h1>
       <section className="flex">
         <div className="w-96 flex-col ">
           <AddCapsule
