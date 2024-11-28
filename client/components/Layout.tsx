@@ -1,12 +1,13 @@
 import { Outlet } from 'react-router-dom'
+import Nav from './Navigation/Nav'
 
 export default function Layout() {
   return (
     <>
       <header>
-        <h1>Fullstack Boilerplate - with Fruits!</h1>
+        <Nav />
       </header>
-      <main>
+      <main className="bg-[#13A25B] max-h-full min-h-screen">
         <Outlet />
       </main>
       <footer></footer>
