@@ -5,6 +5,7 @@ import { Capsule } from '../../../models/capsule'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react'
+import { IfAuthenticated, IfNotAuthenticated } from '../Authentication/Authenticated'
 
 interface Props {
   userId: string
@@ -58,18 +59,23 @@ function ListAllCapsules(props: Props) {
             CAPSULES
           </h1>
         </div>
-        <div className="flex flex-row">
-          {capsules.map((capsule: Capsule) => {
-            return (
-              <>
-                <CapsuleListItem
-                  key={capsule.title}
-                  {...{ capsule, myCapsules }}
-                />
-              </>
-            )
-          })}
-        </div>
+        <IfAuthenticated>
+          <div className="flex flex-row">
+            {capsules.map((capsule: Capsule) => {
+              return (
+                <>
+                  <CapsuleListItem
+                    key={capsule.title}
+                    {...{ capsule, myCapsules }}
+                  />
+                </>
+              )
+            })}
+          </div>
+        </IfAuthenticated>
+        <IfNotAuthenticated>
+          <p className="text-white text-[24px]">Please sign in to view your capsules!</p>
+        </IfNotAuthenticated>
       </section>
     </>
   )
