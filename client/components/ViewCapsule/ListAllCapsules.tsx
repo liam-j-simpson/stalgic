@@ -53,9 +53,9 @@ function ListAllCapsules(props: Props) {
 
   return (
     <>
-      <section className="bg-[#13A25B] pl-16">
+      <section className="bg-[#13A25B] pl-16 font-lalezar">
         <div className="flex flex-row">
-          <h1 className="be-cover pt-20 text-[118px] font-bold text-white">
+          <h1 className="font-lalezar tracking-wider be-cover pt-20 text-9xl font-bold text-white">
             CAPSULES
           </h1>
         </div>
