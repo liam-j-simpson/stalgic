@@ -1,4 +1,5 @@
 import Nav from './Navigation/Nav'
+import { Button } from '../ui/Button.tsx'
 
 function App() {
   return (
