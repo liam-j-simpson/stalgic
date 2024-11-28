@@ -1,8 +1,20 @@
-// Models for the capsules 
+export interface Fruit {
+  id: number
+  name: string
+  owner: string
+}
+
+export interface FruitData {
+  name: string
+  owner: string
+}
 
 export interface Capsule {
-  id: number,
-  title: string,
-  description: string,
-  time?: string
+  title: string
+  description: string
+  tags: string[]
+}
+
+export interface CapsuleData extends Capsule {
+  id: number
 }
