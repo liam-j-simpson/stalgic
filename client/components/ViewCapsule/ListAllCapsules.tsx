@@ -19,32 +19,23 @@ function ListAllCapsules(props: Props) {
   // FAKE DATA
   const capsules: Capsule[] = [
     {
-      title: "Guasha Progress",
-      time: "12y 30d",
-      description: "Contour that face",
-      tags: [
-        "health",
-        "wellbeing"
-      ]
+      title: 'Guasha Progress',
+      time: '12y 30d',
+      description: 'Contour that face',
+      tags: ['health', 'wellbeing'],
     },
     {
-      title: "30th Birthday",
-      time: "8y 2d",
-      description: "Collection of photos for my 30th",
-      tags: [
-        "birthday",
-        "memories"
-      ]
+      title: '30th Birthday',
+      time: '8y 2d',
+      description: 'Collection of photos for my 30th',
+      tags: ['birthday', 'memories'],
     },
     {
-      title: "Painting",
-      time: "12m 1d",
-      description: "Photos from over the years, super cool",
-      tags: [
-        "art",
-        "design"
-      ]
-    }
+      title: 'Painting',
+      time: '12m 1d',
+      description: 'Photos from over the years, super cool',
+      tags: ['art', 'design'],
+    },
   ]
 
   const { user } = useAuth0()
