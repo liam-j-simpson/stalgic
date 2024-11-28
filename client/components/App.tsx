@@ -1,5 +1,7 @@
-import Nav from './Navigation/Nav'
+
 import { Button } from '../ui/Button.tsx'
+import Nav from './Navigation/Nav'
+
 
 function App() {
   return (
