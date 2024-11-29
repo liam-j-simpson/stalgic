@@ -1,5 +1,6 @@
+
 function ViewOneCapsule() {
-  // TODO: add media uploading capability to div
+  
 
   // TODO: render the information from the capsule that has been clicked on (onto this page)
 
