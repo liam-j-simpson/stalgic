@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react'
 // import { useViewCapsules } from '../../hooks/useViewCapsule'
 import CapsuleListItem from './CapsuleListItem'
 import { CapsuleData } from '../../../models/capsule'
@@ -11,12 +10,12 @@ import {
 } from '../Authentication/Authenticated'
 import { Link} from 'react-router-dom'
 
-interface Props {
-  userId: string
-}
+// interface Props {
+//   userId: string
+// }
 
-function ListAllCapsules(props: Props) {
-  const { userId } = props
+function ListAllCapsules() {
+  // const { userId } = props
 
   // TODO: When back-end setup is completed, use that data
   // const { data: capsules, isError, isLoading } = useViewCapsules()
@@ -46,9 +45,6 @@ function ListAllCapsules(props: Props) {
     },
   ]
 
-  const { user } = useAuth0()
-  const myCapsules = userId === user?.sub
-
   // -- WHEN DATA IS RENDERED FROM DB CAN INCLUDE -- //
   // if (isLoading) {
   //   return <p>Capsules coming soon...</p>
@@ -74,7 +70,7 @@ function ListAllCapsules(props: Props) {
                   <Link key={capsule.id} to={`/dashboard/${capsule.id}`}>
                     <CapsuleListItem
                       key={capsule.id}
-                      {...{ capsule, myCapsules }}
+                      {...{ capsule }}
                     />
                   </Link>
                 </>
