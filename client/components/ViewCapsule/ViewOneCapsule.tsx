@@ -1,6 +1,11 @@
+import { useParams } from "react-router-dom"
+import { useViewCapsuleById } from "../../hooks/useViewCapsule"
 
-function ViewOneCapsule() {
-  
+function ViewOneCapsule(id: number) {
+  const params = useParams()
+  // const id = Number(params.id)
+
+  const {data, isLoading, isError} = useViewCapsuleById(id)
 
   // TODO: render the information from the capsule that has been clicked on (onto this page)
 
@@ -14,8 +19,9 @@ function ViewOneCapsule() {
         </div>
 
         <div className="mr-16 flex flex-row justify-between">
-          <div className="h-[32rem] w-2/3 rounded-lg border-8 border-dashed border-white">
-            <h1 className="justify-center text-center text-white">
+          
+          <div className="h-[32rem] w-2/3 relative rounded-lg border-8 border-dashed border-white">
+            <h1 className="justify-center relative left-1/2 top-1/2 text-white">
               Drag and drop to upload files
             </h1>
           </div>
@@ -23,6 +29,7 @@ function ViewOneCapsule() {
           <div className="w-1/3 ml-8 rounded-lg bg-[#ffffff]">
             Render information
           </div>
+          
         </div>
       </section>
     </>
