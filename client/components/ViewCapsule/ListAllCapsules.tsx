@@ -9,16 +9,13 @@ import {
   IfNotAuthenticated,
 } from '../Authentication/Authenticated'
 import { Link} from 'react-router-dom'
-
-// interface Props {
-//   userId: string
-// }
+// import { useViewCapsules } from '../../hooks/useViewCapsule'
 
 function ListAllCapsules() {
   // const { userId } = props
 
   // TODO: When back-end setup is completed, use that data
-  // const { data: capsules, isError, isLoading } = useViewCapsules()
+  // const { data, isError, isLoading } = useViewCapsules()
 
   // FAKE DATA
   const capsules: CapsuleData[] = [
@@ -50,9 +47,14 @@ function ListAllCapsules() {
   //   return <p>Capsules coming soon...</p>
   // }
 
+  // if (!data) {
+  //   return <p>Please create a capsule to continue!</p>
+  // }
+
   // if (isError) {
   //   return <p>Please try again later... </p>
   // }
+
 
   return (
     <>
@@ -64,7 +66,8 @@ function ListAllCapsules() {
         </div>
         <IfAuthenticated>
           <div className="flex flex-row">
-            {capsules.map((capsule: CapsuleData) => {
+          {capsules?.length > 0 ? (
+            capsules.map((capsule) => {
               return (
                 <>
                   <Link key={capsule.id} to={`/dashboard/${capsule.id}`}>
@@ -75,7 +78,10 @@ function ListAllCapsules() {
                   </Link>
                 </>
               )
-            })}
+            })
+          ) : (
+            <p>No capsules found.</p>
+          )}
           </div>
         </IfAuthenticated>
         <IfNotAuthenticated>

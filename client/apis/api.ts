@@ -3,7 +3,7 @@
 // Import all of our hooks into here
 
 import request from 'superagent'
-import { Capsule, CapsuleData } from '../../models/capsule'
+import { CapsuleData } from '../../models/capsule'
 
 // -- GET ALL CAPSULES -- //
 export async function getCapsules(token: string) {
@@ -12,7 +12,7 @@ export async function getCapsules(token: string) {
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
 
-  return res.body as Capsule[]
+  return res.body as CapsuleData[]
 }
 
 // -- GET CAPSULE BY ID -- //
