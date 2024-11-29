@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useViewCapsuleById } from '../../hooks/useViewCapsule'
 import { CapsuleData } from '../../../models/capsule'
+import TimeFunction from '../Time/TimeFunction'
 
 function ViewOneCapsule() {
   const { id } = useParams()
@@ -11,12 +12,13 @@ function ViewOneCapsule() {
 
   const dataFake: CapsuleData = {
     title: 'Guasha Progress',
-    time: '22/12/2030 14:00',
+    time: '22/12/2025 14:00',
     description: 'Contour that face',
     tags: ['health', 'wellbeing'],
     id: 1,
   }
 
+  const time = TimeFunction(dataFake.time)
   // if (isLoading) {
   //   return <p>Capsules coming soon...</p>
   // }
@@ -40,15 +42,18 @@ function ViewOneCapsule() {
           </div>
 
           <div className="ml-8 flex w-1/3 flex-col rounded-lg bg-[#ffffff]">
-            <h2 className="p-4 pb-2 text-[48px] font-bold text-[#13A25B]">
+            <h2 className="p-4 pb-2 text-[48px] font-bold text-[#13A25B] hover:text-[#FE5801]">
               {dataFake?.title}
             </h2>
-            <p className="p-4 pb-2 font-bold text-[#13A25B]">{dataFake?.description}</p>
+            <div className='text-[#13A25B] hover:text-[#FE5801] pl-4'>{time}</div>
+            <p className="p-4 pb-2 text-2xl text-[#13A25B] hover:text-[#FE5801]">
+              {dataFake?.description}
+            </p>
             <ul className="">
               {dataFake?.tags.map((item, idx) => (
                 <li
                   key={idx}
-                  className="m-4 inline-block rounded-full bg-[#13A25B] px-4 py-2 pt-2 text-[#ffffff]"
+                  className="m-4 inline-block rounded-full bg-[#13A25B] px-4 py-2 pt-2 text-[#ffffff] hover:text-[#ffffff] hover:bg-[#FE5801]"
                 >
                   {item}
                 </li>
