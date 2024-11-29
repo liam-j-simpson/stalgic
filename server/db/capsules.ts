@@ -80,3 +80,18 @@ export async function updateCapsule(capsule: CapsuleData) {
     console.error("Failed to edit capsule's data", error)
   }
 }
+
+export async function deleteCapsule(id: number) {
+  try {
+    const rowsDeleted = await db('capsules').where({ id }).del()
+
+    if (rowsDeleted === 0) {
+      return { success: false, message: 'Capsule not found' }
+    }
+
+    return { success: true }
+  } catch (error) {
+    console.error('Failed to delete a capsule', error)
+    throw new Error('Failed to delete the capsule')
+  }
+}
