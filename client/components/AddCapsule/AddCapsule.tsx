@@ -52,8 +52,9 @@ function AddCapsule({
 
   const handleAddTags = (e) => {
     const newTag = e.target.value
-    
-    setTags(tags.push(newTag))
+    const tagArr = [...tags]
+    const newArr = tagArr.push(newTag)
+    setTags(tagArr)
   }
 
   return (
@@ -88,8 +89,9 @@ function AddCapsule({
               placeholder="Enter tags"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  handleAddTags()
-                }}}
+                  handleAddTags(e)
+                }
+              }}
             />
 
             {/* <Button onSubmit={handleSubmit}>Submit</Button> */}
@@ -112,8 +114,16 @@ function AddCapsule({
             </p>
 
             <p className="font-labrada space-l text-xl">
-              {tags.length <= 1 ? 'Tags' : tags}
-              
+              {tags.length <= 0
+                ? 'Tags'
+                : tags.map((item, i) => (
+                    <li
+                      key={i}
+                      className="mr-2 inline-block rounded-full bg-[#13A25B] px-4 py-2 pt-2 text-[#ffffff]"
+                    >
+                      {item}
+                    </li>
+                  ))}
             </p>
           </div>
         </div>
