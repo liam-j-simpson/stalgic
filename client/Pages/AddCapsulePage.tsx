@@ -9,7 +9,7 @@ function AddCapsulePage() {
 
   console.log('description', description)
   console.log('tags', tags)
-  console.log('title', title)
+  console.log('date', date?.toLocaleString())
   // console.log('date', typeof )
 
   return (
