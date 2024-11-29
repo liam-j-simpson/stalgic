@@ -50,8 +50,10 @@ function AddCapsule({
     setDescription(e.target.value)
   }
 
-  const handleTagsChange = (e) => {
-    setTags(e.target.value)
+  const handleAddTags = (e) => {
+    const newTag = e.target.value
+    
+    setTags(tags.push(newTag))
   }
 
   return (
@@ -81,9 +83,13 @@ function AddCapsule({
             />
             <Label htmlFor="tags">Tags</Label>
             <Input
-              onChange={handleTagsChange}
+              // onChange={handleTagsChange}
               id="tags"
               placeholder="Enter tags"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleAddTags()
+                }}}
             />
 
             {/* <Button onSubmit={handleSubmit}>Submit</Button> */}
@@ -107,6 +113,7 @@ function AddCapsule({
 
             <p className="font-labrada space-l text-xl">
               {tags.length <= 1 ? 'Tags' : tags}
+              
             </p>
           </div>
         </div>
