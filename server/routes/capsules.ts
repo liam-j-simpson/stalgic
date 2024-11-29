@@ -54,6 +54,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
       .json({ success: false, message: "Failed to fetch user's capsule list" })
   }
 })
+
 // Put request to edit capsule
 router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
@@ -87,6 +88,7 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
+// Delete request for deleting a single capsule
 router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
   if (!id) {
