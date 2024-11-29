@@ -24,21 +24,18 @@ function ListAllCapsules(props: Props) {
       time: '22/12/2030 14:00',
       description: 'Contour that face',
       tags: ['health', 'wellbeing'],
-      user_id: '1'
     },
     {
       title: '30th Birthday',
       time: '18/06/2050 17:00',
       description: 'Collection of photos for my 30th',
       tags: ['birthday', 'memories'],
-      user_id: '1'
     },
     {
       title: 'Painting',
       time: '01/08/2025 09:00',
       description: 'Photos from over the years, super cool',
       tags: ['art', 'design'],
-      user_id: '1'
     },
   ]
 
