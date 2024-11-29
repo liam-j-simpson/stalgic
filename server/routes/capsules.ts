@@ -35,6 +35,28 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
+
+router.get('/', checkJwt, async (req: JwtRequest, res) => {
+  const user_id = req.auth?.sub
+  if (!user_id) {
+    return res
+      .status(404)
+      .json({ success: false, message: 'Provide the valid user id' })
+  }
+  try {
+    const results = await db.getUserCapsule(user_id)
+    console.log('RRRRRRRRRReeeeee', results)
+    return res.status(200).json({
+      success: true,
+      message: "Successfully fetched the user's capsule list.",
+      results,
+    })
+  } catch (error) {
+    console.error("Unable to fetch user's capsule list ")
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch user's capsule list" })
+
 // Put request to edit capsule
 router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
@@ -65,6 +87,7 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
     return res
       .status(500)
       .json({ success: false, message: ' Failed to update the capsule' })
+
   }
 })
 
