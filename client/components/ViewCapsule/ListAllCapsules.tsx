@@ -24,7 +24,7 @@ function ListAllCapsules() {
   const capsules: CapsuleData[] = [
     {
       title: 'Guasha Progress',
-      time: '22/12/2030 14:00',
+      time: '30/11/2026 14:00',
       description: 'Contour that face',
       tags: ['health', 'wellbeing'],
       id: 1,
