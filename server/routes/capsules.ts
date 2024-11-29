@@ -1,10 +1,7 @@
 import express from 'express'
 import * as db from '../db/capsules'
 import checkJwt from '../auth0'
-import { Capsule } from '../../models/capsule'
 import { JwtRequest } from '../auth0'
-import { up } from '../db/migrations/20190905120752_fruit'
-import { readdirSync } from 'fs'
 
 const router = express.Router()
 
@@ -12,8 +9,6 @@ const router = express.Router()
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
   const newCpsule = req.body
   const user_id = req.auth?.sub
-
-  console.log('ID', user_id)
 
   if (!newCpsule) {
     return res
@@ -35,7 +30,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
-
+// Get request to list all capsules of the user
 router.get('/', checkJwt, async (req: JwtRequest, res) => {
   const user_id = req.auth?.sub
   if (!user_id) {
@@ -45,7 +40,6 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
   }
   try {
     const results = await db.getUserCapsule(user_id)
-    console.log('RRRRRRRRRReeeeee', results)
     return res.status(200).json({
       success: true,
       message: "Successfully fetched the user's capsule list.",
@@ -56,7 +50,8 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
     return res
       .status(500)
       .json({ success: false, message: "Failed to fetch user's capsule list" })
-
+  }
+})
 // Put request to edit capsule
 router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
@@ -87,7 +82,6 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
     return res
       .status(500)
       .json({ success: false, message: ' Failed to update the capsule' })
-
   }
 })
 
