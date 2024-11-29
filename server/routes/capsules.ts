@@ -3,6 +3,7 @@ import * as db from '../db/capsules'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
 import { Rss } from 'lucide-react'
+import { AsyncLocalStorage } from 'async_hooks'
 
 const router = express.Router()
 
@@ -36,7 +37,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
   const user_id = req.auth?.sub
   if (!user_id) {
     return res
-      .status(404)
+      .status(400)
       .json({ success: false, message: 'Provide the valid user id' })
   }
   try {
@@ -53,13 +54,14 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
       .json({ success: false, message: "Failed to fetch user's capsule list" })
   }
 })
+
 // Put request to edit capsule
 router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
 
   if (!id) {
     return res
-      .status(404)
+      .status(400)
       .json({ success: false, message: 'Please provide a valid capsule id' })
   }
   const { title, time, description, tags } = req.body
@@ -86,6 +88,7 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
+// Delete request for deleting a single capsule
 router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
   if (!id) {
@@ -106,6 +109,37 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
       success: false,
       message: 'Failed to fetch single capsule data',
     })
+  }
+})
+
+router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
+  const id = Number(req.params.id)
+
+  if (!id) {
+    return res
+      .status(400)
+      .json({ success: false, message: 'Please provide a valid capsule id' })
+  }
+
+  try {
+    console.log(`Received request to delete capsule with id: ${id}`)
+
+    const result = await db.deleteCapsule(id)
+
+    console.log('Delete capsule result:', result)
+
+    if (!result.success) {
+      return res.status(404).json({ success: false, message: result.message })
+    }
+
+    return res
+      .status(200)
+      .json({ success: true, message: 'Capsule successfully deleted' })
+  } catch (error) {
+    console.error('Failed to delete the capsule', error)
+    return res
+      .status(500)
+      .json({ success: false, message: 'Failed to delete the capsule' })
   }
 })
 
