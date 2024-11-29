@@ -1,7 +1,6 @@
 import { Capsule, CapsuleData } from '../../models/capsule'
 import db from './connection'
 
-
 export async function getUserCapsule(user_id: string) {
   try {
     const singleCapsule = await db('capsules')
@@ -24,6 +23,23 @@ export async function getUserCapsule(user_id: string) {
   }
 }
 
+export async function getSingleCpasule(id: number) {
+  try {
+    const singleCapsule = await db('capsules')
+      .where({ id })
+      .select('title', 'time', 'description', 'tags')
+
+    const updatedSingleCapsule = singleCapsule.map((capsule) => {
+      return {
+        ...capsule,
+        tags: JSON.parse(capsule.tags),
+      }
+    })
+    return updatedSingleCapsule as Capsule[]
+  } catch (error) {
+    console.error('Failed to fetch single capsule data', error)
+  }
+}
 
 export async function createCapsules(capsule: Capsule, userID: string) {
   const { title, time, description, tags } = capsule

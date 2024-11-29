@@ -2,6 +2,7 @@ import express from 'express'
 import * as db from '../db/capsules'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
+import { Rss } from 'lucide-react'
 
 const router = express.Router()
 
@@ -82,6 +83,29 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
     return res
       .status(500)
       .json({ success: false, message: ' Failed to update the capsule' })
+  }
+})
+
+router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
+  const id = Number(req.params.id)
+  if (!id) {
+    return res
+      .status(404)
+      .json({ success: false, message: 'Please provide valid capsule id' })
+  }
+  try {
+    const singleCapsule = await db.getSingleCpasule(id)
+    return res.status(200).json({
+      success: true,
+      message: 'Sucessfully fetched single capsule data',
+      singleCapsule,
+    })
+  } catch (error) {
+    console.error('Faild to fetch single capsule data')
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to fetch single capsule data',
+    })
   }
 })
 
