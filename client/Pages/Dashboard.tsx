@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom'
 import ListAllCapsules from '../components/ViewCapsule/ListAllCapsules'
 
 function Dashboard() {
@@ -5,6 +6,7 @@ function Dashboard() {
     <>
       <div>
         <ListAllCapsules userId={''} />
+        <Outlet />
       </div>
     </>
   )

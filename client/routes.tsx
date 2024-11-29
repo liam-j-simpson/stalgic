@@ -10,9 +10,10 @@ import UploadToCapsule from './Pages/UploadToCapsulePage.tsx'
 const routes = createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<App />} />
-    <Route path="dashboard" element={<Dashboard />} />
     <Route path="addcapsule" element={<AddCapsulePage />} />
-    <Route path="upload" element={<UploadToCapsule />}/>
+    <Route path="dashboard" element={<Dashboard />}>
+      <Route path="/dashboard/:id" element={<UploadToCapsule />} />
+    </Route>
   </Route>,
 )
 

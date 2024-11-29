@@ -1,11 +1,15 @@
 import { useAuth0 } from '@auth0/auth0-react'
 // import { useViewCapsules } from '../../hooks/useViewCapsule'
 import CapsuleListItem from './CapsuleListItem'
-import { Capsule } from '../../../models/capsule'
+import { CapsuleData } from '../../../models/capsule'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react'
-import { IfAuthenticated, IfNotAuthenticated } from '../Authentication/Authenticated'
+import {
+  IfAuthenticated,
+  IfNotAuthenticated,
+} from '../Authentication/Authenticated'
+import { Link} from 'react-router-dom'
 
 interface Props {
   userId: string
@@ -18,24 +22,27 @@ function ListAllCapsules(props: Props) {
   // const { data: capsules, isError, isLoading } = useViewCapsules()
 
   // FAKE DATA
-  const capsules: Capsule[] = [
+  const capsules: CapsuleData[] = [
     {
       title: 'Guasha Progress',
       time: '22/12/2030 14:00',
       description: 'Contour that face',
       tags: ['health', 'wellbeing'],
+      id: 1,
     },
     {
       title: '30th Birthday',
       time: '18/06/2050 17:00',
       description: 'Collection of photos for my 30th',
       tags: ['birthday', 'memories'],
+      id: 2,
     },
     {
       title: 'Painting',
       time: '01/08/2025 09:00',
       description: 'Photos from over the years, super cool',
       tags: ['art', 'design'],
+      id: 3,
     },
   ]
 
@@ -55,27 +62,31 @@ function ListAllCapsules(props: Props) {
     <>
       <section className="bg-[#13A25B] pl-16 font-lalezar">
         <div className="flex flex-row">
-          <h1 className="font-lalezar tracking-wider be-cover pt-20 text-9xl font-bold text-white">
+          <h1 className="be-cover pt-20 font-lalezar text-9xl font-bold tracking-wider text-white">
             CAPSULES
           </h1>
         </div>
         <IfAuthenticated>
-        <div className="flex flex-row">
-          {capsules.map((capsule: Capsule) => {
-            return (
-              <>
-                <CapsuleListItem
-                  key={capsule.title}
-                  {...{ capsule, myCapsules }}
-                  />
-              </>
-            )
-          })}
-        </div>
-          </IfAuthenticated>
-          <IfNotAuthenticated>
-            <p className='text-white text-[24px]'>Please sign in to view your capsules!</p>
-          </IfNotAuthenticated>
+          <div className="flex flex-row">
+            {capsules.map((capsule: CapsuleData) => {
+              return (
+                <>
+                  <Link key={capsule.id} to={`/dashboard/${capsule.id}`}>
+                    <CapsuleListItem
+                      key={capsule.id}
+                      {...{ capsule, myCapsules }}
+                    />
+                  </Link>
+                </>
+              )
+            })}
+          </div>
+        </IfAuthenticated>
+        <IfNotAuthenticated>
+          <p className="text-[24px] text-white">
+            Please sign in to view your capsules!
+          </p>
+        </IfNotAuthenticated>
       </section>
     </>
   )
