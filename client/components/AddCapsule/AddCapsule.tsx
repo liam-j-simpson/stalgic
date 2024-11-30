@@ -108,10 +108,10 @@ function AddCapsule({
             className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
           >
             <h1 className="font-lalezar text-5xl">
-              {/* {date === undefined
+              {date === undefined
                 ? 'Time Remaining'
-                : } */}
-              {/* // TimeFunction(date?.toLocaleString()) */}
+                : } }
+              { { TimeFunction(date?.toLocaleString()) }
             </h1>
 
             <p className="space-l font-labrada text-xl">
