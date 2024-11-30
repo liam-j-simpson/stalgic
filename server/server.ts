@@ -8,8 +8,8 @@ const server = express()
 
 server.use(express.json())
 
-server.use('/api/vi/user', userRoutes) //user routers from router/users file
-server.use('/api/vi/capsule', capsuleRoutes)
+server.use('/api/v1/user', userRoutes)
+server.use('/api/v1/capsule', capsuleRoutes)
 server.use('/api/v1/media', mediaRouter)
 
 if (process.env.NODE_ENV === 'production') {
