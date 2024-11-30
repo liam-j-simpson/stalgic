@@ -29,6 +29,9 @@ export async function getSingleCpasule(id: number) {
       .where({ id })
       .select('title', 'time', 'description', 'tags')
 
+    if (singleCapsule.length == 0) {
+      return { success: false, message: 'Capsule not found' }
+    }
     const updatedSingleCapsule = singleCapsule.map((capsule) => {
       return {
         ...capsule,
@@ -37,7 +40,7 @@ export async function getSingleCpasule(id: number) {
     })
     return updatedSingleCapsule as Capsule[]
   } catch (error) {
-    console.error('Failed to fetch single capsule data', error)
+    console.error('Failed to retrieve capsule data.', error)
   }
 }
 
@@ -78,5 +81,20 @@ export async function updateCapsule(capsule: CapsuleData) {
     })
   } catch (error) {
     console.error("Failed to edit capsule's data", error)
+  }
+}
+
+export async function deleteCapsule(id: number) {
+  try {
+    const rowsDeleted = await db('capsules').where({ id }).del()
+
+    if (rowsDeleted === 0) {
+      return { success: false, message: 'Capsule not found' }
+    }
+
+    return { success: true }
+  } catch (error) {
+    console.error('Failed to delete a capsule', error)
+    throw new Error('Failed to delete the capsule')
   }
 }

@@ -56,6 +56,7 @@ function AddCapsule({
     const newArr = tagArr.push(newTag)
     setTags(tagArr)
   }
+
   //working on the math function at the moment
   // const dateString = date?.toLocaleString()
   // const newTimeString = dateString?.filter((item) => item !== ',')
@@ -94,6 +95,7 @@ function AddCapsule({
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   handleAddTags(e)
+                  e.currentTarget.value = ''
                 }
               }}
             />
@@ -109,18 +111,18 @@ function AddCapsule({
               {/* {date === undefined
                 ? 'Time Remaining'
                 : } */}
-                {/* // TimeFunction(date?.toLocaleString()) */}
+              {/* // TimeFunction(date?.toLocaleString()) */}
             </h1>
 
-            <p className="font-labrada space-l text-xl">
+            <p className="space-l font-labrada text-xl">
               {title.length <= 0 ? 'Title' : title}
             </p>
 
-            <p className="font-labrada space-l text-xl">
+            <p className="space-l font-labrada text-xl">
               {description.length <= 0 ? 'Description' : description}
             </p>
 
-            <p className="font-labrada space-l text-xl">
+            <p className="space-l font-labrada text-xl">
               {tags.length <= 0
                 ? 'Tags'
                 : tags.map((item, i) => (
