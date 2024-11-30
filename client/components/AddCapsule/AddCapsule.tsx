@@ -8,7 +8,6 @@ import { DatePicker } from '../../ui/DatePicker'
 import { Input } from '../../ui/Input'
 import { Label } from '../../ui/Label'
 import { useAddCapsule } from '../../hooks/useAddCapsule'
-import { Accordion } from '../../ui/Accordian'
 import { TimeFunction } from '../Time/TimeFunction'
 interface Props {
   setTitle: React.Dispatch<React.SetStateAction<string>>
@@ -58,9 +57,9 @@ function AddCapsule({
     setTags(tagArr)
   }
   //working on the math function at the moment
-  const dateString = date?.toLocaleString()
-  const newTimeString = dateString.filter((item) => item !== ',')
-  console.log(newTimeString)
+  // const dateString = date?.toLocaleString()
+  // const newTimeString = dateString?.filter((item) => item !== ',')
+  // console.log(newTimeString)
 
   return (
     <>
@@ -107,9 +106,9 @@ function AddCapsule({
             className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
           >
             <h1 className="font-lalezar text-5xl">
-              {date === undefined
+              {/* {date === undefined
                 ? 'Time Remaining'
-                : }
+                : } */}
                 {/* // TimeFunction(date?.toLocaleString()) */}
             </h1>
 
