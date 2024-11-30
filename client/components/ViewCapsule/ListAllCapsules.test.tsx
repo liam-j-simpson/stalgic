@@ -63,6 +63,4 @@ describe('List all capsules', () => {
 
     expect(scope.isDone()).toBe(true)
   })
-
-  it.todo('should throw an error if the API call fails', () => {})
 })
