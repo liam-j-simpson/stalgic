@@ -9,8 +9,6 @@ const router = express.Router()
 
 // -- UPSERT USER POST REQUEST -- //
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
-  console.log('POST route hit')
-
   const { name, email, dob, profile_image } = req.body
   const auth0_id = req.auth?.sub
 
@@ -19,12 +17,10 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
   }
 
   if (!name || !email) {
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message: 'Missing required fields: name or email',
-      })
+    return res.status(400).json({
+      success: false,
+      message: 'Missing required fields: name or email',
+    })
   }
 
   try {
