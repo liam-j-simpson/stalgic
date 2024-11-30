@@ -1,6 +1,4 @@
 export async function seed(knex) {
-  // Deletes ALL existing entries
-  await knex('medias').del()
   await knex('medias').insert([
     { id: 1, capsule_id: 1, image_url: 'https://i.redd.it/2q6r75jvuy261.jpg' },
     {

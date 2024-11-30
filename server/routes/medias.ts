@@ -2,7 +2,6 @@ import express from 'express'
 import upload from '../upload'
 import checkJwt from '../auth0'
 import * as db from '../db/medias'
-import moment from 'moment'
 import { getSingleCapsule } from '../db/capsules'
 
 const router = express.Router()
@@ -20,32 +19,10 @@ router.post('/', checkJwt, upload.single('image'), async (req, res) => {
 
   try {
     const capsule = await getSingleCapsule(capsule_id)
-
-    if (!capsule) {
+    if (!capsule || capsule.status !== 'unlocked') {
       return res.status(404).json({
         success: false,
-        message: 'Capsule not found.',
-      })
-    }
-
-    const existingMedia = await db.getCapsuleMedia(capsule_id)
-
-    if (existingMedia) {
-      return res.status(400).json({
-        success: false,
-        message: 'This capsule is already locked. No more media can be added.',
-      })
-    }
-
-    console.log('Neeeee', capsule.time)
-
-    const lockTime = moment(capsule.time, 'DD/MM/YYYY HH:mm')
-    const currentDate = moment()
-
-    if (currentDate.isAfter(lockTime)) {
-      return res.status(400).json({
-        success: false,
-        message: 'The capsule has already been locked. No media can be added.',
+        message: 'Capsule is already locked or does not exist',
       })
     }
 
@@ -55,7 +32,7 @@ router.post('/', checkJwt, upload.single('image'), async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      message: 'Image successfully uploaded and capsule locked.',
+      message: 'Image successfully uploaded ',
     })
   } catch (error) {
     console.error('Failed to upload image', error)

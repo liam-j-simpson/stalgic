@@ -1,6 +1,4 @@
 export async function seed(knex) {
-  // Deletes ALL existing entries
-
   await knex('users').insert([
     {
       auth0_id: 'auth0|6747c8bd793f0b9a3e761250',
