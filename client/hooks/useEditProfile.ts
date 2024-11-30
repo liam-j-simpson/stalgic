@@ -14,13 +14,10 @@ import { useState } from 'react'
 
 // Upsert (create or update) user profile
 export async function upsertUser(profileData: User, token: string) {
-  console.log('Sending profile data to backend:', profileData)
   const res = await request
     .post('/api/v1/user')
     .set('Authorization', `Bearer ${token}`)
     .send(profileData)
-
-  console.log('Response from server:', res.body)
   return res.body
 }
 
@@ -51,8 +48,8 @@ export function useUpsertProfile() {
         throw error
       }
     },
-    onSuccess: (data) => {
-      console.log('User profile upserted successfully:', data)
+    onSuccess: () => {
+      console.log('User profile upserted successfully:')
       setProfileUpdated(true)
       queryClient.invalidateQueries({ queryKey: ['user'] })
     },
