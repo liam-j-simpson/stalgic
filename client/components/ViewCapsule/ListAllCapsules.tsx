@@ -8,53 +8,49 @@ import {
   IfAuthenticated,
   IfNotAuthenticated,
 } from '../Authentication/Authenticated'
-import { Link} from 'react-router-dom'
-// import { useViewCapsules } from '../../hooks/useViewCapsule'
+import { Link } from 'react-router-dom'
+import { useViewCapsules } from '../../hooks/useViewCapsule'
+import { Loading } from '../Loading/Loading'
 
 function ListAllCapsules() {
-  // const { userId } = props
+  // TODO: When add new capsule is completed, can use that data
 
-  // TODO: When back-end setup is completed, use that data
-  // const { data, isError, isLoading } = useViewCapsules()
+  const { data, isError, isLoading } = useViewCapsules()
 
-  // FAKE DATA
-  const capsules: CapsuleData[] = [
-    {
-      title: 'Guasha Progress',
-      time: '30/11/2026 14:00',
-      description: 'Contour that face',
-      tags: ['health', 'wellbeing'],
-      id: 1,
-    },
-    {
-      title: '30th Birthday',
-      time: '18/06/2050 17:00',
-      description: 'Collection of photos for my 30th',
-      tags: ['birthday', 'memories'],
-      id: 2,
-    },
-    {
-      title: 'Painting',
-      time: '01/08/2025 09:00',
-      description: 'Photos from over the years, super cool',
-      tags: ['art', 'design'],
-      id: 3,
-    },
-  ]
+  if (isLoading) {
+    return <Loading />
+  }
+
+  if (isError) {
+    return <p>Please try again later... </p>
+  }
+
+  // FAKE DATA to be deleted once create a capsule is working
+  // const capsules: CapsuleData[] = [
+  //   {
+  //     title: 'Guasha Progress',
+  //     time: '30/11/2026 14:00',
+  //     description: 'Contour that face',
+  //     tags: ['health', 'wellbeing'],
+  //     id: 1,
+  //   },
+  //   {
+  //     title: '30th Birthday',
+  //     time: '18/06/2050 17:00',
+  //     description: 'Collection of photos for my 30th',
+  //     tags: ['birthday', 'memories'],
+  //     id: 2,
+  //   },
+  //   {
+  //     title: 'Painting',
+  //     time: '01/08/2025 09:00',
+  //     description: 'Photos from over the years, super cool',
+  //     tags: ['art', 'design'],
+  //     id: 3,
+  //   },
+  // ]
 
   // -- WHEN DATA IS RENDERED FROM DB CAN INCLUDE -- //
-  // if (isLoading) {
-  //   return <p>Capsules coming soon...</p>
-  // }
-
-  // if (!data) {
-  //   return <p>Please create a capsule to continue!</p>
-  // }
-
-  // if (isError) {
-  //   return <p>Please try again later... </p>
-  // }
-
 
   return (
     <>
@@ -66,22 +62,21 @@ function ListAllCapsules() {
         </div>
         <IfAuthenticated>
           <div className="flex flex-row">
-          {capsules?.length > 0 ? (
-            capsules.map((capsule) => {
-              return (
-                <>
-                  <Link key={capsule.id} to={`/dashboard/${capsule.id}`}>
-                    <CapsuleListItem
-                      key={capsule.id}
-                      {...{ capsule }}
-                    />
-                  </Link>
-                </>
-              )
-            })
-          ) : (
-            <p>No capsules found.</p>
-          )}
+            {data?.length > 0 ? (
+              data.map((capsule: CapsuleData) => {
+                return (
+                  <>
+                    <Link key={capsule.id} to={`/dashboard/${capsule.id}`}>
+                      <CapsuleListItem key={capsule.id} {...{ capsule }} />
+                    </Link>
+                  </>
+                )
+              })
+            ) : (
+              <p className="text-4xl tracking-wider text-white">
+                Please create a capsule to continue!
+              </p>
+            )}
           </div>
         </IfAuthenticated>
         <IfNotAuthenticated>
