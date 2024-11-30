@@ -107,7 +107,7 @@ function AddCapsule({
           <div
             className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
           >
-            <h1 className="font-lalezar text-5xl">
+            {/* <h1 className="font-lalezar text-5xl">
               {date === undefined
                 ? 'Time Remaining'
                 : } }
@@ -116,7 +116,7 @@ function AddCapsule({
 
             <p className="space-l font-labrada text-xl">
               {title.length <= 0 ? 'Title' : title}
-            </p>
+            </p> */}
 
             <p className="space-l font-labrada text-xl">
               {description.length <= 0 ? 'Description' : description}
