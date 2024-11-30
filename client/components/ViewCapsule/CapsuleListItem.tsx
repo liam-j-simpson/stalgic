@@ -46,10 +46,10 @@ function CapsuleListItem(props: Props) {
         onMouseLeave={handleNoHover}
         className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B] ${hover.divBg} ${hover.divText}`}
       >
-        <div className="font-bold">
+        <div className="">
           {time}
           <div className="pb-4">
-            <h2 className="pb-2 pt-4 font-bold">{capsule.title}</h2>
+            <h2 className="pb-2 pt-4">{capsule.title}</h2>
             <p>{capsule.description}</p>
           </div>
           <ul>

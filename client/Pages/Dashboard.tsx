@@ -1,10 +1,10 @@
-import ListAllCapsules from '../components/ViewCapsule/ListAllCapsules'
+import { Outlet } from 'react-router-dom'
 
 function Dashboard() {
   return (
     <>
       <div>
-        <ListAllCapsules userId={''} />
+        <Outlet />
       </div>
     </>
   )
