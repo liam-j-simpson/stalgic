@@ -1,38 +1,30 @@
 import { useState } from 'react'
 import AddCapsule from '../components/AddCapsule/AddCapsule'
 function AddCapsulePage() {
-  //include all the hooks and smart data that gets passed to the apis
+  const [title, setTitle] = useState('')
+  const [date, setDate] = useState<Date>(new Date())
   const [description, setDescription] = useState('')
   const [tags, setTags] = useState([])
-  const [title, setTitle] = useState('')
-  const [date, setDate] = useState<Date>()
-
-  console.log('description', description)
-  console.log('tags', tags)
-  console.log('date', date?.toLocaleString())
-  // console.log('date', typeof )
 
   return (
-    <body>
-      <section className="flex">
-        <div className="m-16">
-          <h1 className="font-lalezar text-9xl text-white">CREATE</h1>
-          <h2 className="mb-12 font-lalezar text-7xl text-white">
-            {title.length <= 0 ? 'CAPSULE' : `${title.toUpperCase()} CAPSULE`}
-          </h2>
-          <AddCapsule
-            setTitle={setTitle}
-            title={title}
-            description={description}
-            setDescription={setDescription}
-            tags={tags}
-            setTags={setTags}
-            date={date}
-            setDate={setDate}
-          />
-        </div>
-      </section>
-    </body>
+    <section className="flex">
+      <div className="m-16">
+        <h1 className="font-lalezar text-9xl text-white">CREATE</h1>
+        <h2 className="mb-12 font-lalezar text-7xl text-white">
+          {title.length <= 0 ? 'CAPSULE' : `${title.toUpperCase()} CAPSULE`}
+        </h2>
+        <AddCapsule
+          setTitle={setTitle}
+          title={title}
+          description={description}
+          setDescription={setDescription}
+          tags={tags}
+          setTags={setTags}
+          date={date}
+          setDate={setDate}
+        />
+      </div>
+    </section>
   )
 }
 

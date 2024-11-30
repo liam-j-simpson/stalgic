@@ -2,19 +2,18 @@
 // Smart/Dumb Component
 // Reference rcmndr for layout tips
 
-import { useState } from 'react'
 import { Button } from '../../ui/Button'
 import { DatePicker } from '../../ui/DatePicker'
 import { Input } from '../../ui/Input'
 import { Label } from '../../ui/Label'
-import { useAddCapsule } from '../../hooks/useAddCapsule'
 import TimeFunction from '../Time/TimeFunction'
+import { useAddCapsule } from '../../hooks/useAddCapsule'
 interface Props {
   setTitle: React.Dispatch<React.SetStateAction<string>>
   setDescription: React.Dispatch<React.SetStateAction<string>>
   setTags: React.Dispatch<React.SetStateAction<string[]>>
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>
-  date: Date | undefined
+  time: Date | undefined
   title: string
   tags: string[]
   description: string
@@ -29,34 +28,42 @@ function AddCapsule({
   setDate,
   date,
 }: Props) {
-  //multi input function
+  const useAddCapsuleMutation = useAddCapsule()
 
-  // const handleAddCapsule = useAddCapsule(a)
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    useAddCapsuleMutation.mutate({
+      title,
+      time: date,
+      description,
+      tags,
+    })
+  }
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   handleAddCapsule.mutate({
-  //     title: title,
-  //     description: description,
-  //     tags: tags,
-  //   })
-  // }
-
-  const handleTitleChange = (e) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
   }
 
-  const handleDescriptionChange = (e) => {
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(e.target.value)
   }
 
-  const handleAddTags = (e) => {
-    const newTag = e.target.value
-    const tagArr = [...tags]
-    const newArr = tagArr.push(newTag)
-    setTags(tagArr)
+  const handleAddTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      const newTag = e.currentTarget.value
+      const tagArr = [...tags]
+      tagArr.push(newTag)
+      setTags(tagArr)
+      e.currentTarget.value = ''
+    }
   }
 
+  const handleChangeTime = (
+    eventValue: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setDate = eventValue.target.value.toLocaleString
+  }
   //we want to set the date to locale
   //get rid of the comma from the date
   //setDate to a format that works for nikkis function
@@ -72,7 +79,7 @@ function AddCapsule({
         <div
           className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
         >
-          <form>
+          <form onSubmit={handleSubmit}>
             <Label htmlFor="title">Title</Label>
             <Input
               id="title"
@@ -93,18 +100,12 @@ function AddCapsule({
             />
             <Label htmlFor="tags">Tags</Label>
             <Input
-              // onChange={handleTagsChange}
               id="tags"
               placeholder="Enter tags"
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleAddTags(e)
-                  e.currentTarget.value = ''
-                }
-              }}
+              onKeyDown={handleAddTags}
             />
 
-            {/* <Button onSubmit={handleSubmit}>Submit</Button> */}
+            <Button type="submit">Submit</Button>
           </form>
         </div>
         <div className="w-1/2">
@@ -114,7 +115,7 @@ function AddCapsule({
             <h1 className="font-lalezar text-5xl">
               {date === undefined
                 ? 'Time Remaining'
-                : TimeFunction(`2020-02-02T12:00`)}
+                : TimeFunction('22/12/2030 14:00')}
             </h1>
 
             <p className="space-l font-labrada text-xl">
