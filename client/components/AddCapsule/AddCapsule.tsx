@@ -8,7 +8,7 @@ import { DatePicker } from '../../ui/DatePicker'
 import { Input } from '../../ui/Input'
 import { Label } from '../../ui/Label'
 import { useAddCapsule } from '../../hooks/useAddCapsule'
-import { TimeFunction } from '../Time/TimeFunction'
+import TimeFunction from '../Time/TimeFunction'
 interface Props {
   setTitle: React.Dispatch<React.SetStateAction<string>>
   setDescription: React.Dispatch<React.SetStateAction<string>>
@@ -56,6 +56,10 @@ function AddCapsule({
     const newArr = tagArr.push(newTag)
     setTags(tagArr)
   }
+
+  //we want to set the date to locale
+  //get rid of the comma from the date
+  //setDate to a format that works for nikkis function
 
   //working on the math function at the moment
   // const dateString = date?.toLocaleString()
@@ -107,16 +111,15 @@ function AddCapsule({
           <div
             className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
           >
-            {/* <h1 className="font-lalezar text-5xl">
+            <h1 className="font-lalezar text-5xl">
               {date === undefined
                 ? 'Time Remaining'
-                : } }
-              { { TimeFunction(date?.toLocaleString()) }
+                : TimeFunction(`2020-02-02T12:00`)}
             </h1>
 
             <p className="space-l font-labrada text-xl">
               {title.length <= 0 ? 'Title' : title}
-            </p> */}
+            </p>
 
             <p className="space-l font-labrada text-xl">
               {description.length <= 0 ? 'Description' : description}

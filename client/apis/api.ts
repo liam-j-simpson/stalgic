@@ -16,3 +16,11 @@ export async function getCapsules(token: string) {
 }
 
 // -- GET CAPSULE BY ID -- //
+
+
+
+
+
+
+// -- ADD CAPSULE -- // 
+export async function

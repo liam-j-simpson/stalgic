@@ -3,11 +3,11 @@
 // Add collaborators
 import {Capsule} from '../../models/capsule'
 import useMutation from '@tanstack/react-query'
-import { addCapsule } from '../apis/api'
+import * as api from '../apis/api.ts'
 
 export function useAddCapsule(newCapsule: Capsule) {
   useMutation({
-    mutationFn: addCapsule(newCapsule),
+    mutationFn: api.addCapsule(newCapsule),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['capsules'],
