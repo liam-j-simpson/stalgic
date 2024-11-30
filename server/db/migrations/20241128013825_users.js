@@ -3,7 +3,7 @@ export function up(knex) {
     table.string('auth0_id').primary()
     table.string('name').notNullable()
     table.string('email').notNullable()
-    table.string('dob').notNullable()
+    table.string('dob')
     table.string('profile_image')
   })
 }
