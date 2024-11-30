@@ -2,8 +2,6 @@ import express from 'express'
 import * as db from '../db/capsules'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
-import { Rss } from 'lucide-react'
-import { AsyncLocalStorage } from 'async_hooks'
 
 const router = express.Router()
 
