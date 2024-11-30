@@ -21,12 +21,17 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
   try {
     const newCapsule = await db.createCapsules(newCpsule, user_id)
 
-    return res.status(201).json(newCapsule)
+    return res.status(201).json({
+      success: true,
+      message: 'The capsule was successfully created.',
+      newCapsule,
+    })
   } catch (error) {
     console.error('Error in creating new capsule', error)
-    return res
-      .status(500)
-      .json({ success: false, message: 'Failed to create a new Capsule' })
+    return res.status(500).json({
+      success: false,
+      message: 'The new capsule could not be created. Please try again later.',
+    })
   }
 })
 
@@ -36,20 +41,22 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
   if (!user_id) {
     return res
       .status(400)
-      .json({ success: false, message: 'Provide the valid user id' })
+      .json({ success: false, message: 'Please provide a valid user id' })
   }
   try {
     const results = await db.getUserCapsule(user_id)
     return res.status(200).json({
       success: true,
-      message: "Successfully fetched the user's capsule list.",
+      message: "The user's capsule list was successfully retrieved.",
       results,
     })
   } catch (error) {
     console.error("Unable to fetch user's capsule list ")
-    return res
-      .status(500)
-      .json({ success: false, message: "Failed to fetch user's capsule list" })
+    return res.status(500).json({
+      success: false,
+      message:
+        "Unable to retrieve the user's capsule list. Please try again later.",
+    })
   }
 })
 
@@ -58,9 +65,11 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
 
   if (!id) {
-    return res
-      .status(400)
-      .json({ success: false, message: 'Please provide a valid capsule id' })
+    return res.status(400).json({
+      success: false,
+      message:
+        'Invalid capsule ID provided. Please check the ID and try again.',
+    })
   }
   const { title, time, description, tags } = req.body
 
@@ -75,14 +84,15 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
     const updatedCapsule = await db.updateCapsule(updatedCapsuleData)
     return res.status(200).json({
       success: true,
-      message: 'Capsule  successfully updated',
+      message: 'The capsule was successfully updated.',
       updatedCapsule,
     })
   } catch (error) {
     console.error('Error in updating capsule', error)
-    return res
-      .status(500)
-      .json({ success: false, message: ' Failed to update the capsule' })
+    return res.status(500).json({
+      success: false,
+      message: ' The capsule could not be updated. Please try again later.',
+    })
   }
 })
 
@@ -90,22 +100,31 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
 router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
   if (!id) {
-    return res
-      .status(404)
-      .json({ success: false, message: 'Please provide valid capsule id' })
+    return res.status(404).json({
+      success: false,
+      message:
+        'Invalid capsule ID provided. Please check the ID and try again.',
+    })
   }
   try {
     const singleCapsule = await db.getSingleCpasule(id)
+    if (!Array.isArray(singleCapsule)) {
+      //here I am checking if the result of singleCapsule is not an array. Because if things go well it will return an array of object
+      return res.status(404).json({
+        success: false,
+        message: 'Capsule not found with the given ID.',
+      })
+    }
     return res.status(200).json({
       success: true,
-      message: 'Sucessfully fetched single capsule data',
+      message: 'Successfully fetched the capsule data.',
       singleCapsule,
     })
   } catch (error) {
-    console.error('Faild to fetch single capsule data')
+    console.error('Failed to retrieve capsule data. Please try again later.')
     return res.status(500).json({
       success: false,
-      message: 'Failed to fetch single capsule data',
+      message: 'Failed to retrieve capsule data. Please try again later.',
     })
   }
 })
@@ -114,17 +133,15 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
 
   if (!id) {
-    return res
-      .status(400)
-      .json({ success: false, message: 'Please provide a valid capsule id' })
+    return res.status(400).json({
+      success: false,
+      message:
+        'Invalid capsule ID provided. Please check the ID and try again.',
+    })
   }
 
   try {
-    console.log(`Received request to delete capsule with id: ${id}`)
-
     const result = await db.deleteCapsule(id)
-
-    console.log('Delete capsule result:', result)
 
     if (!result.success) {
       return res.status(404).json({ success: false, message: result.message })
@@ -132,12 +149,16 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
 
     return res
       .status(200)
-      .json({ success: true, message: 'Capsule successfully deleted' })
+      .json({ success: true, message: 'The capsule was successfully deleted.' })
   } catch (error) {
-    console.error('Failed to delete the capsule', error)
-    return res
-      .status(500)
-      .json({ success: false, message: 'Failed to delete the capsule' })
+    console.error(
+      'The capsule could not be deleted. Please try again later.',
+      error,
+    )
+    return res.status(500).json({
+      success: false,
+      message: 'The capsule could not be deleted. Please try again later.',
+    })
   }
 })
 
