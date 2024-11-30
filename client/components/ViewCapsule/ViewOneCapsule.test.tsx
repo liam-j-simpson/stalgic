@@ -14,7 +14,7 @@ vi.mock('@auth0/auth0-react', () => ({
   }),
 }))
 
-describe('List all capsules', () => {
+describe('List one capsule by ID', () => {
   afterEach(() => {
     nock.cleanAll()
   })
