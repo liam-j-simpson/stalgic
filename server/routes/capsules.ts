@@ -96,7 +96,6 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
-// Delete request for deleting a single capsule
 router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
   if (!id) {
@@ -107,9 +106,8 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
     })
   }
   try {
-    const singleCapsule = await db.getSingleCpasule(id)
-    if (!Array.isArray(singleCapsule)) {
-      //here I am checking if the result of singleCapsule is not an array. Because if things go well it will return an array of object
+    const singleCapsule = await db.getSingleCapsule(id)
+    if (!singleCapsule) {
       return res.status(404).json({
         success: false,
         message: 'Capsule not found with the given ID.',
@@ -128,7 +126,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
     })
   }
 })
-
+// Delete request for deleting a single capsule
 router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
 

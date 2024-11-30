@@ -23,24 +23,24 @@ export async function getUserCapsule(user_id: string) {
   }
 }
 
-export async function getSingleCpasule(id: number) {
+export async function getSingleCapsule(id: number) {
   try {
+    console.log(`Fetching capsule with id: ${id}`)
     const singleCapsule = await db('capsules')
       .where({ id })
       .select('title', 'time', 'description', 'tags')
+      .first()
 
-    if (singleCapsule.length == 0) {
+    if (!singleCapsule) {
+      console.log(`No capsule found with id: ${id}`)
       return { success: false, message: 'Capsule not found' }
     }
-    const updatedSingleCapsule = singleCapsule.map((capsule) => {
-      return {
-        ...capsule,
-        tags: JSON.parse(capsule.tags),
-      }
-    })
-    return updatedSingleCapsule as Capsule[]
+
+    singleCapsule.tags = JSON.parse(singleCapsule.tags)
+    return singleCapsule
   } catch (error) {
     console.error('Failed to retrieve capsule data.', error)
+    return { success: false, message: 'Failed to retrieve capsule data' }
   }
 }
 
