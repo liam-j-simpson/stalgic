@@ -2,10 +2,10 @@ import { useState } from 'react'
 import AddCapsule from '../components/AddCapsule/AddCapsule'
 function AddCapsulePage() {
   const [title, setTitle] = useState('')
-  const [date, setDate] = useState<Date>(new Date())
   const [description, setDescription] = useState('')
-  const [tags, setTags] = useState([])
-
+  const [tags, setTags] = useState<string[]>([])
+  const [date, setDate] = useState<Date>()
+  
   return (
     <section className="flex">
       <div className="m-16">

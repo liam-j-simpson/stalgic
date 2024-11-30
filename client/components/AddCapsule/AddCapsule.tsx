@@ -3,20 +3,21 @@
 // Reference rcmndr for layout tips
 
 import { Button } from '../../ui/Button'
-import { DatePicker } from '../../ui/DatePicker'
 import { Input } from '../../ui/Input'
 import { Label } from '../../ui/Label'
 import TimeFunction from '../Time/TimeFunction'
+import { DatePicker } from '../../ui/DatePicker'
 import { useAddCapsule } from '../../hooks/useAddCapsule'
+import React, { useState } from 'react'
 interface Props {
   setTitle: React.Dispatch<React.SetStateAction<string>>
   setDescription: React.Dispatch<React.SetStateAction<string>>
   setTags: React.Dispatch<React.SetStateAction<string[]>>
-  setDate: React.Dispatch<React.SetStateAction<Date | undefined>>
-  time: Date | undefined
   title: string
-  tags: string[]
   description: string
+  tags: string[]
+  date: Date | undefined
+  setDate: React.Dispatch<React.SetStateAction<Date | undefined>>
 }
 function AddCapsule({
   setTitle,
@@ -25,48 +26,41 @@ function AddCapsule({
   description,
   setTags,
   tags,
-  setDate,
   date,
+  setDate,
 }: Props) {
-  const useAddCapsuleMutation = useAddCapsule()
+  // const addCapsuleMutation = useAddCapsule()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    useAddCapsuleMutation.mutate({
-      title,
-      time: date,
-      description,
-      tags,
-    })
-  }
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value)
-  }
-
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDescription(e.target.value)
-  }
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault()
+  //   addCapsuleMutation.mutate({
+  //     title,
+  //     time,
+  //     description,
+  //     tags,
+  //   })
+  // }
 
   const handleAddTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault()
       const newTag = e.currentTarget.value
-      const tagArr = [...tags]
-      tagArr.push(newTag)
-      setTags(tagArr)
+      setTags([...tags, newTag])
       e.currentTarget.value = ''
     }
   }
 
-  const handleChangeTime = (
-    eventValue: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setDate = eventValue.target.value.toLocaleString
-  }
   //we want to set the date to locale
   //get rid of the comma from the date
   //setDate to a format that works for nikkis function
+  //the date needs to be put into the table
+  // the time remaining needs to be displayed on screen
+
+  // const handleSetDate = (
+  //   e: React.ChangeEvent<HTMLInputElement>,
+  // ) => {
+  //   setDate = e.currentTarget.value
+  // }
 
   //working on the math function at the moment
   // const dateString = date?.toLocaleString()
@@ -79,22 +73,26 @@ function AddCapsule({
         <div
           className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
         >
-          <form onSubmit={handleSubmit}>
+          <form
+          // onSubmit={handleSubmit}
+          >
             <Label htmlFor="title">Title</Label>
             <Input
               id="title"
-              onChange={handleTitleChange}
+              onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter title"
             />
             <br />
+
             <Label>
               Opening Date
-              <DatePicker setDate={setDate} date={date}></DatePicker>
+              <DatePicker date={date} setDate={setDate}></DatePicker>
             </Label>
+
             <br />
             <Label htmlFor="description">Description</Label>
             <Input
-              onChange={handleDescriptionChange}
+              onChange={(e) => setDescription(e.target.value)}
               id="description"
               placeholder="Enter description"
             />
