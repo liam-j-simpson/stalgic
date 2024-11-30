@@ -15,7 +15,7 @@ import { useState } from 'react'
 // Upsert (create or update) user profile
 export async function upsertUser(profileData: User, token: string) {
   const res = await request
-    .post('/api/v1/user')
+    .post('/api/v1/user/')
     .set('Authorization', `Bearer ${token}`)
     .send(profileData)
   return res.body
