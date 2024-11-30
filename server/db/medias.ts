@@ -17,3 +17,11 @@ export async function uploadMedia(media: MediaData) {
     throw new Error('Failed to upload media')
   }
 }
+
+export async function getCapsuleMedia(capsule_id: number) {
+  try {
+    return await db('medias').where('capsule_id', capsule_id).first()
+  } catch (error) {
+    console.error(error)
+  }
+}
