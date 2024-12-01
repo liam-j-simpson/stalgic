@@ -8,3 +8,7 @@ export interface Capsule {
 export interface CapsuleData extends Capsule {
   id: number
 }
+
+export interface CapsuleArray {
+  results: CapsuleData[]
+}
