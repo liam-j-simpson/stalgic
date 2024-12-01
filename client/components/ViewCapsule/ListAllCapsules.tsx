@@ -59,7 +59,7 @@ function ListAllCapsules() {
             CAPSULES
           </h1>
           <Link key="add-new-capsule" to={`/addcapsule`}>
-          <button className="mr-28 h-14 w-36 inline-block text-4xl font-bold rounded-full bg-[#ffffff] text-[#13A25B]">ADD +</button>
+          <button className="mr-28 h-14 w-36 inline-block text-4xl font-bold rounded-full bg-[#ffffff] text-[#13A25B] hover:text-[#ffffff] hover:bg-[#FE5801]">ADD +</button>
           </Link>
         </div>
         <IfAuthenticated>
