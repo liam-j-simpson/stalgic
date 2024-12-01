@@ -2,6 +2,7 @@ import express from 'express'
 import * as db from '../db/capsules'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
+import moment from 'moment-timezone' // Import moment-timezone
 
 const router = express.Router()
 
@@ -99,16 +100,60 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
-router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
+router.get('/:id', checkJwt, async (req, res) => {
   const id = Number(req.params.id)
-  try {
-    res.json(await db.getSingleCapsule(id))
+  if (!id) {
+    return res.status(404).json({
+      success: false,
+      message:
+        'Invalid capsule ID provided. Please check the ID and try again.',
+    })
+  }
 
-    if (!id) {
+  try {
+    const singleCapsule = await db.getSingleCapsule(id)
+    if (!singleCapsule) {
       return res.status(404).json({
         success: false,
-        message:
-          'Invalid capsule ID provided. Please check the ID and try again.',
+        message: 'Capsule not found with the given ID.',
+      })
+    }
+
+    const timeString = singleCapsule.time
+
+    const unlockedTime = moment
+      .tz(timeString, 'DD/MM/YYYY HH:mm', 'Pacific/Auckland')
+      .format('YYYY-MM-DDTHH:mm:ss.SSSZ')
+    console.log('Unlocked Time (NZT):', unlockedTime)
+
+    const currentTime = moment()
+      .tz('Pacific/Auckland')
+      .format('YYYY-MM-DDTHH:mm:ss.SSSZ')
+    console.log('Current Time (NZT):', currentTime)
+
+    const isUnlocked =
+      moment(currentTime).isSameOrAfter(moment(unlockedTime)) ||
+      singleCapsule.status === 'unlocked'
+
+    console.log('Is Capsule Unlocked?:', isUnlocked)
+    console.log(singleCapsule.status)
+
+    if (isUnlocked) {
+      if (
+        moment(currentTime).isSameOrAfter(moment(unlockedTime)) &&
+        singleCapsule.status !== 'unlocked'
+      ) {
+        await db.updateStatus(id)
+      }
+      return res.status(200).json({
+        success: true,
+        message: 'Successfully fetched the capsule data.',
+        singleCapsule,
+      })
+    } else {
+      return res.status(403).json({
+        success: false,
+        message: 'Capsule is locked.',
       })
     }
   } catch (error) {
