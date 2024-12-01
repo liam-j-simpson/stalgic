@@ -3,17 +3,19 @@ export function ProfilePage() {
 
   return (
     <>
-      <section className="flex">
-        <div className="m-16">
-          <h1 className="font-lalezar text-9xl text-white">PROFILE</h1>
+      <section className="bg-[#13A25B] pl-16 font-lalezar">
+        <div>
+          <h1 className="be-cover pt-20 text-9xl font-bold tracking-wider text-white">
+            PROFILE
+          </h1>
         </div>
       </section>
       <div
-        className={`m-16 mb-96  h-80 w-80 rounded-full bg-[#ffffff] p-6 text-[#13A25B]`}
+        className={`m-16 flex h-80 w-80 items-center justify-center rounded-full bg-[#ffffff] p-6 text-[#13A25B]`}
       >
-        <div className="relative left-4 top-14">
-          <button className="space-l absolute inset-0 m-5 rounded-full bg-[#13A25B] p-10 text-[#ffffff]">
-            <p className="absolute inset-5 font-labrada text-xl">Username</p>
+        <div>
+          <button className="rounded-full bg-[#13A25B] text-[#ffffff]">
+            <p className="p-2 px-4 font-labrada text-xl">Username</p>
           </button>
         </div>
       </div>
@@ -24,7 +26,7 @@ export function ProfilePage() {
           >
             <h2 className="mb-12 font-lalezar text-7xl text-[#13A25B]">NAME</h2>
             <p className="space-l font-labrada text-xl">Username</p>
-            <button className="mr-2 inline-block rounded-full bg-[#13A25B] px-4 py-2 pt-2 text-[#ffffff]">
+            <button className="inline-block rounded-full bg-[#13A25B] p-2 px-4 text-[#ffffff]">
               edit
             </button>
           </div>
