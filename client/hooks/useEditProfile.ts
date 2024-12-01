@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { User } from '../../models/user.ts'
 import { useState } from 'react'
 import * as api from '../apis/api.ts'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export function useUpsertProfile() {
   const { user, getAccessTokenSilently } = useAuth0()
