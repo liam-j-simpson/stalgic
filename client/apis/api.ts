@@ -26,8 +26,8 @@ export async function getCapsuleById(token: string, id: number) {
 export async function getUser(auth0_id: string, token: string) {
   const res = await request
     .get(`/api/v1/user/${auth0_id}`)
-    .set('Authorization', `Bearer ${token}`);
-  return res.body;
+    .set('Authorization', `Bearer ${token}`)
+  return res.body
 }
 
 // -- UPSERT USER PROFILE (ADD OR UPDATE) -- //
