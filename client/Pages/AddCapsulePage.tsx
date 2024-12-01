@@ -7,6 +7,7 @@ function AddCapsulePage() {
     time: '',
     description: '',
     tags: [],
+    status: 'unlocked'
   })
 
   return (

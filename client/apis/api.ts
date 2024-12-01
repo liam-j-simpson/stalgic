@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { CapsuleData } from '../../models/capsule'
+import { Capsule, CapsuleArray, CapsuleData } from '../../models/capsule'
 import { User } from '../../models/user'
 
 // -- GET ALL CAPSULES -- //
@@ -9,7 +9,7 @@ export async function getCapsules(token: string) {
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
 
-  return res.body as CapsuleData[]
+  return res.body as CapsuleArray
 }
 
 // -- GET CAPSULE BY ID -- //
