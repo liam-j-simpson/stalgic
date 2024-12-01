@@ -17,7 +17,7 @@ export function useAddCapsule() {
       if (!user?.sub) {
         throw new Error('User not authenticated')
       }
-      return api.addCapsule(capsule, accessToken)
+      await api.addCapsule(capsule, accessToken)
     },
 
     onSuccess: () => {

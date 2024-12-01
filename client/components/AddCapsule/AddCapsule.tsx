@@ -18,17 +18,24 @@ interface Props {
   setForm: React.Dispatch<React.SetStateAction<Capsule>>
 }
 function AddCapsule({ form, setForm }: Props) {
-  // const addCapsuleMutation = useAddCapsule()
+  const addCapsuleMutation = useAddCapsule()
 
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault()
-  //   addCapsuleMutation.mutate({
-  //     title,
-  //     time,
-  //     description,
-  //     tags,
-  //   })
-  // }
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    addCapsuleMutation.mutate({
+      title: form.title,
+      time: form.time,
+      description: form.description,
+      tags: form.tags,
+    })
+    setForm({
+      title: '',
+      time: '',
+      description: '',
+      tags: [],
+    })
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -44,17 +51,16 @@ function AddCapsule({ form, setForm }: Props) {
     }
   }
 
-  //the date needs to be put into the table
-  // the time remaining needs to be displayed on screen
-
   const [date, setDate] = useState(new Date())
-
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      const newDate = format(date, 'dd/MM/yyyy HH:mm')
-      console.log(newDate)
-      setForm({ ...form, time: newDate })
-      console.log(form)
+      setDate(date)
+      setForm({ ...form, time: format(date, 'dd/MM/yyyy HH:mm') })
+      console.log('setForm', {
+        ...form,
+        time: format(date, 'dd/MM/yyyy HH:mm'),
+      })
+      console.log('setDate', date)
     }
   }
 
@@ -64,9 +70,7 @@ function AddCapsule({ form, setForm }: Props) {
         <div
           className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
         >
-          <form
-          // onSubmit={handleSubmit}
-          >
+          <form onSubmit={handleSubmit}>
             <Label htmlFor="title">Title</Label>
             <Input
               type="text"
@@ -81,7 +85,6 @@ function AddCapsule({ form, setForm }: Props) {
             <Label>
               Opening Date
               <DatePicker selected={date} onChange={handleDateChange} />
-              {/* onChange={(date) => setDate(date)}> */}
             </Label>
 
             <br />
@@ -92,6 +95,7 @@ function AddCapsule({ form, setForm }: Props) {
               name="description"
               onChange={handleChange}
               placeholder="Enter description"
+              value={form.description}
             />
             <Label htmlFor="tags">Tags</Label>
             <Input
@@ -108,7 +112,9 @@ function AddCapsule({ form, setForm }: Props) {
             className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
           >
             <h1 className="font-lalezar text-5xl">
-              {date === undefined ? 'Time Remaining' : TimeFunction()}
+              {date === undefined
+                ? 'Time Remaining'
+                : TimeFunction(format(date, 'dd/MM/yyyy HH:mm'))}
             </h1>
 
             <p className="space-l font-labrada text-xl">
