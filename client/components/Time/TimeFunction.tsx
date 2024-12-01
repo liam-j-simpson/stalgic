@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
-function TimeFunction(timeString: string) {
+function TimeFunction(timeString: string | undefined) {
+ 
   const [timeRemaining, setTimeRemaining] = useState<{
     years: number
     days: number
@@ -19,7 +20,7 @@ function TimeFunction(timeString: string) {
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date()
-      const openingTime = parseTime(timeString)
+      const openingTime = parseTime(timeString ?? '')
       const timeDiff = openingTime.getTime() - now.getTime()
 
       if (timeDiff <= 0) {

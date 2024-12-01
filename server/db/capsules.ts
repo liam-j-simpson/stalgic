@@ -5,14 +5,14 @@ export async function getUserCapsule(user_id: string) {
   try {
     const singleCapsule = await db('capsules')
       .where({ user_id })
-      .select('title', 'time', 'description', 'tags', 'status')
+      .select('title', 'time', 'description', 'tags', 'status', 'id')
     const updatedResult = singleCapsule.map((capsule) => {
       return {
         ...capsule,
         tags: JSON.parse(capsule.tags),
       }
     })
-    return updatedResult as Capsule[]
+    return updatedResult as CapsuleData[]
   } catch (error) {
     console.error("Failed to fetch user's capsules")
     throw new Error(
@@ -28,7 +28,7 @@ export async function getSingleCapsule(id: number) {
     console.log(`Fetching capsule with id: ${id}`)
     const singleCapsule = await db('capsules')
       .where({ id })
-      .select('title', 'time', 'description', 'tags', 'status')
+      .select('title', 'time', 'description', 'tags', 'status', 'id')
       .first()
 
     if (!singleCapsule) {
@@ -45,7 +45,7 @@ export async function getSingleCapsule(id: number) {
 }
 
 export async function createCapsules(capsule: Capsule, userID: string) {
-  const { title, time, description, tags, status } = capsule
+  const { title, time, description, tags } = capsule
 
   const tagsJson = JSON.stringify(tags)
   try {
@@ -69,7 +69,7 @@ export async function createCapsules(capsule: Capsule, userID: string) {
 }
 
 export async function updateCapsule(capsule: CapsuleData) {
-  const { title, time, description, tags, status, id } = capsule
+  const { title, time, description, tags, id } = capsule
 
   const tagsJson = JSON.stringify(tags)
 
@@ -81,7 +81,6 @@ export async function updateCapsule(capsule: CapsuleData) {
         time,
         description,
         tags: tagsJson,
-        status,
       })
       .returning('*')
 
