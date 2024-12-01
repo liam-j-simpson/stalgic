@@ -1,27 +1,24 @@
 import { useState } from 'react'
 import AddCapsule from '../components/AddCapsule/AddCapsule'
+import { Capsule } from '../../models/capsule'
 function AddCapsulePage() {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [tags, setTags] = useState<string[]>([])
-  const [date, setDate] = useState<Date>()
-  
+  const [form, setForm] = useState<Capsule>({
+    title: '',
+    time: '',
+    description: '',
+    tags: [],
+  })
+
   return (
     <section className="flex">
       <div className="m-16">
         <h1 className="font-lalezar text-9xl text-white">CREATE</h1>
         <h2 className="mb-12 font-lalezar text-7xl text-white">
-          {title.length <= 0 ? 'CAPSULE' : `${title.toUpperCase()} CAPSULE`}
+          {form.title.length <= 0 ? 'CAPSULE' : `${form.title.toUpperCase()} CAPSULE`}
         </h2>
         <AddCapsule
-          setTitle={setTitle}
-          title={title}
-          description={description}
-          setDescription={setDescription}
-          tags={tags}
-          setTags={setTags}
-          date={date}
-          setDate={setDate}
+          form={form}
+          setForm={setForm}
         />
       </div>
     </section>
