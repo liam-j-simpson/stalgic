@@ -1,29 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuth0 } from '@auth0/auth0-react'
 import { User } from '../../models/user.ts'
-import request from 'superagent'
 import { useState } from 'react'
-
-// Fetch user data
-// export async function getUser(auth0_id: string, token: string) {
-//   const res = await request
-//     .get(`/api/v1/user/${auth0_id}`)
-//     .set('Authorization', `Bearer ${token}`);
-//   return res.body;
-// }
-
-// Upsert (create or update) user profile
-export async function upsertUser(profileData: User, token: string) {
-  const res = await request
-    .post('/api/v1/user/')
-    .set('Authorization', `Bearer ${token}`)
-    .send(profileData)
-  return res.body
-}
+import * as api from '../apis/api.ts'
+import { useNavigate } from 'react-router-dom'
 
 export function useUpsertProfile() {
   const { user, getAccessTokenSilently } = useAuth0()
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const [profileUpdated, setProfileUpdated] = useState(false)
 
@@ -41,7 +26,7 @@ export function useUpsertProfile() {
       const accessToken = await getAccessTokenSilently()
 
       try {
-        const response = await upsertUser(profileData, accessToken)
+        const response = await api.upsertUser(profileData, accessToken)
         return response
       } catch (error) {
         console.error('Error during upsertUser:', error)
@@ -52,6 +37,7 @@ export function useUpsertProfile() {
       console.log('User profile upserted successfully:')
       setProfileUpdated(true)
       queryClient.invalidateQueries({ queryKey: ['user'] })
+      navigate('/dashboard')
     },
     onError: (error) => {
       console.error('Error during mutation:', error)

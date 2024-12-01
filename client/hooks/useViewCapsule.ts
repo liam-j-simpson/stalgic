@@ -23,3 +23,22 @@ export function useViewCapsules() {
 
   return { data, isLoading, isError }
 }
+
+
+// -- GET CAPSULE BY ID -- //
+export function useViewCapsuleById(id: number) {
+  const {user, getAccessTokenSilently} = useAuth0()
+
+  const {data, isLoading, isError} = useQuery({
+    queryKey: ['capsule', id],
+    queryFn: async () => {
+      const accessToken = await getAccessTokenSilently()
+      if (user && user.sub) {
+        const response = await api.getCapsuleById(accessToken, id)
+        return response
+      }
+    }
+  })
+
+  return { data, isLoading, isError }
+}

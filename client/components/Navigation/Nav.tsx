@@ -6,6 +6,7 @@ import {
   IfNotAuthenticated,
 } from '../Authentication/Authenticated.tsx'
 import { useAuth0 } from '@auth0/auth0-react'
+import { Link } from 'react-router-dom';
 
 // TODO: Add link to profile page by clicking on username or profile img
 
@@ -42,9 +43,11 @@ function Nav() {
 
   return (
     <div className="flex items-center justify-between bg-[#13A25B]">
-      <h1 className="font-lalezar pb-5 pl-16 pt-10 text-3xl font-bold text-white">
+      <Link key="logo-to-dashboard" to={`/dashboard`}>
+      <h1 className="font-lalezar pb-5 pl-16 pt-10 text-3xl font-bold text-white hover:text-[#FE5801]">
         STALGIC
       </h1>
+      </Link>
 
       <div className="flex pr-16 text-white">
         <IfAuthenticated>

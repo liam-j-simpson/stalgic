@@ -2,6 +2,7 @@ import express from 'express'
 import * as db from '../db/capsules'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
+import moment from 'moment'
 
 const router = express.Router()
 
@@ -38,6 +39,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
 // Get request to list all capsules of the user
 router.get('/', checkJwt, async (req: JwtRequest, res) => {
   const user_id = req.auth?.sub
+
   if (!user_id) {
     return res
       .status(400)
@@ -71,7 +73,7 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
         'Invalid capsule ID provided. Please check the ID and try again.',
     })
   }
-  const { title, time, description, tags } = req.body
+  const { title, time, description, tags, status } = req.body
 
   if (!time || !time || !description || !tags) {
     return res
@@ -79,9 +81,17 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
       .json({ success: false, message: 'Missing required fields' })
   }
 
-  const updatedCapsuleData = { title, time, description, tags, id }
+  const updatedCapsuleData = { title, time, description, tags, status, id }
+
   try {
     const updatedCapsule = await db.updateCapsule(updatedCapsuleData)
+
+    if (!updatedCapsule || updatedCapsule[0].status === 'locked') {
+      return res.status(403).json({
+        success: false,
+        message: 'Capsule is locked, cannot be edited',
+      })
+    }
     return res.status(200).json({
       success: true,
       message: 'The capsule was successfully updated.',
@@ -96,7 +106,6 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
-// Delete request for deleting a single capsule
 router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
   if (!id) {
@@ -107,19 +116,36 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
     })
   }
   try {
-    const singleCapsule = await db.getSingleCpasule(id)
-    if (!Array.isArray(singleCapsule)) {
-      //here I am checking if the result of singleCapsule is not an array. Because if things go well it will return an array of object
+    const singleCapsule = await db.getSingleCapsule(id)
+    if (!singleCapsule) {
       return res.status(404).json({
         success: false,
         message: 'Capsule not found with the given ID.',
       })
     }
-    return res.status(200).json({
-      success: true,
-      message: 'Successfully fetched the capsule data.',
-      singleCapsule,
-    })
+
+    const timeString = singleCapsule.time
+    const unlockedTime = moment(timeString, 'DD/MM/YYYY HH:mm').toDate()
+    const currentTime = new Date()
+
+    const isUnlocked =
+      currentTime >= unlockedTime || singleCapsule.status === 'unlocked'
+
+    if (isUnlocked) {
+      if (currentTime >= unlockedTime && singleCapsule.status !== 'unlocked') {
+        await db.updateStatus(id)
+      }
+      return res.status(200).json({
+        success: true,
+        message: 'Successfully fetched the capsule data.',
+        singleCapsule,
+      })
+    } else {
+      return res.status(403).json({
+        success: false,
+        message: `Capsule is locked.`,
+      })
+    }
   } catch (error) {
     console.error('Failed to retrieve capsule data. Please try again later.')
     return res.status(500).json({
@@ -128,7 +154,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
     })
   }
 })
-
+// Delete request for deleting a single capsule
 router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
 
@@ -160,6 +186,21 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
       message: 'The capsule could not be deleted. Please try again later.',
     })
   }
+})
+
+router.patch('/:id/lock', checkJwt, async (req, res) => {
+  const id = Number(req.params.id)
+
+  const capsule = await db.getSingleCapsule(id)
+  if (!capsule || capsule.status !== 'unlocked') {
+    return res.status(403).json({
+      success: false,
+      message: 'Capsule is already locked or does not exist',
+    })
+  }
+
+  await db.lockCapsule(id)
+  res.json({ success: true, message: 'Capsule successfully locked' })
 })
 
 export default router
