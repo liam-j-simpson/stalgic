@@ -3,6 +3,7 @@ import upload from '../upload'
 import checkJwt from '../auth0'
 import * as db from '../db/medias'
 import { getSingleCapsule } from '../db/capsules'
+import { ReasonPhrases } from 'http-status-codes'
 
 const router = express.Router()
 
@@ -18,13 +19,13 @@ router.post('/', checkJwt, upload.single('image'), async (req, res) => {
   }
 
   try {
-    const capsule = await getSingleCapsule(capsule_id)
-    if (!capsule || capsule.status !== 'unlocked') {
-      return res.status(404).json({
-        success: false,
-        message: 'Capsule is already locked or does not exist',
-      })
-    }
+    // const capsule = await getSingleCapsule(capsule_id)
+    // if (!capsule || capsule.status !== 'unlocked') {
+    //   return res.status(404).json({
+    //     success: false,
+    //     message: 'Capsule is already locked or does not exist',
+    //   })
+    // }
 
     const image_url = `/uploads/images/${imageFile.filename}`
 
@@ -40,6 +41,25 @@ router.post('/', checkJwt, upload.single('image'), async (req, res) => {
       success: false,
       message: 'Failed to upload image, please try again later.',
     })
+  }
+})
+
+router.get('/', checkJwt, async (req, res) => {
+  const capsule_id = Number(req.body)
+
+  console.log('Lolzzzz', capsule_id)
+
+  if (!capsule_id) {
+    res.status(403).json({ sucess: false, message: 'Capsule does not exist' })
+  }
+
+  try {
+    await db.getCapsuleMedia(capsule_id)
+    return res
+      .status(200)
+      .json({ success: false, message: 'Midas successfully displayed' })
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Cannot display media' })
   }
 })
 
