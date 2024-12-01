@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "vitest",
-    "start-cron": "tsc server/taskSchedular.ts",
+    "start-cron": "tsx server/taskSchedular.ts",
     "start": "node dist/server.js",
     "dev": "run-p dev:client dev:server",
     "dev:client": "vite",

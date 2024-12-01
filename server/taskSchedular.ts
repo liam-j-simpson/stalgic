@@ -2,6 +2,7 @@ import cron from 'node-cron'
 import { sendEmail } from './emailService.js'
 import db from './db/connection.ts'
 import moment from 'moment-timezone'
+
 cron.schedule('* * * * *', async () => {
   console.log('Cron job is running every minute')
   try {
