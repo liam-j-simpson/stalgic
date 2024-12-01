@@ -3,7 +3,7 @@ import upload from '../upload'
 import checkJwt from '../auth0'
 import * as db from '../db/medias'
 import { getSingleCapsule } from '../db/capsules'
-import { ReasonPhrases } from 'http-status-codes'
+import moment from 'moment'
 
 const router = express.Router()
 
@@ -19,13 +19,13 @@ router.post('/', checkJwt, upload.single('image'), async (req, res) => {
   }
 
   try {
-    // const capsule = await getSingleCapsule(capsule_id)
-    // if (!capsule || capsule.status !== 'unlocked') {
-    //   return res.status(404).json({
-    //     success: false,
-    //     message: 'Capsule is already locked or does not exist',
-    //   })
-    // }
+    const capsule = await getSingleCapsule(capsule_id)
+    if (!capsule) {
+      return res.status(404).json({
+        success: false,
+        message: 'Capsule does not exist',
+      })
+    }
 
     const image_url = `/uploads/images/${imageFile.filename}`
 
@@ -33,7 +33,7 @@ router.post('/', checkJwt, upload.single('image'), async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      message: 'Image successfully uploaded ',
+      message: 'Image was successfully uploaded ',
     })
   } catch (error) {
     console.error('Failed to upload image', error)
@@ -44,22 +44,59 @@ router.post('/', checkJwt, upload.single('image'), async (req, res) => {
   }
 })
 
-router.get('/', checkJwt, async (req, res) => {
-  const capsule_id = Number(req.body)
+router.get('/:capsule_id', checkJwt, async (req, res) => {
+  const capsule_id = Number(req.params.capsule_id)
 
-  console.log('Lolzzzz', capsule_id)
+  console.log('Requested capsule_id:', capsule_id)
 
   if (!capsule_id) {
-    res.status(403).json({ sucess: false, message: 'Capsule does not exist' })
+    return res
+      .status(400)
+      .json({ success: false, message: 'Capsule ID is required' })
   }
 
   try {
-    await db.getCapsuleMedia(capsule_id)
-    return res
-      .status(200)
-      .json({ success: false, message: 'Midas successfully displayed' })
+    const capsule = await getSingleCapsule(capsule_id)
+    if (!capsule) {
+      return res.status(404).json({
+        success: false,
+        message: 'Capsule  does not exist',
+      })
+    }
+
+    const timeString = capsule.time
+    const unlockedTime = moment(timeString, 'DD/MM/YYYY HH:mm').toDate()
+    const currentTime = new Date()
+
+    const isUnlocked = currentTime >= unlockedTime
+
+    if (isUnlocked) {
+      if (currentTime >= unlockedTime) {
+        const media = await db.getCapsuleMedia(capsule_id)
+
+        if (!media || media.length === 0) {
+          return res.status(404).json({
+            success: false,
+            message: 'No media found for this capsule',
+          })
+        }
+      }
+      return res.status(200).json({
+        success: true,
+        message: ' Media was retrieved successfully',
+      })
+    } else {
+      return res.status(403).json({
+        success: false,
+        message: `The capsule is locked, and media cannot be accessed at this time.  `,
+      })
+    }
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Cannot display media' })
+    console.error('Error retrieving media:', error)
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to retrieve media',
+    })
   }
 })
 

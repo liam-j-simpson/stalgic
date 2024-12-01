@@ -5,7 +5,6 @@ export function up(knex) {
     table.string('time')
     table.text('description').notNullable()
     table.text('tags').notNullable()
-    table.string('status').defaultTo('unlocked')
     table
       .string('user_id')
       .references('auth0_id')

@@ -3,7 +3,6 @@ export interface Capsule {
   time: string
   description: string
   tags: string[]
-  status: string
 }
 
 export interface CapsuleData extends Capsule {

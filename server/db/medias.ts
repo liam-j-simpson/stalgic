@@ -20,18 +20,12 @@ export async function uploadMedia(media: MediaData) {
 
 export async function getCapsuleMedia(capsule_id: number) {
   try {
-    console.log('dataaaa', capsule_id)
-    return await db('medias').where('capsule_id', capsule_id).first()
-  } catch (error) {
-    console.error(error)
-  }
-}
+    console.log('Fetching all media for capsule:', capsule_id)
 
-export async function viewAllMedia(capsule_id: number) {
-  try {
-    await db('medias').where({ capsule_id }).select('*')
-    return { success: false, message: 'Images retrieved successfully ' }
+    const media = await db('medias').where('capsule_id', capsule_id).select('*')
+    return media
   } catch (error) {
-    console.error(error)
+    console.error('Error fetching media:', error)
+    throw error
   }
 }
