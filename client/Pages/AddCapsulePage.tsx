@@ -10,16 +10,17 @@ function AddCapsulePage() {
   })
 
   return (
-    <section className="flex">
-      <div className="m-16">
-        <h1 className="font-lalezar text-9xl text-white">CREATE</h1>
+    <section className="bg-[#13A25B]  pl-16 font-lalezar">
+      <div>
+        <h1 className="bg-cover pt-20 text-9xl font-bold tracking-wider text-white">
+          CREATE
+        </h1>
         <h2 className="mb-12 font-lalezar text-7xl text-white">
-          {form.title.length <= 0 ? 'CAPSULE' : `${form.title.toUpperCase()} CAPSULE`}
+          {form.title.length <= 0
+            ? 'CAPSULE'
+            : `${form.title.toUpperCase()} CAPSULE`}
         </h2>
-        <AddCapsule
-          form={form}
-          setForm={setForm}
-        />
+        <AddCapsule form={form} setForm={setForm} />
       </div>
     </section>
   )
