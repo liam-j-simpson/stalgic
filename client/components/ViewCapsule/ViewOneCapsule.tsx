@@ -22,6 +22,7 @@ function ViewOneCapsule() {
     title: 'Guasha Progress',
     time: '22/12/2025 14:00',
     description: 'Contour that face',
+    status: 'unlocked',
     tags: ['health', 'wellbeing'],
     id: 1,
   }
