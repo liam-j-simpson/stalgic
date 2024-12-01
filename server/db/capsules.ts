@@ -45,7 +45,7 @@ export async function getSingleCapsule(id: number) {
 }
 
 export async function createCapsules(capsule: Capsule, userID: string) {
-  const { title, time, description, tags, status } = capsule
+  const { title, time, description, tags } = capsule
 
   const tagsJson = JSON.stringify(tags)
   try {
@@ -69,7 +69,7 @@ export async function createCapsules(capsule: Capsule, userID: string) {
 }
 
 export async function updateCapsule(capsule: CapsuleData) {
-  const { title, time, description, tags, status, id } = capsule
+  const { title, time, description, tags, id } = capsule
 
   const tagsJson = JSON.stringify(tags)
 
@@ -81,7 +81,6 @@ export async function updateCapsule(capsule: CapsuleData) {
         time,
         description,
         tags: tagsJson,
-        status,
       })
       .returning('*')
 

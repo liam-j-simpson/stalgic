@@ -101,35 +101,21 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
 
 router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
-  if (!id) {
-    return res.status(404).json({
-      success: false,
-      message:
-        'Invalid capsule ID provided. Please check the ID and try again.',
-    })
-  }
   try {
-    const singleCapsule = await db.getSingleCapsule(id)
-    if (!singleCapsule) {
+    res.json(await db.getSingleCapsule(id))
+
+    if (!id) {
       return res.status(404).json({
         success: false,
-        message: 'Capsule not found with the given ID.',
+        message:
+          'Invalid capsule ID provided. Please check the ID and try again.',
       })
     }
-
-    return res.status(200).json({
-      success: true,
-      message: 'Successfully fetched the capsule data.',
-      singleCapsule,
-    })
   } catch (error) {
-    console.error('Failed to retrieve capsule data. Please try again later.')
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to retrieve capsule data. Please try again later.',
-    })
+    res.sendStatus(500)
   }
 })
+
 // Delete request for deleting a single capsule
 router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
