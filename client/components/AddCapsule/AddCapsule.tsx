@@ -44,24 +44,19 @@ function AddCapsule({ form, setForm }: Props) {
     }
   }
 
-  //we want to set the date to locale
-  //get rid of the comma from the date
-  //setDate to a format that works for nikkis function
   //the date needs to be put into the table
   // the time remaining needs to be displayed on screen
 
-  // const handleDateChange = (date) => {
-  //   setDate(date)
-
-  //   setForm({ ...form, time: [form.time]: date })
-  //   console.log(form)
-  // }
   const [date, setDate] = useState(new Date())
 
-  //working on the math function at the moment
-  // const dateString = date?.toLocaleString()
-  // const newTimeString = dateString?.filter((item) => item !== ',')
-  // console.log(newTimeString)
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      const newDate = format(date, 'dd/MM/yyyy HH:mm')
+      console.log(newDate)
+      setForm({ ...form, time: newDate })
+      console.log(form)
+    }
+  }
 
   return (
     <>
@@ -85,7 +80,8 @@ function AddCapsule({ form, setForm }: Props) {
 
             <Label>
               Opening Date
-              <DatePicker selected={date} onChange={(date) => setDate(date)} />
+              <DatePicker selected={date} onChange={handleDateChange} />
+              {/* onChange={(date) => setDate(date)}> */}
             </Label>
 
             <br />
@@ -112,9 +108,7 @@ function AddCapsule({ form, setForm }: Props) {
             className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
           >
             <h1 className="font-lalezar text-5xl">
-              {date === undefined
-                ? 'Time Remaining'
-                : TimeFunction(format(date, 'dd/MM/yyyy HH:mm'))}
+              {date === undefined ? 'Time Remaining' : TimeFunction()}
             </h1>
 
             <p className="space-l font-labrada text-xl">
