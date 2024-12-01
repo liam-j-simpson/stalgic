@@ -1,33 +1,27 @@
 import { useState } from 'react'
 import AddCapsule from '../components/AddCapsule/AddCapsule'
+import { Capsule } from '../../models/capsule'
 function AddCapsulePage() {
-  //include all the hooks and smart data that gets passed to the apis
-  const [description, setDescription] = useState('')
-  const [tags, setTags] = useState('')
-  const [title, setTitle] = useState('')
-  const [date, setDate] = useState<Date>()
-
-  console.log('description', description)
-  console.log('tags', tags)
-  console.log('title', title)
-  console.log('date', date)
+  const [form, setForm] = useState<Capsule>({
+    title: '',
+    time: '',
+    description: '',
+    tags: [],
+  })
 
   return (
-    <body>
-      <h1 className="font-lalezar text-9xl">Create a Capsule</h1>
-      <section className="flex">
-        <div className="w-96 flex-col ">
-          <AddCapsule
-            setTitle={setTitle}
-            setDescription={setDescription}
-            setTags={setTags}
-            setDate={setDate}
-            date={date}
-          />
-        </div>
-        <div className="flex-col ">Title</div>
-      </section>
-    </body>
+    <section className="flex">
+      <div className="m-16">
+        <h1 className="font-lalezar text-9xl text-white">CREATE</h1>
+        <h2 className="mb-12 font-lalezar text-7xl text-white">
+          {form.title.length <= 0 ? 'CAPSULE' : `${form.title.toUpperCase()} CAPSULE`}
+        </h2>
+        <AddCapsule
+          form={form}
+          setForm={setForm}
+        />
+      </div>
+    </section>
   )
 }
 
