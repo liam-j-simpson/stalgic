@@ -7,7 +7,7 @@ import Layout from './components/Layout.tsx'
 import AddCapsulePage from './Pages/AddCapsulePage.tsx'
 import UploadToCapsule from './Pages/UploadToCapsulePage.tsx'
 import ListAllCapsules from './components/ViewCapsule/ListAllCapsules.tsx'
-import { ProfilePage } from './Pages/ProfilePage.tsx'
+import ProfilePage from './Pages/ProfilePage.tsx'
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<Layout />}>

@@ -27,7 +27,7 @@ export async function getUser(auth0_id: string, token: string) {
   const res = await request
     .get(`/api/v1/user/${auth0_id}`)
     .set('Authorization', `Bearer ${token}`);
-  return res.body;
+  return res.body as User
 }
 
 // -- UPSERT USER PROFILE (ADD OR UPDATE) -- //
