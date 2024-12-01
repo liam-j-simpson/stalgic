@@ -7,6 +7,7 @@ import { Capsule } from '../../../models/capsule'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 import { useState } from 'react'
+import { format } from 'date-fns'
 interface Props {
   form: {
     title: string
@@ -49,13 +50,13 @@ function AddCapsule({ form, setForm }: Props) {
   //the date needs to be put into the table
   // the time remaining needs to be displayed on screen
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(date)
+  // const handleDateChange = (date) => {
+  //   setDate(date)
 
-    setForm({ ...form, [name]: value })
-  }
-  const [date, setDate] = useState()
-  console.log(date)
+  //   setForm({ ...form, time: [form.time]: date })
+  //   console.log(form)
+  // }
+  const [date, setDate] = useState(new Date())
 
   //working on the math function at the moment
   // const dateString = date?.toLocaleString()
@@ -110,11 +111,11 @@ function AddCapsule({ form, setForm }: Props) {
           <div
             className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
           >
-            {/* <h1 className="font-lalezar text-5xl">
+            <h1 className="font-lalezar text-5xl">
               {date === undefined
                 ? 'Time Remaining'
-                : TimeFunction('22/12/2030 14:00')}
-            </h1> */}
+                : TimeFunction(format(date, 'dd/MM/yyyy HH:mm'))}
+            </h1>
 
             <p className="space-l font-labrada text-xl">
               {form.title.length <= 0 ? 'Title' : form.title}
