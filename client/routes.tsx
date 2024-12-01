@@ -7,15 +7,16 @@ import Layout from './components/Layout.tsx'
 import AddCapsulePage from './Pages/AddCapsulePage.tsx'
 import UploadToCapsule from './Pages/UploadToCapsulePage.tsx'
 import ListAllCapsules from './components/ViewCapsule/ListAllCapsules.tsx'
+import { ProfilePage } from './Pages/ProfilePage.tsx'
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<App />} />
     <Route path="addcapsule" element={<AddCapsulePage />} />
-    <Route path="/dashboard" element={<Dashboard />}>
-      <Route index element={<ListAllCapsules />} />
-      <Route path="/dashboard/:id" element={<UploadToCapsule />} />
-    </Route>
+    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/profile" element={<ProfilePage />} />
+    <Route index element={<ListAllCapsules />} />
+    <Route path="/dashboard/:id" element={<UploadToCapsule />} />
   </Route>,
 )
 
