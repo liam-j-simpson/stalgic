@@ -18,7 +18,7 @@ function DelCapsule(props: Props) {
     <>
       <div className="flex font-font-lalezar">
         <button
-          className="ml-4 rounded-full bg-[#FE5801] px-4 py-2 pt-2 text-[#ffffff] hover:bg-[#FF0000] hover:text-[#ffffff]"
+          className="m-4 rounded-full bg-[#FF0000] px-4 py-2 pt-2 text-[#ffffff] hover:bg-[#CC0000] hover:text-[#ffffff]"
           onClick={(e) => handleDelete(e, props.capsuleId)}
         >
           DELETE
