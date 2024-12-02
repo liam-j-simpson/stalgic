@@ -1,3 +1,4 @@
+import { userInfo } from 'os'
 import { User } from '../../models/user'
 import db from './connection'
 
@@ -31,6 +32,6 @@ export async function upsertProfile(user: User) {
 
 export async function getUserByAuth0Id(auth0_id: string): Promise<User[]> {
   const result = await db('users').where('auth0_id', auth0_id).select('*')
-
+  console.log('UU', auth0_id)
   return result
 }

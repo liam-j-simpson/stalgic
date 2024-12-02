@@ -47,7 +47,6 @@ export async function addCapsule(capsule: Capsule, token: string) {
     const res = await request
       .post('/api/v1/capsule/')
       .set('Authorization', `Bearer ${token}`)
-      .set('Content-Type', 'application/json')
       .send(capsule)
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`)
@@ -57,3 +56,5 @@ export async function addCapsule(capsule: Capsule, token: string) {
     console.error(500)
   }
 }
+
+// -- POST MEDIA TO CAPSULE
