@@ -25,7 +25,7 @@ function ViewOneCapsule() {
           </div>
 
           <div className="mr-16 flex flex-row">
-            <AddMedia />
+            {id && <AddMedia capsuleId={Number(id)} />}
 
             <div className="ml-8 flex w-1/3 flex-col rounded-lg bg-[#ffffff]">
               <h2 className="p-4 pb-2 text-[48px] font-bold text-[#13A25B] hover:text-[#FE5801]">

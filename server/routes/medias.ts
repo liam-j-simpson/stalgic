@@ -7,11 +7,11 @@ import moment from 'moment'
 
 const router = express.Router()
 
-router.post('/', checkJwt, upload.single('image'), async (req, res) => {
+router.post('/', checkJwt, upload.single('file'), async (req, res) => {
   const { capsule_id } = req.body
-  const imageFile = req.file
+  const filename = req.file?.filename
 
-  if (!capsule_id || !imageFile) {
+  if (!capsule_id || !filename) {
     return res.status(400).json({
       success: false,
       message: 'Please provide the required fields: capsule_id and image',
@@ -27,14 +27,9 @@ router.post('/', checkJwt, upload.single('image'), async (req, res) => {
       })
     }
 
-    const image_url = `/uploads/images/${imageFile.filename}`
+    await db.uploadMedia({ capsule_id, filename })
 
-    await db.uploadMedia({ capsule_id, image_url })
-
-    return res.status(201).json({
-      success: true,
-      message: 'Image was successfully uploaded ',
-    })
+    return res.status(201)
   } catch (error) {
     console.error('Failed to upload image', error)
     return res.status(500).json({

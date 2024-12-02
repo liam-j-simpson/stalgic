@@ -1,8 +1,14 @@
-export interface MediaData {
+export interface PostMediaData {
   capsule_id: number
-  image_url: string
+  file: Blob
 }
 
-export interface Media extends MediaData {
+// this should be used from backend
+export interface MediaDataDraft {
+  capsule_id: number
+  filename: string
+}
+
+export interface Media extends MediaDataDraft {
   id: number
 }

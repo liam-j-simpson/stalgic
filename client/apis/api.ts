@@ -1,7 +1,6 @@
 import request from 'superagent'
 import { Capsule, CapsuleArray, CapsuleData } from '../../models/capsule'
 import { User } from '../../models/user'
-import { MediaData } from '../../models/media'
 
 // -- GET ALL CAPSULES -- //
 export async function getCapsules(token: string) {
@@ -57,17 +56,11 @@ export async function addCapsule(capsule: Capsule, token: string) {
 }
 
 // -- POST MEDIA TO CAPSULE -- //
-export async function addMedia(file: MediaData, token: string) {
-  try {
-    const res = await request
-      .post('/api/v1/media/')
-      .set('Authorization', `Bearer ${token}`)
-      .send(file)
-
-    return res.body
-  } catch (error) {
-    throw new Error(`Failed to upload media: ${error}`)
-  }
+export async function addMedia(form: FormData, token: string) {
+  await request
+    .post('/api/v1/media/')
+    .set('Authorization', `Bearer ${token}`)
+    .send(form)
 }
 
 // -- GET ALL MEDIA IN A CAPSULE BY ID -- //
