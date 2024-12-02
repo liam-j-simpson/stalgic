@@ -88,7 +88,6 @@ export async function updateCapsule(capsule: CapsuleData) {
 }
 
 export async function deleteCapsule(id: number) {
-  console.log('delete')
   try {
     const rowsDeleted = await db('capsules').where({ id }).del()
 

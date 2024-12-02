@@ -1,10 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import * as api from '../apis/api.ts'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useNavigate } from 'react-router-dom'
 
 function DeleteCapsule() {
-  const queryClient = useQueryClient()
   const { user, getAccessTokenSilently } = useAuth0()
   const navigate = useNavigate()
 
@@ -19,7 +18,6 @@ function DeleteCapsule() {
       await api.deleteCapsule(accessToken, id)
     },
     onSuccess: () => {
-      // queryClient.invalidateQueries({ queryKey: ['capsules'] })
       navigate('/dashboard')
     },
     onError: (error) => {
