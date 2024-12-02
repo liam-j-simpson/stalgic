@@ -5,7 +5,7 @@ export async function getUserCapsule(user_id: string) {
   try {
     const singleCapsule = await db('capsules')
       .where({ user_id })
-      .select('title', 'time', 'description', 'tags', 'status', 'id')
+      .select('title', 'time', 'description', 'tags', 'id')
     const updatedResult = singleCapsule.map((capsule) => {
       return {
         ...capsule,
@@ -28,7 +28,7 @@ export async function getSingleCapsule(id: number) {
     console.log(`Fetching capsule with id: ${id}`)
     const singleCapsule = await db('capsules')
       .where({ id })
-      .select('title', 'time', 'description', 'tags', 'status', 'id')
+      .select('title', 'time', 'description', 'tags', 'id')
       .first()
 
     if (!singleCapsule) {
@@ -54,7 +54,6 @@ export async function createCapsules(capsule: Capsule, userID: string) {
       time,
       description,
       tags: tagsJson,
-      status,
       user_id: userID,
     })
 
