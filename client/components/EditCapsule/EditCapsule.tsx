@@ -1,3 +1,7 @@
-// Link to hook
-// Smart/Dumb Component
-// Reference rcmndr for layout tips
+import * as api from '../apis/api.ts'
+
+function EditCapsule() {
+  return
+}
+
+export default EditCapsule

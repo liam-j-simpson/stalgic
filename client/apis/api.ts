@@ -72,3 +72,11 @@ export async function viewMyMedia(capsule_id: number, token: string) {
     .set('Authorization', `Bearer ${token}`)
   return res.body
 }
+
+// -- EDIT CAPSULE INFORMATION -- //
+
+// -- DELETE CAPSULE BY ID -- //
+export async function deleteCapsule() {
+  await request
+  .del()
+}
