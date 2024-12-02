@@ -58,7 +58,7 @@ function Nav() {
               </button>
             </Link>
 
-            <Link key="profilePageLink" to={'/profile'}>
+            <Link key={`profilePageImageLink`} to={'/profile'}>
               <button>
                 <img
                   src={user?.picture}

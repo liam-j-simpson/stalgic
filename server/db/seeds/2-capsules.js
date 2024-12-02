@@ -5,7 +5,7 @@ export async function seed(knex) {
       title: 'Prediction',
       time: '22/12/2035 14:00',
       description: 'This Prediction I want to keep for 10 years',
-
+      tags: JSON.stringify(['prediction', 'plan', 'prediction']),
       user_id: 'auth0|6747c8bd793f0b9a3e761250',
     },
     {
