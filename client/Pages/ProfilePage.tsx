@@ -27,13 +27,17 @@ function ProfilePage() {
     dob: '',
   })
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target
-  //   setProfileForm({ ...profileForm, [name]: value })
-  // }
+  const [edit, setEdit] = useState<boolean>(false)
+  console.log('edit', edit)
+
+  console.log(profileForm)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setProfileForm({ ...profileForm, [name]: value })
+  }
 
   const { data, isLoading, isError } = useViewProfile()
-  console.log('data', data)
 
   if (isLoading) {
     return <p>Loading</p>
@@ -100,45 +104,49 @@ function ProfilePage() {
               </p>
             </div>
           </div>
-          <button className="rounded-full bg-[#ffffff] px-8 py-2 text-3xl text-[#13A25B]">
+          <button
+            onClick={() => setEdit(!edit)}
+            className="rounded-full bg-[#ffffff] px-8 py-2 text-3xl text-[#13A25B]"
+          >
             edit
           </button>
         </section>
+        {edit === true && (
+          <form className={'mx-16 rounded-lg bg-[#ffffff] p-8 text-[#13A25B]'}>
+            {/* onSubmit={handleSubmit} */}
 
-        <form>
-          {/* onSubmit={handleSubmit} */}
+            <Label htmlFor="name">Name</Label>
+            <Input
+              type="name"
+              id="name"
+              name="name"
+              onChange={handleChange}
+              placeholder="Enter title"
+              value={profileForm.name}
+            />
+            <br />
 
-          <Label htmlFor="title">Title</Label>
-          <Input
-            type="text"
-            id="title"
-            name="title"
-            // onChange={handleChange}
-            placeholder="Enter title"
-            value={profileForm.name}
-          />
-          <br />
-
-          <Label htmlFor="email">Email</Label>
-          <Input
-            type="email"
-            id="email"
-            name="email"
-            // onChange={handleChange}
-            placeholder="Enter email"
-            value={profileForm.email}
-          />
-          <Label htmlFor="dob">DOB</Label>
-          <Input
-            type="dob"
-            id="dob"
-            name="dob"
-            // onChange={handleChange}
-            placeholder={data.dob}
-            value={profileForm.dob}
-          />
-          <Button type="submit">Submit</Button>
-        </form>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              type="email"
+              id="email"
+              name="email"
+              onChange={handleChange}
+              placeholder="Enter email"
+              value={profileForm.email}
+            />
+            <Label htmlFor="dob">DOB</Label>
+            <Input
+              type="dob"
+              id="dob"
+              name="dob"
+              onChange={handleChange}
+              placeholder={data.dob}
+              value={profileForm.dob}
+            />
+            <Button type="submit">Submit</Button>
+          </form>
+        )}
       </>
     )
   }

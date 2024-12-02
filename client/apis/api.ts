@@ -27,7 +27,6 @@ export async function getUser(auth0_id: string, token: string) {
   const res = await request
     .get(`/api/v1/user/${auth0_id}`)
     .set('Authorization', `Bearer ${token}`)
-  console.log('api get user', res.body.user)
 
   return res.body.user[0] 
 }
