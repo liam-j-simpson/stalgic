@@ -9,5 +9,5 @@ export interface User {
 export interface editUser {
   name: string
   email: string
-  dob?: string | null
+  dob?: string
 }
