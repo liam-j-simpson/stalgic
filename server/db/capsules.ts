@@ -101,24 +101,3 @@ export async function deleteCapsule(id: number) {
     throw new Error('Failed to delete the capsule')
   }
 }
-
-export async function updateStatus(id: number) {
-  if (!id) {
-    return { success: false, message: 'Please provide valid capsule id' }
-  }
-  try {
-    return await db('capsules')
-      .where('id', id) // Using the correct column name for capsule's ID
-      .update({ status: 'unlocked' })
-  } catch (error) {
-    console.error('Failed to update status', error)
-  }
-}
-
-export async function lockCapsule(id: number) {
-  try {
-    return await db('capsules').where('id', id).update({ status: 'locked' })
-  } catch (error) {
-    console.error('Failed to lock capsule', error)
-  }
-}

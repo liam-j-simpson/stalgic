@@ -9,13 +9,11 @@ export async function startCron() {
     const currentTime = moment()
       .tz('Pacific/Auckland')
       .format('DD/MM/YYYY HH:mm')
-    console.log('Current Time (NZT):', currentTime)
 
     const expiredCapsules = await db('capsules')
       .where('time', '<', currentTime)
       .andWhere('time', '!=', '')
 
-    console.log('Expired Capsule Time', expiredCapsules)
     if (expiredCapsules.length > 0) {
       console.log(`${expiredCapsules.length} expired capsules found.`)
 

@@ -119,43 +119,11 @@ router.get('/:id', checkJwt, async (req, res) => {
       })
     }
 
-    const timeString = singleCapsule.time
-
-    const unlockedTime = moment
-      .tz(timeString, 'DD/MM/YYYY HH:mm', 'Pacific/Auckland')
-      .format('YYYY-MM-DDTHH:mm:ss.SSSZ')
-    console.log('Unlocked Time (NZT):', unlockedTime)
-
-    const currentTime = moment()
-      .tz('Pacific/Auckland')
-      .format('YYYY-MM-DDTHH:mm:ss.SSSZ')
-    console.log('Current Time (NZT):', currentTime)
-
-    const isUnlocked =
-      moment(currentTime).isSameOrAfter(moment(unlockedTime)) ||
-      singleCapsule.status === 'unlocked'
-
-    console.log('Is Capsule Unlocked?:', isUnlocked)
-    console.log(singleCapsule.status)
-
-    if (isUnlocked) {
-      if (
-        moment(currentTime).isSameOrAfter(moment(unlockedTime)) &&
-        singleCapsule.status !== 'unlocked'
-      ) {
-        await db.updateStatus(id)
-      }
-      return res.status(200).json({
-        success: true,
-        message: 'Successfully fetched the capsule data.',
-        singleCapsule,
-      })
-    } else {
-      return res.status(403).json({
-        success: false,
-        message: 'Capsule is locked.',
-      })
-    }
+    return res.status(200).json({
+      success: true,
+      message: 'Successfully fetched the capsule data.',
+      singleCapsule,
+    })
   } catch (error) {
     res.sendStatus(500)
   }
