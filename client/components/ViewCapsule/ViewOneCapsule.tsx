@@ -9,12 +9,7 @@ function ViewOneCapsule() {
   const { data, isLoading, isError } = useViewCapsuleById(Number(id))
 
   function formatDate(dateString: string) {
-    const date = new Date(dateString)
-    return new Intl.DateTimeFormat('en-NZ', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }).format(date)
+   return dateString.split(' ')[0]
   }
 
   if (isLoading) {

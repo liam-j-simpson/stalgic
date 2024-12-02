@@ -19,7 +19,7 @@ function DeleteCapsule() {
       await api.deleteCapsule(accessToken, id)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['capsules'] })
+      // queryClient.invalidateQueries({ queryKey: ['capsules'] })
       navigate('/dashboard')
     },
     onError: (error) => {

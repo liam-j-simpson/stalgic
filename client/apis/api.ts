@@ -19,7 +19,7 @@ export async function getCapsuleById(token: string, id: number) {
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
 
-  return res.body as CapsuleData
+  return res.body.singleCapsule as CapsuleData
 }
 
 // -- GET USER DATA BY AUTH0-ID -- //
