@@ -17,3 +17,6 @@
 .env
 
 *storybook.log
+
+# Public images
+public/uploads

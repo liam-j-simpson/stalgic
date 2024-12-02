@@ -1,14 +1,8 @@
-// import { useParams } from 'react-router-dom'
-// import { useViewCapsuleById } from '../../hooks/useViewCapsule'
 import { useParams } from 'react-router-dom'
 import { useViewCapsuleById } from '../../hooks/useViewCapsule'
-// import TimeFunction from '../Time/TimeFunction'
-
-// import { Capsule } from '../../../models/capsule'
+import AddMedia from '../Media/AddMedia'
 
 function ViewOneCapsule() {
-  // TODO: link up to database once create a capsule is available
-
   const { id } = useParams()
   const { data, isLoading, isError } = useViewCapsuleById(Number(id))
 
@@ -20,9 +14,7 @@ function ViewOneCapsule() {
     return <p>Please try again later...</p>
   }
 
-  // const time = TimeFunction(data?.time)
   if (data) {
-
     return (
       <>
         <section className="bg-[#13A25B] pl-16 font-lalezar">
@@ -33,9 +25,7 @@ function ViewOneCapsule() {
           </div>
 
           <div className="mr-16 flex flex-row">
-            <div className="flex h-[32rem] w-2/3 items-center justify-center rounded-lg border-8 border-dashed border-white">
-              <h1 className="flex text-white">Drag and drop to upload files</h1>
-            </div>
+            {id && <AddMedia capsuleId={Number(id)} />}
 
             <div className="ml-8 flex w-1/3 flex-col rounded-lg bg-[#ffffff]">
               <h2 className="p-4 pb-2 text-[48px] font-bold text-[#13A25B] hover:text-[#FE5801]">
