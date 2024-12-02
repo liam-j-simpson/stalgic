@@ -1,14 +1,7 @@
-// import { useParams } from 'react-router-dom'
-// import { useViewCapsuleById } from '../../hooks/useViewCapsule'
 import { useParams } from 'react-router-dom'
 import { useViewCapsuleById } from '../../hooks/useViewCapsule'
-// import TimeFunction from '../Time/TimeFunction'
-
-// import { Capsule } from '../../../models/capsule'
 
 function ViewOneCapsule() {
-  // TODO: link up to database once create a capsule is available
-
   const { id } = useParams()
   const { data, isLoading, isError } = useViewCapsuleById(Number(id))
 
@@ -20,9 +13,7 @@ function ViewOneCapsule() {
     return <p>Please try again later...</p>
   }
 
-  // const time = TimeFunction(data?.time)
   if (data) {
-
     return (
       <>
         <section className="bg-[#13A25B] pl-16 font-lalezar">
