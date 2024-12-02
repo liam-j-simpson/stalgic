@@ -57,4 +57,18 @@ export async function addCapsule(capsule: Capsule, token: string) {
   }
 }
 
-// -- POST MEDIA TO CAPSULE
+// -- POST MEDIA TO CAPSULE -- //
+export async function addMedia(form: FormData, token: string) {
+  await request
+    .post('/api/v1/media/')
+    .set('Authorization', `Bearer ${token}`)
+    .send(form)
+}
+
+// -- GET ALL MEDIA IN A CAPSULE BY ID -- //
+export async function viewMyMedia(capsule_id: number, token: string) {
+  const res = await request
+    .get(`/api/v1/media/${capsule_id}`)
+    .set('Authorization', `Bearer ${token}`)
+  return res.body
+}

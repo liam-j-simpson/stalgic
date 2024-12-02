@@ -1,16 +1,14 @@
 import db from './connection'
-import { MediaData } from '../../models/media'
+import { MediaDataDraft } from '../../models/media'
 
-export async function uploadMedia(media: MediaData) {
-  const { capsule_id, image_url } = media
+export async function uploadMedia(media: MediaDataDraft) {
+  const { capsule_id, filename } = media
 
   try {
-    const result = await db('medias').insert({
+    await db('medias').insert({
       capsule_id,
-      image_url,
+      filename,
     })
-
-    return result
   } catch (error) {
     console.error('Failed to upload image', error)
 
