@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useViewCapsuleById } from '../../hooks/useViewCapsule'
 import AddMedia from '../Media/AddMedia'
+import DelCapsule from '../DeleteCapsule/DeleteCapsule'
 
 function ViewOneCapsule() {
   const { id } = useParams()
@@ -47,6 +48,7 @@ function ViewOneCapsule() {
                   </li>
                 ))}
               </ul>
+              {id && <DelCapsule capsuleId={Number(id)}/>}
             </div>
           </div>
         </section>
