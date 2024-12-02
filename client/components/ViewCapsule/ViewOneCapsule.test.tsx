@@ -21,13 +21,13 @@ describe('List one capsule by ID', () => {
   })
   
   it('GET BY ID route should return one capsule', async () => {
-    const mockCapsuleData = {
+    const mockCapsuleData = { singleCapsule: {
       title: 'Guasha Progress',
       time: '30/11/2026 14:00',
       description: 'Contour that face',
       tags: ['health', 'wellbeing'],
       id: 1,
-    }
+    }}
 
     const getScope = nock('http://localhost')
       .get('/api/v1/capsule/1')
@@ -38,7 +38,7 @@ describe('List one capsule by ID', () => {
 
     const result = await getCapsuleById(token, 1)
 
-    expect(result).toEqual(mockCapsuleData)
+    expect(result).toEqual(mockCapsuleData.singleCapsule)
     expect(getScope.isDone()).toBeTruthy()
   })
 })
