@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuth0 } from '@auth0/auth0-react'
-import { User } from '../../models/user.ts'
+import { editUser, User } from '../../models/user.ts'
 import { useState } from 'react'
 import * as api from '../apis/api.ts'
 import { useNavigate } from 'react-router-dom'
@@ -51,4 +51,27 @@ export function useUpsertProfile() {
   }
 
   return { mutation, handleProfileUpsert }
+}
+
+export function useEditProfile() {
+  const { user, getAccessTokenSilently } = useAuth0()
+  const queryClient = useQueryClient()
+  // const navigate = useNavigate()
+
+  return useMutation({
+    mutationFn: async (profile: editUser) => {
+      const accessToken = await getAccessTokenSilently()
+      if (!user?.sub) {
+        throw new Error('User not authenticated')
+      }
+      console.log('mutation', profile)
+      await api.editUser(profile, accessToken)
+    },
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['profile'],
+      })
+    },
+  })
 }

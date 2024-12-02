@@ -1,56 +1,53 @@
 import { useViewProfile } from '../hooks/useViewProfile'
 import { Input } from '../ui/Input'
-import { Label } from '../ui/Label'
-import { Button } from '../ui/Button'
-import { updateUser } from '../../models/user'
+import { editUser } from '../../models/user'
 import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { format } from 'date-fns'
+import { useEditProfile } from '../hooks/useEditProfile'
 
 function ProfilePage() {
-  // const updateProfileMutation = useUpdateProfile()
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault()
-
-  //   updateProfileMutation.mutate({
-  //     name: profileForm.name,
-  //     email: profileForm.email,
-  //     dob: profileForm.dob,
-  //     profile_image?: profileForm.image,
-  //   })
-  //   setProfileForm({
-  //     name: '',
-  //     email: '',
-  //     dob: '',
-  //     profile_image: '',
-  //   })
-  // }
-
-  const [profileForm, setProfileForm] = useState<updateUser>({
+  //STATE CHANGE
+  const [profileForm, setProfileForm] = useState<editUser>({
     name: '',
     email: '',
     dob: '',
     profile_image: '',
   })
-
+  console.log('profileForm state', profileForm)
   const [edit, setEdit] = useState<boolean>(false)
+  const [date, setDate] = useState(new Date())
 
-  console.log(profileForm)
+  //EVENT HANDLERS
+
+  const mutation = useEditProfile()
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    mutation.mutate({
+      name: profileForm.name,
+      email: profileForm.email,
+      dob: profileForm.dob,
+      profile_image: profileForm.profile_image,
+    })
+
+    setProfileForm({
+      name: '',
+      email: '',
+      dob: '',
+      profile_image: '',
+    })
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setProfileForm({ ...profileForm, [name]: value })
   }
 
-  const [date, setDate] = useState(new Date())
   const handleDateChange = (date: Date | null) => {
     if (date) {
       setDate(date)
       setProfileForm({ ...profileForm, dob: format(date, 'dd/MM/yyyy') })
-      console.log('setForm', {
-        ...profileForm,
-        time: format(date, 'dd/MM/yyyy'),
-      })
     }
   }
 
@@ -89,7 +86,7 @@ function ProfilePage() {
         </div>
 
         <section className="bg-[#13A25B] bg-[#13A25B] pb-12  pl-16 font-lalezar">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="flex">
               <div
                 className={`mb-8 mr-12 h-64 w-80 rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
