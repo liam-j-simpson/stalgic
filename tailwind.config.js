@@ -8,6 +8,7 @@ export default {
       labrada: ['Labrada', 'serif'],
     },
     extend: {
+      display: ['group-hover'],
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
