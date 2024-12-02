@@ -6,8 +6,9 @@ export interface User {
   profile_image?: string | null
 }
 
-export interface editUser {
+export interface updateUser {
   name: string
   email: string
-  dob?: string
+  dob?: string | null
+  profile_image?: string | null
 }
