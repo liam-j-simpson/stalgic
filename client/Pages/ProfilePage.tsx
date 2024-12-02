@@ -1,8 +1,40 @@
 import { useViewProfile } from '../hooks/useViewProfile'
+import { Input } from '../ui/Input'
+import { Label } from '../ui/Label'
+import { Button } from '../ui/Button'
+import { editUser } from '../../models/user'
+import { useState } from 'react'
 
 function ProfilePage() {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    updateProfile.mutate({
+      name: profileForm.name,
+      email: profileForm.email,
+      dob: profileForm.dob,
+    })
+    setProfileForm({
+      name: '',
+      email: '',
+      dob: '',
+    })
+  }
+
+  const [profileForm, setProfileForm] = useState<editUser>({
+    name: '',
+    email: '',
+    dob: '',
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setProfileForm({ ...profileForm, [name]: value })
+  }
+
   const { data, isLoading, isError } = useViewProfile()
   console.log('data', data)
+
   if (isLoading) {
     return <p>Loading</p>
   }
@@ -72,6 +104,39 @@ function ProfilePage() {
             edit
           </button>
         </section>
+
+        <form onSubmit={}>
+          <Label htmlFor="title">Title</Label>
+          <Input
+            type="text"
+            id="title"
+            name="title"
+            onChange={handleChange}
+            placeholder="Enter title"
+            value={profileForm.name}
+          />
+          <br />
+
+          <Label htmlFor="email">Email</Label>
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            onChange={handleChange}
+            placeholder="Enter email"
+            value={}
+          />
+          <Label htmlFor="dob">DOB</Label>
+          <Input
+            type="dob"
+            id="dob"
+            name="dob"
+            onChange={handleChange}
+            placeholder="Enter DOB"
+            value={}
+          />
+          <Button type="submit">Submit</Button>
+        </form>
       </>
     )
   }
