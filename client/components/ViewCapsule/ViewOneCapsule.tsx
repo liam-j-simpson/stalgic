@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useViewCapsuleById } from '../../hooks/useViewCapsule'
+import AddMedia from '../Media/AddMedia'
 
 function ViewOneCapsule() {
   const { id } = useParams()
@@ -24,9 +25,7 @@ function ViewOneCapsule() {
           </div>
 
           <div className="mr-16 flex flex-row">
-            <div className="flex h-[32rem] w-2/3 items-center justify-center rounded-lg border-8 border-dashed border-white">
-              <h1 className="flex text-white">Drag and drop to upload files</h1>
-            </div>
+            <AddMedia />
 
             <div className="ml-8 flex w-1/3 flex-col rounded-lg bg-[#ffffff]">
               <h2 className="p-4 pb-2 text-[48px] font-bold text-[#13A25B] hover:text-[#FE5801]">

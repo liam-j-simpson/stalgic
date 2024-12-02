@@ -9,7 +9,7 @@ export function useAddMedia() {
   const { user, getAccessTokenSilently } = useAuth0()
 
   return useMutation({
-    mutationFn: async ({ file }: { file: MediaData }) => {
+    mutationFn: async ({ media }: { media: MediaData }) => {
       if (!user || !user.sub) {
         throw new Error("User is not authenticated or missing 'sub' property.")
       }
@@ -17,9 +17,9 @@ export function useAddMedia() {
       const token = await getAccessTokenSilently()
 
       const formData = new FormData()
-      formData.append('image_url', file.image_url)
+      formData.append('image_url', media.image_url)
 
-      await api.addMedia(file, token)
+      await api.addMedia(media, token)
     },
 
     onSuccess: () => {
