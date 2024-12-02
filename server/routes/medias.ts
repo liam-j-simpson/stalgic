@@ -3,7 +3,7 @@ import upload from '../upload'
 import checkJwt from '../auth0'
 import * as db from '../db/medias'
 import { getSingleCapsule } from '../db/capsules'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 const router = express.Router()
 
@@ -60,35 +60,46 @@ router.get('/:capsule_id', checkJwt, async (req, res) => {
     if (!capsule) {
       return res.status(404).json({
         success: false,
-        message: 'Capsule  does not exist',
+        message: 'Capsule does not exist',
       })
     }
 
     const timeString = capsule.time
-    const unlockedTime = moment(timeString, 'DD/MM/YYYY HH:mm').toDate()
-    const currentTime = new Date()
+
+    console.log('Raw Unlocked Time String:', timeString)
+
+    const unlockedTime = moment
+      .utc(timeString, 'DD/MM/YYYY HH:mm')
+      .tz('Pacific/Auckland', true)
+      .toDate()
+
+    console.log('Unlocked Time (NZT):', unlockedTime)
+
+    const currentTime = moment().tz('Pacific/Auckland', true).toDate()
+
+    console.log('Current Time (NZT):', currentTime)
 
     const isUnlocked = currentTime >= unlockedTime
 
     if (isUnlocked) {
-      if (currentTime >= unlockedTime) {
-        const media = await db.getCapsuleMedia(capsule_id)
+      const media = await db.getCapsuleMedia(capsule_id)
 
-        if (!media || media.length === 0) {
-          return res.status(404).json({
-            success: false,
-            message: 'No media found for this capsule',
-          })
-        }
+      if (!media || media.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'No media found for this capsule',
+        })
       }
+
       return res.status(200).json({
         success: true,
-        message: ' Media was retrieved successfully',
+        message: 'Media was retrieved successfully',
       })
     } else {
       return res.status(403).json({
         success: false,
-        message: `The capsule is locked, and media cannot be accessed at this time.  `,
+        message:
+          'The capsule is locked, and media cannot be accessed at this time.',
       })
     }
   } catch (error) {
