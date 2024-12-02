@@ -13,8 +13,9 @@ import { Link } from 'react-router-dom'
 // TODO: Add link to dashboard when 'stalgic' is clicked
 
 function Nav() {
-  const { user, logout, loginWithRedirect } = useAuth0()
+  const { user, logout, loginWithRedirect, getAccessTokenSilently } = useAuth0()
   const { handleProfileUpsert } = useUpsertProfile()
+  console.log('liams token', getAccessTokenSilently(), user?.sub)
 
   const handleSignOut = () => {
     logout()

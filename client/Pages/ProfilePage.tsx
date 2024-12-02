@@ -2,7 +2,7 @@ import { useViewProfile } from '../hooks/useViewProfile'
 
 function ProfilePage() {
   const { data, isLoading, isError } = useViewProfile()
-  console.log(data)
+  console.log('data', data)
   if (isLoading) {
     return <p>Loading</p>
   }
@@ -22,7 +22,12 @@ function ProfilePage() {
         <div
           className={`group m-16 flex h-80 w-80 items-center justify-center rounded-full bg-[#ffffff] p-6 text-[#13A25B]`}
         >
-          <div className="hidden group-hover:block">
+          <img
+            src={data.profile_image}
+            className="size-40"
+            alt="user profile"
+          ></img>
+          <div className="hidden group-hover:block absolute">
             <button className="rounded-full  bg-[#13A25B] text-[#ffffff]">
               <p className="p-2 px-4 font-labrada text-xl">Edit Photo</p>
             </button>
@@ -36,7 +41,9 @@ function ProfilePage() {
               <h2 className="mb-12 font-lalezar text-7xl text-[#13A25B]">
                 NAME
               </h2>
-              <p className="space-l mb-4 font-labrada text-xl">Username</p>
+              <p className="space-l mb-4 font-labrada text-xl">
+                {data.name ? data.name : 'name not found'}
+              </p>
               <button className="inline-block rounded-full bg-[#13A25B] p-2 px-4 text-[#ffffff]">
                 edit
               </button>
@@ -48,7 +55,7 @@ function ProfilePage() {
                 EMAIL
               </h2>
               <p className="space-l mb-4 font-labrada text-xl">
-                user@email.com
+                {data.email ? data.email : 'email not found'}
               </p>
               <button className="mr-2 inline-block rounded-full bg-[#13A25B] px-4 py-2 pt-2 text-[#ffffff]">
                 edit
@@ -60,7 +67,9 @@ function ProfilePage() {
               <h2 className="mb-12 font-lalezar text-7xl text-[#13A25B]">
                 DOB
               </h2>
-              <p className="space-l mb-4 font-labrada text-xl">11/11/11</p>
+              <p className="space-l mb-4 font-labrada text-xl">
+                {data.dob ? data.dob : 'DOB not found'}
+              </p>
               <button className="mr-2 inline-block rounded-full bg-[#13A25B] px-4 py-2 pt-2 text-[#ffffff]">
                 edit
               </button>

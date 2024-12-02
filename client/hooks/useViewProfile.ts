@@ -11,7 +11,7 @@ export function useViewProfile() {
     queryFn: async () => {
       const accessToken = await getAccessTokenSilently()
       if (user && user.sub) {
-        return await api.getUser(user.id, accessToken)
+        return await api.getUser(user.sub, accessToken)
       }
     },
   })
