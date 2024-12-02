@@ -1,10 +1,16 @@
 import { useParams } from 'react-router-dom'
 import { useViewCapsuleById } from '../../hooks/useViewCapsule'
 import AddMedia from '../Media/AddMedia'
+import DelCapsule from '../DeleteCapsule/DeleteCapsule'
+import UpdateCapsule from '../EditCapsule/EditCapsule'
 
 function ViewOneCapsule() {
   const { id } = useParams()
   const { data, isLoading, isError } = useViewCapsuleById(Number(id))
+
+  function formatDate(dateString: string) {
+   return dateString.split(' ')[0]
+  }
 
   if (isLoading) {
     return <p>Capsules coming soon...</p>
@@ -31,13 +37,14 @@ function ViewOneCapsule() {
               <h2 className="p-4 pb-2 text-[48px] font-bold text-[#13A25B] hover:text-[#FE5801]">
                 {data.title}
               </h2>
-              <div className="pl-4 text-[#13A25B] hover:text-[#FE5801]">
-                {data.time}
+              <div className="flex flex-row pl-4 text-2xl text-[#13A25B] hover:text-[#FE5801]">
+                <p className="pr-4">Opens on: </p>
+                <p>{formatDate(data.time)}</p>
               </div>
               <p className="p-4 pb-2 text-2xl text-[#13A25B] hover:text-[#FE5801]">
                 {data.description}
               </p>
-              <ul className="">
+              <ul>
                 {data?.tags.map((item: string, idx: number) => (
                   <li
                     key={idx}
@@ -47,6 +54,12 @@ function ViewOneCapsule() {
                   </li>
                 ))}
               </ul>
+              <div className="mt-10 flex flex-col">
+                {id && (
+                  <UpdateCapsule capsuleId={Number(id)} initialData={data} />
+                )}
+                {id && <DelCapsule capsuleId={Number(id)} />}
+              </div>
             </div>
           </div>
         </section>
