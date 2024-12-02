@@ -71,9 +71,9 @@ export async function addMedia(file: MediaData, token: string) {
 }
 
 // -- GET ALL MEDIA IN A CAPSULE BY ID -- //
-export async function viewMyMedia(capsule_id: Media, token: string) {
+export async function viewMyMedia(capsule_id: number, token: string) {
   const res = await request
-    .get(`/api/v1/user/${capsule_id}`)
+    .get(`/api/v1/media/${capsule_id}`)
     .set('Authorization', `Bearer ${token}`)
   return res.body
 }
