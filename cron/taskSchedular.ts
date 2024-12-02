@@ -1,9 +1,8 @@
-import cron from 'node-cron'
-import { sendEmail } from './emailService.js'
-import db from './db/connection.ts'
+import { sendEmail } from './emailService'
+import db from '../server/db/connection.ts'
 import moment from 'moment-timezone'
 
-cron.schedule('* * * * *', async () => {
+export async function startCron() {
   console.log('Cron job is running every minute')
   try {
     const expiredCapsules = await db('capsules')
@@ -40,4 +39,4 @@ cron.schedule('* * * * *', async () => {
   } catch (error) {
     console.error('Error checking expired capsules:', error)
   }
-})
+}
