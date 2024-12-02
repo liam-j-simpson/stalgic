@@ -4,33 +4,59 @@ import moment from 'moment-timezone'
 
 export async function startCron() {
   console.log('Cron job is running every minute')
-  try {
-    const expiredCapsules = await db('capsules')
-      .where(
-        'time',
-        '<',
-        moment().tz('Pacific/Auckland').format('YYYY-MM-DD HH:mm:ss'),
-      )
-      .andWhere('time', '!=', null)
 
+  try {
+    const currentTime = moment()
+      .tz('Pacific/Auckland')
+      .format('DD/MM/YYYY HH:mm')
+    console.log('Current Time (NZT):', currentTime)
+
+    const expiredCapsules = await db('capsules')
+      .where('time', '<', currentTime)
+      .andWhere('time', '!=', '')
+
+    console.log('Expired Capsule Time', expiredCapsules)
     if (expiredCapsules.length > 0) {
       console.log(`${expiredCapsules.length} expired capsules found.`)
+
       for (const capsule of expiredCapsules) {
-        const media = await db('medias')
-          .where('capsule_id', capsule.id)
-          .select('image_url')
+        const capsuleTime = moment.tz(
+          capsule.time,
+          'DD/MM/YYYY HH:mm',
+          'Pacific/Auckland',
+        )
+        console.log(
+          'Capsule Time (NZT):',
+          capsuleTime.format('DD/MM/YYYY HH:mm'),
+        )
 
-        const user = await db('users').where('id', capsule.user_id).first()
+        const isUnlocked = moment()
+          .tz('Pacific/Auckland')
+          .isSameOrAfter(capsuleTime)
 
-        if (user) {
-          const userEmail = user.email
-          const subject = 'Your Capsule Lock Time Expired'
-          const message = `Hello ${user.name},\n\nYour capsule titled "${capsule.title}" has been unlocked and is now available to view.\n\nDescription: ${capsule.description}\nTags: ${capsule.tags}`
+        if (isUnlocked) {
+          const media = await db('medias')
+            .where('capsule_id', capsule.id)
+            .select('filename')
 
-          await sendEmail(userEmail, subject, message, media)
-          console.log(`Email sent to ${userEmail} for capsule ${capsule.title}`)
+          const user = await db('users')
+            .where('auth0_id', capsule.user_id)
+            .first()
+
+          if (user) {
+            const userEmail = user.email
+            const subject = 'Your Capsule Lock Time Expired'
+            const message = `Hello ${user.name},\n\nYour capsule titled "${capsule.title}" has been unlocked and is now available to view.\n\nDescription: ${capsule.description}\nTags: ${capsule.tags}`
+
+            await sendEmail(userEmail, subject, message, media)
+            console.log(
+              `Email sent to ${userEmail} for capsule ${capsule.title}`,
+            )
+          } else {
+            console.log(`User not found for capsule ${capsule.title}`)
+          }
         } else {
-          console.log(`User not found for capsule ${capsule.title}`)
+          console.log(`Capsule ${capsule.title} is still locked.`)
         }
       }
     } else {
