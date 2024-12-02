@@ -6,20 +6,20 @@ import { editUser } from '../../models/user'
 import { useState } from 'react'
 
 function ProfilePage() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault()
 
-    updateProfile.mutate({
-      name: profileForm.name,
-      email: profileForm.email,
-      dob: profileForm.dob,
-    })
-    setProfileForm({
-      name: '',
-      email: '',
-      dob: '',
-    })
-  }
+  //   updateProfile.mutate({
+  //     name: profileForm.name,
+  //     email: profileForm.email,
+  //     dob: profileForm.dob,
+  //   })
+  //   setProfileForm({
+  //     name: '',
+  //     email: '',
+  //     dob: '',
+  //   })
+  // }
 
   const [profileForm, setProfileForm] = useState<editUser>({
     name: '',
@@ -27,10 +27,10 @@ function ProfilePage() {
     dob: '',
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setProfileForm({ ...profileForm, [name]: value })
-  }
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target
+  //   setProfileForm({ ...profileForm, [name]: value })
+  // }
 
   const { data, isLoading, isError } = useViewProfile()
   console.log('data', data)
@@ -105,13 +105,15 @@ function ProfilePage() {
           </button>
         </section>
 
-        <form onSubmit={}>
+        <form>
+          {/* onSubmit={handleSubmit} */}
+
           <Label htmlFor="title">Title</Label>
           <Input
             type="text"
             id="title"
             name="title"
-            onChange={handleChange}
+            // onChange={handleChange}
             placeholder="Enter title"
             value={profileForm.name}
           />
@@ -122,18 +124,18 @@ function ProfilePage() {
             type="email"
             id="email"
             name="email"
-            onChange={handleChange}
+            // onChange={handleChange}
             placeholder="Enter email"
-            value={}
+            value={profileForm.email}
           />
           <Label htmlFor="dob">DOB</Label>
           <Input
             type="dob"
             id="dob"
             name="dob"
-            onChange={handleChange}
-            placeholder="Enter DOB"
-            value={}
+            // onChange={handleChange}
+            placeholder={data.dob}
+            value={profileForm.dob}
           />
           <Button type="submit">Submit</Button>
         </form>
