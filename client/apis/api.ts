@@ -1,7 +1,7 @@
 import request from 'superagent'
 import { Capsule, CapsuleArray, CapsuleData } from '../../models/capsule'
 import { User } from '../../models/user'
-import { Media, MediaData } from '../../models/media'
+import { MediaData } from '../../models/media'
 
 // -- GET ALL CAPSULES -- //
 export async function getCapsules(token: string) {
