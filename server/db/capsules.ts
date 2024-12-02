@@ -25,14 +25,12 @@ export async function getUserCapsule(user_id: string) {
 
 export async function getSingleCapsule(id: number) {
   try {
-    console.log(`Fetching capsule with id: ${id}`)
     const singleCapsule = await db('capsules')
       .where({ id })
       .select('title', 'time', 'description', 'tags', 'id')
       .first()
 
     if (!singleCapsule) {
-      console.log(`No capsule found with id: ${id}`)
       return { success: false, message: 'Capsule not found' }
     }
 
@@ -101,26 +99,5 @@ export async function deleteCapsule(id: number) {
   } catch (error) {
     console.error('Failed to delete a capsule', error)
     throw new Error('Failed to delete the capsule')
-  }
-}
-
-export async function updateStatus(capsule_id: number) {
-  if (!capsule_id) {
-    return { success: false, message: 'Please provide valid capsule id' }
-  }
-  try {
-    return await db('capsules')
-      .where({ capsule_id })
-      .update({ status: 'unlocked' })
-  } catch (error) {
-    console.error('Failed to update status', error)
-  }
-}
-
-export async function lockCapsule(id: number) {
-  try {
-    return await db('capsules').where({ id }).update({ status: 'locked' })
-  } catch (error) {
-    console.error('Failed to lock capsule', error)
   }
 }

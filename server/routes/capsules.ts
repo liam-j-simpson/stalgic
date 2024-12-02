@@ -2,6 +2,7 @@ import express from 'express'
 import * as db from '../db/capsules'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
+import moment from 'moment-timezone' // Import moment-timezone
 
 const router = express.Router()
 
@@ -99,18 +100,30 @@ router.put('/:id', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
-router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
+router.get('/:id', checkJwt, async (req, res) => {
   const id = Number(req.params.id)
-  try {
-    res.json(await db.getSingleCapsule(id))
+  if (!id) {
+    return res.status(404).json({
+      success: false,
+      message:
+        'Invalid capsule ID provided. Please check the ID and try again.',
+    })
+  }
 
-    if (!id) {
+  try {
+    const singleCapsule = await db.getSingleCapsule(id)
+    if (!singleCapsule) {
       return res.status(404).json({
         success: false,
-        message:
-          'Invalid capsule ID provided. Please check the ID and try again.',
+        message: 'Capsule not found with the given ID.',
       })
     }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Successfully fetched the capsule data.',
+      singleCapsule,
+    })
   } catch (error) {
     res.sendStatus(500)
   }
