@@ -27,7 +27,7 @@ function AddMedia(props: Props) {
     <>
       <div className="flex h-[32rem] w-2/3 items-center justify-center rounded-lg border-8 border-dashed border-white">
         <form
-          className="flex items-center justify-center"
+          className="flex flex-col items-center justify-center"
           onSubmit={handleUpload}
         >
           <input
@@ -37,7 +37,9 @@ function AddMedia(props: Props) {
             accept="image/*"
             required
           />
-          <button type="submit">Upload</button>
+          <button className="text-white" type="submit">
+            Upload
+          </button>
         </form>
       </div>
     </>

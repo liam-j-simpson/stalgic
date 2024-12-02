@@ -8,6 +8,15 @@ function ViewOneCapsule() {
   const { id } = useParams()
   const { data, isLoading, isError } = useViewCapsuleById(Number(id))
 
+  function formatDate(dateString: string) {
+    const date = new Date(dateString)
+    return new Intl.DateTimeFormat('en-NZ', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(date)
+  }
+
   if (isLoading) {
     return <p>Capsules coming soon...</p>
   }
@@ -33,13 +42,14 @@ function ViewOneCapsule() {
               <h2 className="p-4 pb-2 text-[48px] font-bold text-[#13A25B] hover:text-[#FE5801]">
                 {data.title}
               </h2>
-              <div className="pl-4 text-[#13A25B] hover:text-[#FE5801]">
-                {data.time}
+              <div className="flex flex-row pl-4 text-2xl text-[#13A25B] hover:text-[#FE5801]">
+                <p className="pr-4">Opens on: </p>
+                <p>{formatDate(data.time)}</p>
               </div>
               <p className="p-4 pb-2 text-2xl text-[#13A25B] hover:text-[#FE5801]">
                 {data.description}
               </p>
-              <ul className="">
+              <ul>
                 {data?.tags.map((item: string, idx: number) => (
                   <li
                     key={idx}
