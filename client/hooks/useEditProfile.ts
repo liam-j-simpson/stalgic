@@ -3,12 +3,10 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { User } from '../../models/user.ts'
 import { useState } from 'react'
 import * as api from '../apis/api.ts'
-import { useNavigate } from 'react-router-dom'
 
 export function useUpsertProfile() {
   const { user, getAccessTokenSilently } = useAuth0()
   const queryClient = useQueryClient()
-  const navigate = useNavigate()
 
   const [profileUpdated, setProfileUpdated] = useState(false)
 
@@ -37,7 +35,6 @@ export function useUpsertProfile() {
       console.log('User profile upserted successfully:')
       setProfileUpdated(true)
       queryClient.invalidateQueries({ queryKey: ['user'] })
-      // navigate('/dashboard')
     },
     onError: (error) => {
       console.error('Error during mutation:', error)
