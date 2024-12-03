@@ -82,10 +82,7 @@ router.get('/:capsule_id', checkJwt, async (req, res) => {
         })
       }
 
-      return res.status(200).json({
-        success: true,
-        message: 'Media was retrieved successfully',
-      })
+      return res.status(200).json(media)
     } else {
       return res.status(403).json({
         success: false,

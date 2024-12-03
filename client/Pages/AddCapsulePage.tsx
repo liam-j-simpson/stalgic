@@ -1,10 +1,16 @@
 import { useState } from 'react'
 import AddCapsule from '../components/AddCapsule/AddCapsule'
 import { Capsule } from '../../models/capsule'
+import moment from 'moment-timezone'
+import { format } from 'date-fns'
+
 function AddCapsulePage() {
+  const today = moment().tz('Pacific/Auckland', true).toDate()
+  const todayDate = format(today, 'dd/MM/yyyy HH:mm')
+
   const [form, setForm] = useState<Capsule>({
     title: '',
-    time: '',
+    time: todayDate,
     description: '',
     tags: [],
   })

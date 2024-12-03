@@ -8,6 +8,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 import { useState } from 'react'
 import { format } from 'date-fns'
+import { useNavigate } from 'react-router-dom'
+
 interface Props {
   form: {
     title: string
@@ -19,6 +21,7 @@ interface Props {
 }
 function AddCapsule({ form, setForm }: Props) {
   const addCapsuleMutation = useAddCapsule()
+  const navigate = useNavigate()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -35,6 +38,7 @@ function AddCapsule({ form, setForm }: Props) {
       description: '',
       tags: [],
     })
+    navigate('/dashboard')
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +64,6 @@ function AddCapsule({ form, setForm }: Props) {
         ...form,
         time: format(date, 'dd/MM/yyyy HH:mm'),
       })
-      console.log('setDate', date)
     }
   }
 
