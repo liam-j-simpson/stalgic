@@ -10,13 +10,16 @@ export async function upsertProfile(user: User) {
     if (existingUser) {
       return { success: true, message: 'User already exists' }
     }
-    await db('users').insert({
-      auth0_id,
-      name,
-      email,
-      dob,
-      profile_image,
-    })
+    await db('users')
+      .insert({
+        auth0_id,
+        name,
+        email,
+        dob,
+        profile_image,
+      })
+      .onConflict('auth0_id')
+      .merge()
 
     return { success: true, message: 'User added/updated successfully' }
   } catch (error) {
