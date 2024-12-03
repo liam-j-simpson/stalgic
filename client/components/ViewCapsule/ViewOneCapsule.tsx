@@ -5,12 +5,12 @@ import DelCapsule from '../DeleteCapsule/DeleteCapsule'
 import UpdateCapsule from '../EditCapsule/EditCapsule'
 import ViewMedia from '../Media/ViewMedia'
 import { useState } from 'react'
+import moment from 'moment-timezone'
 
 function ViewOneCapsule() {
   const { id } = useParams()
   const { data, isLoading, isError } = useViewCapsuleById(Number(id))
   const [showContents, setShowContents] = useState(false)
-  const todayFormatted = new Intl.DateTimeFormat('en-GB').format(new Date())
 
   function formatDate(dateString: string) {
     return dateString.split(' ')[0]
@@ -25,6 +25,14 @@ function ViewOneCapsule() {
   }
 
   if (data) {
+    const todayFormatted = moment().tz('Pacific/Auckland', true).toDate()
+    const timeAsMoment = data.time
+
+    const unlockedTime = moment
+      .utc(timeAsMoment, 'DD/MM/YYYY HH:mm')
+      .tz('Pacific/Auckland', true)
+      .toDate()
+
     if (showContents) {
       return <ViewMedia capsuleId={Number(id)} />
     }
@@ -67,7 +75,7 @@ function ViewOneCapsule() {
                 )}
                 {id && <DelCapsule capsuleId={Number(id)} />}
               </div>
-              {data.time === todayFormatted && (
+              {todayFormatted >= unlockedTime && (
                 <button
                   className="m-4 inline-block rounded-full bg-[#13A25B] px-4 py-2 text-white hover:bg-[#FE5801] focus:outline-none"
                   onClick={() => setShowContents(true)}
