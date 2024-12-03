@@ -19,7 +19,6 @@ const routes = createRoutesFromElements(
       <Route index element={<ListAllCapsules />} />
       <Route path="/dashboard/:id" element={<UploadToCapsule />} />
     </Route>
-    <Route path="media" element={<ViewMedia />} />
   </Route>,
 )
 
