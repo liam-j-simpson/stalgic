@@ -10,6 +10,7 @@ import {
 import { Link } from 'react-router-dom'
 import { useViewCapsules } from '../../hooks/useViewCapsule'
 import LoadingPage from '../Loading/LoadingPage'
+import ErrorPage from '../Error/ErrorPage'
 
 function ListAllCapsules() {
   const { data, isError, isLoading } = useViewCapsules()
@@ -19,7 +20,7 @@ function ListAllCapsules() {
   }
 
   if (isError) {
-    return <p>Please try again later... </p>
+    return <ErrorPage />
   }
 
   if (data) {
