@@ -131,7 +131,6 @@ router.get('/:id', checkJwt, async (req, res) => {
 // Delete request for deleting a single capsule
 router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   const id = Number(req.params.id)
-  console.log('delete-route', id)
 
   if (!id) {
     return res.status(400).json({

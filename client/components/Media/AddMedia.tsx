@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { PostMediaData } from '../../../models/media'
 import { useAddMedia } from '../../hooks/useAddMedia'
 
@@ -7,6 +8,7 @@ interface Props {
 
 function AddMedia(props: Props) {
   const { mutate: addNewMedia } = useAddMedia()
+  const [showUploadButton, setShowUploadButton] = useState(false)
 
   const handleUpload = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -35,11 +37,17 @@ function AddMedia(props: Props) {
             type="file"
             name="file"
             accept="image/*"
+            onChange={() => setShowUploadButton(true)}
             required
           />
-          <button className="text-white" type="submit">
-            Upload
-          </button>
+          {showUploadButton && (
+            <button
+              className="mt-4 rounded-full px-4 py-2 pt-2 text-white hover:bg-[#FE5801] hover:text-[#ffffff]"
+              type="submit"
+            >
+              Upload
+            </button>
+          )}
         </form>
       </div>
     </>

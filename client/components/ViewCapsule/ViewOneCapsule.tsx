@@ -3,13 +3,17 @@ import { useViewCapsuleById } from '../../hooks/useViewCapsule'
 import AddMedia from '../Media/AddMedia'
 import DelCapsule from '../DeleteCapsule/DeleteCapsule'
 import UpdateCapsule from '../EditCapsule/EditCapsule'
+import ViewMedia from '../Media/ViewMedia'
+import { useState } from 'react'
+import moment from 'moment-timezone'
 
 function ViewOneCapsule() {
   const { id } = useParams()
   const { data, isLoading, isError } = useViewCapsuleById(Number(id))
+  const [showContents, setShowContents] = useState(false)
 
   function formatDate(dateString: string) {
-   return dateString.split(' ')[0]
+    return dateString.split(' ')[0]
   }
 
   if (isLoading) {
@@ -21,6 +25,17 @@ function ViewOneCapsule() {
   }
 
   if (data) {
+    const todayFormatted = moment().tz('Pacific/Auckland', true).toDate()
+    const timeAsMoment = data.time
+
+    const unlockedTime = moment
+      .utc(timeAsMoment, 'DD/MM/YYYY HH:mm')
+      .tz('Pacific/Auckland', true)
+      .toDate()
+
+    if (showContents) {
+      return <ViewMedia capsuleId={Number(id)} />
+    }
     return (
       <>
         <section className="bg-[#13A25B] pl-16 font-lalezar">
@@ -60,6 +75,14 @@ function ViewOneCapsule() {
                 )}
                 {id && <DelCapsule capsuleId={Number(id)} />}
               </div>
+              {todayFormatted >= unlockedTime && (
+                <button
+                  className="m-4 inline-block rounded-full bg-[#13A25B] px-4 py-2 text-white hover:bg-[#FE5801] focus:outline-none"
+                  onClick={() => setShowContents(true)}
+                >
+                  View {data.title} Contents!
+                </button>
+              )}
             </div>
           </div>
         </section>
