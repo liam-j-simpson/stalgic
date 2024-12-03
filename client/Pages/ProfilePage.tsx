@@ -5,6 +5,7 @@ import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { format } from 'date-fns'
 import { useEditProfile } from '../hooks/useEditProfile'
+import moment from 'moment'
 
 function ProfilePage() {
   //STATE CHANGE
@@ -24,10 +25,12 @@ function ProfilePage() {
   if (profileForm.dob !== '') {
     updatedFormFields.dob = profileForm.dob
   }
+  const today = moment().tz('Pacific/Auckland', true).toDate()
+  const todayDate = format(today, 'dd/MM/yyyy HH:mm')
 
   console.log('profileForm state', profileForm)
   const [edit, setEdit] = useState<boolean>(false)
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState<Date>()
 
   //EVENT HANDLERS
 
@@ -130,7 +133,7 @@ function ProfilePage() {
                     id="email"
                     name="email"
                     onChange={handleChange}
-                    placeholder="email"
+                    placeholder="Enter email"
                     defaultValue={data.email}
                   />
                 )}
@@ -149,6 +152,9 @@ function ProfilePage() {
                     className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                     selected={date}
                     onChange={handleDateChange}
+                    shouldCloseOnSelect={true}
+                    dateFormat={'dd/MM/yyyy'}
+                    placeholderText="Type or select DOB"
                   />
                 )}
               </div>

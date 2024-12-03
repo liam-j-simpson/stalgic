@@ -50,11 +50,9 @@ export function useUpsertProfile() {
   return { mutation, handleProfileUpsert }
 }
 
-
 export function useEditProfile() {
   const { user, getAccessTokenSilently } = useAuth0()
   const queryClient = useQueryClient()
-  const navigate = useNavigate()
 
   return useMutation({
     mutationFn: async (updatedProfile: EditUser) => {
@@ -74,7 +72,6 @@ export function useEditProfile() {
       queryClient.invalidateQueries({
         queryKey: ['profile'],
       })
-      // navigate('/dashboard')
     },
   })
 }
