@@ -1,4 +1,3 @@
-// import { useViewCapsules } from '../../hooks/useViewCapsule'
 import CapsuleListItem from './CapsuleListItem'
 import { CapsuleData } from '../../../models/capsule'
 
@@ -10,13 +9,13 @@ import {
 } from '../Authentication/Authenticated'
 import { Link } from 'react-router-dom'
 import { useViewCapsules } from '../../hooks/useViewCapsule'
-import { Loading } from '../Loading/Loading'
+import LoadingPage from '../Loading/LoadingPage'
 
 function ListAllCapsules() {
   const { data, isError, isLoading } = useViewCapsules()
 
   if (isLoading) {
-    return <Loading />
+    return <LoadingPage />
   }
 
   if (isError) {
