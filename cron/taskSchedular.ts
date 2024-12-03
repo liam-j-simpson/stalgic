@@ -45,8 +45,6 @@ export async function startCron() {
           if (user) {
             const userEmail = user.email
             const subject = 'Your Capsule Lock Time Expired'
-            // attempt to make dynamic path for embedded image:
-            const embeddedImgfilePath = path.resolve('public', 'stalgic.png')
             const message = `
   <html>
     <body style="font-family: Arial, sans-serif; color: #333; background-color: #f4f4f9; padding: 20px;">
@@ -61,7 +59,8 @@ export async function startCron() {
         <br>
         <p>Best regards,</p> 
         <p>The <strong>Stalgic</strong> Team</p>
-        <img src=${cid:embeddedImgfilePath} alt="Stalgic Logo" />
+       <img style="width:100px; height:100px;" src="cid:logo" alt="Stalgic Logo" />
+
       </div>
 
       <div style="font-size: 12px; color: #aaa; margin-top: 30px;">

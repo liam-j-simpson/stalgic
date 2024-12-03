@@ -11,28 +11,44 @@ const transporter = nodemailer.createTransport({
 })
 
 export function sendEmail(to, subject, htmlformat, media = []) {
+  const capsuleImgs = media
+    .map((item) => {
+      const filePath = path.resolve('public', 'uploads', item.filename)
+
+      if (!fs.existsSync(filePath)) {
+        console.error(`File not found: ${filePath}`)
+        return null
+      }
+
+      return {
+        filename: item.filename,
+        path: filePath,
+        cid: `media-${item.filename}`,
+      }
+    })
+    .filter(Boolean)
+
   const mailOptions = {
     from: '"Stalgic App" <teamstalgic@gmail.com>',
     to,
     subject,
     html: htmlformat,
-    attachments: media
-      .map((item) => {
-        const filePath = path.resolve('public', 'stalgic.png')
-
-        if (!fs.existsSync(filePath)) {
-          console.error(`File not found: ${filePath}`)
-          return null
-        }
-
-        return {
-          filename: item.filename,
-          path: filePath,
-          cid: `media-${item.filename}`,
-        }
-      })
-      .filter(Boolean),
+    attachments: [
+      ...capsuleImgs,
+      {
+        filename: 'stalgic.png',
+        path: path.resolve('public', 'stalgic.png'),
+        cid: 'logo',
+      },
+    ],
   }
 
-  return transporter.sendMail(mailOptions)
+  return transporter
+    .sendMail(mailOptions)
+    .then(() => {
+      console.log('Email sent successfully')
+    })
+    .catch((error) => {
+      console.error('Error sending email:', error)
+    })
 }
