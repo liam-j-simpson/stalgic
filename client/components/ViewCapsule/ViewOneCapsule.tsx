@@ -3,11 +3,14 @@ import { useViewCapsuleById } from '../../hooks/useViewCapsule'
 import AddMedia from '../Media/AddMedia'
 import DelCapsule from '../DeleteCapsule/DeleteCapsule'
 import UpdateCapsule from '../EditCapsule/EditCapsule'
-// import ViewMedia from '../Media/ViewMedia'
+import ViewMedia from '../Media/ViewMedia'
+import { useState } from 'react'
 
 function ViewOneCapsule() {
   const { id } = useParams()
   const { data, isLoading, isError } = useViewCapsuleById(Number(id))
+  const [showContents, setShowContents] = useState(false)
+  const todayFormatted = new Intl.DateTimeFormat('en-GB').format(new Date())
 
   function formatDate(dateString: string) {
     return dateString.split(' ')[0]
@@ -22,6 +25,9 @@ function ViewOneCapsule() {
   }
 
   if (data) {
+    if (showContents) {
+      return <ViewMedia capsuleId={Number(id)} />
+    }
     return (
       <>
         <section className="bg-[#13A25B] pl-16 font-lalezar">
@@ -61,7 +67,14 @@ function ViewOneCapsule() {
                 )}
                 {id && <DelCapsule capsuleId={Number(id)} />}
               </div>
-              {/* {id && <ViewMedia capsuleId={Number(id)} />} */}
+              {data.time === todayFormatted && (
+                <button
+                  className="m-4 inline-block rounded-full bg-[#13A25B] px-4 py-2 text-white hover:bg-[#FE5801] focus:outline-none"
+                  onClick={() => setShowContents(true)}
+                >
+                  View {data.title} Contents!
+                </button>
+              )}
             </div>
           </div>
         </section>
