@@ -2,8 +2,6 @@ import nodemailer from 'nodemailer'
 import path from 'path'
 import fs from 'fs'
 
-const __dirname = new URL('.', import.meta.url).pathname
-
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -12,15 +10,15 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-export function sendEmail(to, subject, text, media = []) {
+export function sendEmail(to, subject, htmlformat, media = []) {
   const mailOptions = {
     from: '"Stalgic App" <teamstalgic@gmail.com>',
     to,
     subject,
-    text,
+    html: htmlformat,
     attachments: media
       .map((item) => {
-        const filePath = path.resolve('public', 'uploads', item.filename)
+        const filePath = path.resolve('public', 'stalgic.png')
 
         if (!fs.existsSync(filePath)) {
           console.error(`File not found: ${filePath}`)
