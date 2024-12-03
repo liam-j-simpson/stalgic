@@ -8,6 +8,7 @@ import AddCapsulePage from './Pages/AddCapsulePage.tsx'
 import UploadToCapsule from './Pages/UploadToCapsulePage.tsx'
 import ListAllCapsules from './components/ViewCapsule/ListAllCapsules.tsx'
 import ProfilePage from './Pages/ProfilePage.tsx'
+import ViewMedia from './components/Media/ViewMedia.tsx'
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<Layout />}>
@@ -18,6 +19,7 @@ const routes = createRoutesFromElements(
       <Route index element={<ListAllCapsules />} />
       <Route path="/dashboard/:id" element={<UploadToCapsule />} />
     </Route>
+    <Route path="media" element={<ViewMedia />} />
   </Route>,
 )
 

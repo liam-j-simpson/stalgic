@@ -3,13 +3,14 @@ import { useViewCapsuleById } from '../../hooks/useViewCapsule'
 import AddMedia from '../Media/AddMedia'
 import DelCapsule from '../DeleteCapsule/DeleteCapsule'
 import UpdateCapsule from '../EditCapsule/EditCapsule'
+// import ViewMedia from '../Media/ViewMedia'
 
 function ViewOneCapsule() {
   const { id } = useParams()
   const { data, isLoading, isError } = useViewCapsuleById(Number(id))
 
   function formatDate(dateString: string) {
-   return dateString.split(' ')[0]
+    return dateString.split(' ')[0]
   }
 
   if (isLoading) {
@@ -60,6 +61,7 @@ function ViewOneCapsule() {
                 )}
                 {id && <DelCapsule capsuleId={Number(id)} />}
               </div>
+              {/* {id && <ViewMedia capsuleId={Number(id)} />} */}
             </div>
           </div>
         </section>

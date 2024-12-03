@@ -70,7 +70,8 @@ router.get('/:capsule_id', checkJwt, async (req, res) => {
 
     const currentTime = moment().tz('Pacific/Auckland', true).toDate()
 
-    const isUnlocked = currentTime >= unlockedTime
+    const isUnlocked = true
+    // const isUnlocked = currentTime >= unlockedTime
 
     if (isUnlocked) {
       const media = await db.getCapsuleMedia(capsule_id)
@@ -82,10 +83,7 @@ router.get('/:capsule_id', checkJwt, async (req, res) => {
         })
       }
 
-      return res.status(200).json({
-        success: true,
-        message: 'Media was retrieved successfully',
-      })
+      return res.status(200).json(media)
     } else {
       return res.status(403).json({
         success: false,

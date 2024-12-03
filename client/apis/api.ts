@@ -1,6 +1,7 @@
 import request from 'superagent'
 import { Capsule, CapsuleArray, CapsuleData } from '../../models/capsule'
 import { User } from '../../models/user'
+import { Media } from '../../models/media'
 
 // -- GET ALL CAPSULES -- //
 export async function getCapsules(token: string) {
@@ -27,8 +28,6 @@ export async function getUser(auth0_id: string, token: string) {
   const res = await request
     .get(`/api/v1/user/${auth0_id}`)
     .set('Authorization', `Bearer ${token}`)
-  console.log('api get user', res.body.user)
-
   return res.body.user[0]
 }
 
@@ -70,7 +69,7 @@ export async function viewMyMedia(capsule_id: number, token: string) {
   const res = await request
     .get(`/api/v1/media/${capsule_id}`)
     .set('Authorization', `Bearer ${token}`)
-  return res.body
+  return res.body as Media[]
 }
 
 // -- EDIT CAPSULE INFORMATION -- //
