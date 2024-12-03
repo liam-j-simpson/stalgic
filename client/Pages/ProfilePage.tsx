@@ -1,6 +1,6 @@
 import { useViewProfile } from '../hooks/useViewProfile'
 import { Input } from '../ui/Input'
-import { editUser } from '../../models/user'
+import { EditUser } from '../../models/user'
 import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { format } from 'date-fns'
@@ -8,12 +8,23 @@ import { useEditProfile } from '../hooks/useEditProfile'
 
 function ProfilePage() {
   //STATE CHANGE
-  const [profileForm, setProfileForm] = useState<editUser>({
+  const [profileForm, setProfileForm] = useState<EditUser>({
     name: '',
     email: '',
     dob: '',
-    profile_image: '',
   })
+
+  const updatedFormFields: EditUser = {}
+  if (profileForm.name !== '') {
+    updatedFormFields.name = profileForm.name
+  }
+  if (profileForm.email !== '') {
+    updatedFormFields.email = profileForm.email
+  }
+  if (profileForm.dob !== '') {
+    updatedFormFields.dob = profileForm.dob
+  }
+
   console.log('profileForm state', profileForm)
   const [edit, setEdit] = useState<boolean>(false)
   const [date, setDate] = useState(new Date())
@@ -23,19 +34,13 @@ function ProfilePage() {
   const mutation = useEditProfile()
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    mutation.mutate({
-      name: profileForm.name,
-      email: profileForm.email,
-      dob: profileForm.dob,
-      profile_image: profileForm.profile_image,
-    })
+    setEdit(!edit)
+    mutation.mutate(updatedFormFields)
 
     setProfileForm({
       name: '',
       email: '',
       dob: '',
-      profile_image: '',
     })
   }
 
@@ -86,7 +91,7 @@ function ProfilePage() {
         </div>
 
         <section className="bg-[#13A25B] bg-[#13A25B] pb-12  pl-16 font-lalezar">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className="flex">
               <div
                 className={`mb-8 mr-12 h-64 w-80 rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
@@ -105,7 +110,7 @@ function ProfilePage() {
                     name="name"
                     onChange={handleChange}
                     placeholder="Edit name"
-                    value={profileForm.name}
+                    defaultValue={data.name}
                   />
                 )}
               </div>
@@ -125,8 +130,8 @@ function ProfilePage() {
                     id="email"
                     name="email"
                     onChange={handleChange}
-                    placeholder="edit email"
-                    value={profileForm.email}
+                    placeholder="email"
+                    defaultValue={data.email}
                   />
                 )}
               </div>
@@ -159,7 +164,7 @@ function ProfilePage() {
             {edit === true && (
               <>
                 <button
-                  onClick={() => setEdit(!edit)}
+                  type="submit"
                   className="rounded-full bg-[#ffffff] px-8 py-2 text-3xl text-[#13A25B]"
                 >
                   {' '}
