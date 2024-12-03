@@ -95,7 +95,7 @@ export async function deleteCapsule(id: number) {
       return { success: false, message: 'Capsule not found' }
     }
 
-    return { success: true }
+    return rowsDeleted
   } catch (error) {
     console.error('Failed to delete a capsule', error)
     throw new Error('Failed to delete the capsule')

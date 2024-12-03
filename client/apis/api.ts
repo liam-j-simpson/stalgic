@@ -1,5 +1,7 @@
 import request from 'superagent'
 import { Capsule, CapsuleArray, CapsuleData } from '../../models/capsule'
+import { User } from '../../models/user'
+import { Media } from '../../models/media'
 import { EditUser, User } from '../../models/user'
 
 // -- GET ALL CAPSULES -- //
@@ -19,7 +21,7 @@ export async function getCapsuleById(token: string, id: number) {
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
 
-  return res.body as CapsuleData
+  return res.body.singleCapsule as CapsuleData
 }
 
 // -- GET USER DATA BY AUTH0-ID -- //
@@ -27,6 +29,7 @@ export async function getUser(auth0_id: string, token: string) {
   const res = await request
     .get(`/api/v1/user/${auth0_id}`)
     .set('Authorization', `Bearer ${token}`)
+  return res.body.user[0]
 
   return res.body.user[0]
 }
@@ -83,5 +86,24 @@ export async function viewMyMedia(capsule_id: number, token: string) {
   const res = await request
     .get(`/api/v1/media/${capsule_id}`)
     .set('Authorization', `Bearer ${token}`)
-  return res.body
+  return res.body as Media[]
+}
+
+// -- EDIT CAPSULE INFORMATION -- //
+export async function editCapsuleInformation(
+  token: string,
+  capsuleData: CapsuleData,
+) {
+  const { title, description, tags, id, time } = capsuleData
+  await request
+    .put(`/api/v1/capsule/${id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .send({ title, description, tags, id, time })
+}
+
+// -- DELETE CAPSULE BY ID -- //
+export async function deleteCapsule(token: string, id: number) {
+  await request
+    .delete(`/api/v1/capsule/${id}`)
+    .set('Authorization', `Bearer ${token}`)
 }

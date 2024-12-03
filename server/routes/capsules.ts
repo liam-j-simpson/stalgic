@@ -2,7 +2,6 @@ import express from 'express'
 import * as db from '../db/capsules'
 import checkJwt from '../auth0'
 import { JwtRequest } from '../auth0'
-import moment from 'moment-timezone' // Import moment-timezone
 
 const router = express.Router()
 
@@ -142,11 +141,7 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   }
 
   try {
-    const result = await db.deleteCapsule(id)
-
-    if (!result.success) {
-      return res.status(404).json({ success: false, message: result.message })
-    }
+    await db.deleteCapsule(id)
 
     return res
       .status(200)

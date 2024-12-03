@@ -3,12 +3,10 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { EditUser, User } from '../../models/user.ts'
 import { useState } from 'react'
 import * as api from '../apis/api.ts'
-import { useNavigate } from 'react-router-dom'
 
 export function useUpsertProfile() {
   const { user, getAccessTokenSilently } = useAuth0()
   const queryClient = useQueryClient()
-  const navigate = useNavigate()
 
   const [profileUpdated, setProfileUpdated] = useState(false)
 
@@ -51,6 +49,7 @@ export function useUpsertProfile() {
 
   return { mutation, handleProfileUpsert }
 }
+
 
 export function useEditProfile() {
   const { user, getAccessTokenSilently } = useAuth0()
