@@ -32,7 +32,7 @@ export function useUpsertProfile() {
     },
     onSuccess: () => {
       setProfileUpdated(true)
-      queryClient.invalidateQueries({ queryKey: ['user'] })
+      queryClient.invalidateQueries({ queryKey: ['profile'] })
     },
     onError: (error) => {
       console.error('Error during mutation:', error)
