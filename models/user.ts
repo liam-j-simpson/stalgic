@@ -6,8 +6,8 @@ export interface User {
   profile_image?: string | null
 }
 
-export interface editUser {
-  name: string
-  email: string
-  dob?: string
+export interface EditUser {
+  name?: string 
+  email?: string
+  dob?: string | null
 }

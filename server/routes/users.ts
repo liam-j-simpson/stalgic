@@ -64,6 +64,25 @@ router.get('/:auth0_id', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
+// -- UPDATE USER INFORMATION -- //
+router.patch('/', checkJwt, async (req: JwtRequest, res) => {
+  const { name, email, dob, profile_image } = req.body
+  const auth0_id = req.auth?.sub
+
+  console.log("update:", {name, email, dob, profile_image, auth0_id})
+  if (!auth0_id) {
+    return res.status(400).json({ message: 'Please provide an id' })
+  }
+  try {
+    await db.updateUserByAuth0Id(auth0_id, req.body)
+    return res.sendStatus(200)
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: 'Error adding profile data' })
+  }
+})
+
 export default router
 
 // router.post('/', checkJwt, async (req: JwtRequest, res) => {

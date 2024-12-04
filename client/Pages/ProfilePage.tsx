@@ -1,39 +1,65 @@
 import { useViewProfile } from '../hooks/useViewProfile'
 import { Input } from '../ui/Input'
-import { Label } from '../ui/Label'
-import { Button } from '../ui/Button'
-import { editUser } from '../../models/user'
+import { EditUser } from '../../models/user'
 import { useState } from 'react'
+import DatePicker from 'react-datepicker'
+import { format } from 'date-fns'
+import { useEditProfile } from '../hooks/useEditProfile'
+import moment from 'moment'
 
 function ProfilePage() {
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault()
-
-  //   updateProfile.mutate({
-  //     name: profileForm.name,
-  //     email: profileForm.email,
-  //     dob: profileForm.dob,
-  //   })
-  //   setProfileForm({
-  //     name: '',
-  //     email: '',
-  //     dob: '',
-  //   })
-  // }
-
-  const [profileForm, setProfileForm] = useState<editUser>({
+  //STATE CHANGE
+  const [profileForm, setProfileForm] = useState<EditUser>({
     name: '',
     email: '',
     dob: '',
   })
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target
-  //   setProfileForm({ ...profileForm, [name]: value })
-  // }
+  const updatedFormFields: EditUser = {}
+  if (profileForm.name !== '') {
+    updatedFormFields.name = profileForm.name
+  }
+  if (profileForm.email !== '') {
+    updatedFormFields.email = profileForm.email
+  }
+  if (profileForm.dob !== '') {
+    updatedFormFields.dob = profileForm.dob
+  }
+  const today = moment().tz('Pacific/Auckland', true).toDate()
+  const todayDate = format(today, 'dd/MM/yyyy HH:mm')
+
+  console.log('profileForm state', profileForm)
+  const [edit, setEdit] = useState<boolean>(false)
+  const [date, setDate] = useState<Date>()
+
+  //EVENT HANDLERS
+
+  const mutation = useEditProfile()
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setEdit(!edit)
+    mutation.mutate(updatedFormFields)
+
+    setProfileForm({
+      name: '',
+      email: '',
+      dob: '',
+    })
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setProfileForm({ ...profileForm, [name]: value })
+  }
+
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      setDate(date)
+      setProfileForm({ ...profileForm, dob: format(date, 'dd/MM/yyyy') })
+    }
+  }
 
   const { data, isLoading, isError } = useViewProfile()
-  console.log('data', data)
 
   if (isLoading) {
     return <p>Loading</p>
@@ -68,77 +94,92 @@ function ProfilePage() {
         </div>
 
         <section className="bg-[#13A25B] bg-[#13A25B] pb-12  pl-16 font-lalezar">
-          <div className="flex">
-            <div
-              className={`mb-8 mr-12 h-64 w-80 rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
-            >
-              <h2 className="mb-12 font-lalezar text-7xl text-[#13A25B]">
-                NAME
-              </h2>
-              <p className="space-l mb-4 font-labrada text-xl">
-                {data.name ? data.name : 'name not found'}
-              </p>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <div className="flex">
+              <div
+                className={`mb-8 mr-12 h-64 w-80 rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
+              >
+                <h2 className="mb-12 font-lalezar text-7xl text-[#13A25B]">
+                  NAME
+                </h2>
+                <p className="space-l mb-4 font-labrada text-xl">
+                  {data.name ? data.name : 'name not found'}
+                </p>
+                {edit === true && (
+                  <Input
+                    aria-label="name"
+                    type="name"
+                    id="name"
+                    name="name"
+                    onChange={handleChange}
+                    placeholder="Edit name"
+                    defaultValue={data.name}
+                  />
+                )}
+              </div>
+              <div
+                className={`mb-8 mr-12  h-64 w-80 rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
+              >
+                <h2 className="mb-12 font-lalezar text-7xl text-[#13A25B]">
+                  EMAIL
+                </h2>
+                <p className="space-l mb-4 font-labrada text-xl">
+                  {data.email ? data.email : 'email not found'}
+                </p>
+                {edit === true && (
+                  <Input
+                    aria-label="email"
+                    type="email"
+                    id="email"
+                    name="email"
+                    onChange={handleChange}
+                    placeholder="Enter email"
+                    defaultValue={data.email}
+                  />
+                )}
+              </div>
+              <div
+                className={`mb-8 mr-12  h-64 w-80 rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
+              >
+                <h2 className="mb-12 font-lalezar text-7xl text-[#13A25B]">
+                  DOB
+                </h2>
+                <p className="space-l mb-4 font-labrada text-xl">
+                  {data.dob ? data.dob : 'DOB not found'}
+                </p>
+                {edit === true && (
+                  <DatePicker
+                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                    selected={date}
+                    onChange={handleDateChange}
+                    shouldCloseOnSelect={true}
+                    dateFormat={'dd/MM/yyyy'}
+                    placeholderText="Type or select DOB"
+                  />
+                )}
+              </div>
             </div>
-            <div
-              className={`mb-8 mr-12  h-64 w-80 rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
-            >
-              <h2 className="mb-12 font-lalezar text-7xl text-[#13A25B]">
-                EMAIL
-              </h2>
-              <p className="space-l mb-4 font-labrada text-xl">
-                {data.email ? data.email : 'email not found'}
-              </p>
-            </div>
-            <div
-              className={`mb-8 mr-12  h-64 w-80 rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
-            >
-              <h2 className="mb-12 font-lalezar text-7xl text-[#13A25B]">
-                DOB
-              </h2>
-              <p className="space-l mb-4 font-labrada text-xl">
-                {data.dob ? data.dob : 'DOB not found'}
-              </p>
-            </div>
-          </div>
-          <button className="rounded-full bg-[#ffffff] px-8 py-2 text-3xl text-[#13A25B]">
-            edit
-          </button>
+            {edit === false && (
+              <button
+                onClick={() => setEdit(!edit)}
+                className="rounded-full bg-[#ffffff] px-8 py-2 text-3xl text-[#13A25B]"
+              >
+                edit
+              </button>
+            )}
+            {edit === true && (
+              <>
+                <button
+                  type="submit"
+                  className="rounded-full bg-[#ffffff] px-8 py-2 text-3xl text-[#13A25B]"
+                >
+                  {' '}
+                  Save
+                </button>
+              </>
+            )}
+          </form>
         </section>
-
-        <form>
-          {/* onSubmit={handleSubmit} */}
-
-          <Label htmlFor="title">Title</Label>
-          <Input
-            type="text"
-            id="title"
-            name="title"
-            // onChange={handleChange}
-            placeholder="Enter title"
-            value={profileForm.name}
-          />
-          <br />
-
-          <Label htmlFor="email">Email</Label>
-          <Input
-            type="email"
-            id="email"
-            name="email"
-            // onChange={handleChange}
-            placeholder="Enter email"
-            value={profileForm.email}
-          />
-          <Label htmlFor="dob">DOB</Label>
-          <Input
-            type="dob"
-            id="dob"
-            name="dob"
-            // onChange={handleChange}
-            placeholder={data.dob}
-            value={profileForm.dob}
-          />
-          <Button type="submit">Submit</Button>
-        </form>
       </>
     )
   }

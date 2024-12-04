@@ -2,6 +2,7 @@ import request from 'superagent'
 import { Capsule, CapsuleArray, CapsuleData } from '../../models/capsule'
 import { User } from '../../models/user'
 import { Media } from '../../models/media'
+import { EditUser, User } from '../../models/user'
 
 // -- GET ALL CAPSULES -- //
 export async function getCapsules(token: string) {
@@ -29,6 +30,8 @@ export async function getUser(auth0_id: string, token: string) {
     .get(`/api/v1/user/${auth0_id}`)
     .set('Authorization', `Bearer ${token}`)
   return res.body.user[0]
+
+  return res.body.user[0]
 }
 
 // -- UPSERT USER PROFILE (ADD OR UPDATE) -- //
@@ -38,6 +41,20 @@ export async function upsertUser(profileData: User, token: string) {
     .set('Authorization', `Bearer ${token}`)
     .send(profileData)
   return res.body
+}
+
+// -- EDIT USER -- //
+export async function editUser(updatedProfile: EditUser, token: string) {
+  console.log('hit api')
+  try {
+    const res = await request
+      .patch('/api/v1/user/')
+      .set('Authorization', `Bearer ${token}`)
+      .send(updatedProfile)
+    return res.body
+  } catch (error) {
+    throw new Error('error')
+  }
 }
 
 // -- ADD CAPSULE -- //
