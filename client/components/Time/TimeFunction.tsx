@@ -48,13 +48,13 @@ function TimeFunction(timeString: string | undefined) {
           <div className="text-[48px]">
             {timeRemaining.years > 0 && <span>{timeRemaining.years}y </span>}
             {timeRemaining.days > 0 && <span>{timeRemaining.days}d </span>}
-          </div>
-          <div className="mb-10 text-[22px]">
-            {timeRemaining.hours > 0 && <span>{timeRemaining.hours}h </span>}
-            {timeRemaining.minutes > 0 && (
-              <span>{timeRemaining.minutes}m </span>
-            )}
-            <span>{timeRemaining.seconds}s</span>
+            <div className="-mt-5 text-[22px]">
+              {timeRemaining.hours > 0 && <span>{timeRemaining.hours}h </span>}
+              {timeRemaining.minutes > 0 && (
+                <span>{timeRemaining.minutes}m </span>
+              )}
+              <span>{timeRemaining.seconds}s</span>
+            </div>
           </div>
         </div>
       ) : (
