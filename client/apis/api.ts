@@ -1,6 +1,5 @@
 import request from 'superagent'
 import { Capsule, CapsuleArray, CapsuleData } from '../../models/capsule'
-import { User } from '../../models/user'
 import { Media } from '../../models/media'
 import { EditUser, User } from '../../models/user'
 
@@ -45,7 +44,6 @@ export async function upsertUser(profileData: User, token: string) {
 
 // -- EDIT USER -- //
 export async function editUser(updatedProfile: EditUser, token: string) {
-  console.log('hit api')
   try {
     const res = await request
       .patch('/api/v1/user/')

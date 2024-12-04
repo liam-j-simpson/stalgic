@@ -60,10 +60,6 @@ function AddCapsule({ form, setForm }: Props) {
     if (date) {
       setDate(date)
       setForm({ ...form, time: format(date, 'dd/MM/yyyy HH:mm') })
-      console.log('setForm', {
-        ...form,
-        time: format(date, 'dd/MM/yyyy HH:mm'),
-      })
     }
   }
 
@@ -119,7 +115,7 @@ function AddCapsule({ form, setForm }: Props) {
           <div
             className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B]`}
           >
-            <h1 className="font-lalezar text-5xl">
+            <h1 className="font-lalezar">
               {date === undefined
                 ? 'Time Remaining'
                 : TimeFunction(format(date, 'dd/MM/yyyy HH:mm'))}

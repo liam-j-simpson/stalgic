@@ -1,5 +1,3 @@
-// View all Capsules
-// View one capsule
 import { useQuery } from '@tanstack/react-query'
 import { useAuth0 } from '@auth0/auth0-react'
 
