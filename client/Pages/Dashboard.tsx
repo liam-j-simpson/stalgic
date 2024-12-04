@@ -1,10 +1,13 @@
 import { Outlet } from 'react-router-dom'
+import { IfAuthenticated } from '../components/Authentication/Authenticated'
 
 function Dashboard() {
   return (
     <>
       <div>
-        <Outlet />
+        <IfAuthenticated>
+          <Outlet />
+        </IfAuthenticated>
       </div>
     </>
   )
