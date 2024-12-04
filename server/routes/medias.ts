@@ -70,6 +70,8 @@ router.get('/:capsule_id', checkJwt, async (req, res) => {
 
     const currentTime = moment().tz('Pacific/Auckland', true).toDate()
 
+    console.log('Current time ', currentTime)
+    console.log('Expired Time', unlockedTime)
     const isUnlocked = currentTime >= unlockedTime
 
     if (isUnlocked) {

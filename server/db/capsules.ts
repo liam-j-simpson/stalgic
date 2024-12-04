@@ -35,6 +35,7 @@ export async function getSingleCapsule(id: number) {
     }
 
     singleCapsule.tags = JSON.parse(singleCapsule.tags)
+
     return singleCapsule
   } catch (error) {
     console.error('Failed to retrieve capsule data.', error)

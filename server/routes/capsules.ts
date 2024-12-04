@@ -117,7 +117,9 @@ router.get('/:id', checkJwt, async (req, res) => {
         message: 'Capsule not found with the given ID.',
       })
     }
-
+    const { tags } = singleCapsule
+    const parseTags = JSON.parse(tags)
+    console.log('Parsing', parseTags.join(', '))
     return res.status(200).json({
       success: true,
       message: 'Successfully fetched the capsule data.',
