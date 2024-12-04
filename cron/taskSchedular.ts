@@ -126,7 +126,7 @@ export async function startCron() {
         <br>
         <p>Best regards,</p>
         <p>The <strong>Stalgic</strong> Team</p>
-       <img style="width:100px; height:100px;" src="cid:logo" alt="Stalgic Logo" />
+       <img style="width:auto; height:125px;" src="cid:logo" alt="Stalgic Logo" />
 
       </div>
 

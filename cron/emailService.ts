@@ -37,7 +37,7 @@ export function sendEmail(to, subject, htmlformat, media = []) {
       ...capsuleImgs,
       {
         filename: 'stalgic.png',
-        path: path.resolve('public', 'uploads', 'stalgic.png'),
+        path: path.resolve('public', 'Stalgic_Logo3.png'),
         cid: 'logo',
       },
     ],
