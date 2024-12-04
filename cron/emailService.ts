@@ -16,7 +16,6 @@ export function sendEmail(to, subject, htmlformat, media = []) {
       const filePath = path.resolve('public', 'uploads', item.filename)
 
       if (!fs.existsSync(filePath)) {
-        console.error(`File not found: ${filePath}`)
         return null
       }
 
@@ -45,10 +44,8 @@ export function sendEmail(to, subject, htmlformat, media = []) {
 
   return transporter
     .sendMail(mailOptions)
-    .then(() => {
-      console.log('Email sent successfully')
-    })
+    .then(() => {})
     .catch((error) => {
-      console.error('Error sending email:', error)
+      console.error(error)
     })
 }

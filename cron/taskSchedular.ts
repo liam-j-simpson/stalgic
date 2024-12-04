@@ -3,8 +3,6 @@ import db from '../server/db/connection.ts'
 import moment from 'moment-timezone'
 
 export async function startCron() {
-  console.log('Cron job is running every minute')
-
   try {
     const currentTime = moment()
       .tz('Pacific/Auckland')
@@ -15,8 +13,6 @@ export async function startCron() {
       .andWhere('time', '!=', '')
 
     if (expiredCapsules.length > 0) {
-      console.log(`${expiredCapsules.length} expired capsules found.`)
-
       for (const capsule of expiredCapsules) {
         const prettyTags = JSON.parse(capsule.tags).join(', ')
 
@@ -24,10 +20,6 @@ export async function startCron() {
           capsule.time,
           'DD/MM/YYYY HH:mm',
           'Pacific/Auckland',
-        )
-        console.log(
-          'Capsule Time (NZT):',
-          capsuleTime.format('DD/MM/YYYY HH:mm'),
         )
 
         const isUnlocked = moment()
@@ -72,18 +64,9 @@ export async function startCron() {
 `
 
             await sendEmail(userEmail, subject, message, media)
-            console.log(
-              `Email sent to ${userEmail} for expired capsule ${capsule.title}`,
-            )
-          } else {
-            console.log(`User not found for expired capsule ${capsule.title}`)
           }
-        } else {
-          console.log(`Capsule ${capsule.title} is still locked.`)
         }
       }
-    } else {
-      console.log('No expired capsules found.')
     }
 
     const lockedCapsules = await db('capsules')
@@ -91,18 +74,12 @@ export async function startCron() {
       .andWhere('time', '!=', '')
 
     if (lockedCapsules.length > 0) {
-      console.log(`${lockedCapsules.length} locked capsules found.`)
-
       for (const capsule of lockedCapsules) {
         const prettyTags = JSON.parse(capsule.tags).join(', ')
         const capsuleTime = moment.tz(
           capsule.time,
           'DD/MM/YYYY HH:mm',
           'Pacific/Auckland',
-        )
-        console.log(
-          'Capsule Lock Time (NZT):',
-          capsuleTime.format('DD/MM/YYYY HH:mm'),
         )
 
         const user = await db('users')
@@ -138,17 +115,8 @@ export async function startCron() {
           `
 
           await sendEmail(userEmail, subject, message)
-          console.log(
-            `Reminder email sent to ${userEmail} for locked capsule ${capsule.title}`,
-          )
-        } else {
-          console.log(`User not found for locked capsule ${capsule.title}`)
         }
       }
-    } else {
-      console.log('No locked capsules found.')
     }
-  } catch (error) {
-    console.error('Error checking capsules:', error)
-  }
+  } catch (error) {}
 }

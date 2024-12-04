@@ -42,8 +42,6 @@ router.post('/', checkJwt, upload.single('file'), async (req, res) => {
 router.get('/:capsule_id', checkJwt, async (req, res) => {
   const capsule_id = Number(req.params.capsule_id)
 
-  console.log('Requested capsule_id:', capsule_id)
-
   if (!capsule_id) {
     return res
       .status(400)
@@ -61,8 +59,6 @@ router.get('/:capsule_id', checkJwt, async (req, res) => {
 
     const timeString = capsule.time
 
-    console.log('Raw Unlocked Time String:', timeString)
-
     const unlockedTime = moment
       .utc(timeString, 'DD/MM/YYYY HH:mm')
       .tz('Pacific/Auckland', true)
@@ -70,8 +66,6 @@ router.get('/:capsule_id', checkJwt, async (req, res) => {
 
     const currentTime = moment().tz('Pacific/Auckland', true).toDate()
 
-    console.log('Current time ', currentTime)
-    console.log('Expired Time', unlockedTime)
     const isUnlocked = currentTime >= unlockedTime
 
     if (isUnlocked) {
