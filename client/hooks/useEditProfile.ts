@@ -13,7 +13,6 @@ export function useUpsertProfile() {
   const mutation = useMutation({
     mutationFn: async (profileData: User) => {
       if (profileUpdated) {
-        console.log('Profile is already updated. Skipping further requests.')
         return
       }
 
@@ -32,7 +31,6 @@ export function useUpsertProfile() {
       }
     },
     onSuccess: () => {
-      console.log('User profile upserted successfully:')
       setProfileUpdated(true)
       queryClient.invalidateQueries({ queryKey: ['user'] })
     },
@@ -60,15 +58,13 @@ export function useEditProfile() {
       if (!user?.sub) {
         throw new Error('User not authenticated')
       }
-      console.log('mutation', updatedProfile)
+
       await api.editUser(updatedProfile, accessToken)
     },
     onError: () => {
-      console.log('this is an error')
+      console.error('this is an error')
     },
     onSuccess: () => {
-      console.log('success')
-
       queryClient.invalidateQueries({
         queryKey: ['profile'],
       })

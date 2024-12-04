@@ -1,4 +1,3 @@
-// View profile by ID
 import { useQuery } from '@tanstack/react-query'
 import * as api from '../apis/api.ts'
 import { useAuth0 } from '@auth0/auth0-react'

@@ -5,7 +5,6 @@ import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { format } from 'date-fns'
 import { useEditProfile } from '../hooks/useEditProfile'
-import moment from 'moment'
 
 function ProfilePage() {
   //STATE CHANGE
@@ -25,10 +24,7 @@ function ProfilePage() {
   if (profileForm.dob !== '') {
     updatedFormFields.dob = profileForm.dob
   }
-  const today = moment().tz('Pacific/Auckland', true).toDate()
-  const todayDate = format(today, 'dd/MM/yyyy HH:mm')
 
-  console.log('profileForm state', profileForm)
   const [edit, setEdit] = useState<boolean>(false)
   const [date, setDate] = useState<Date>()
 

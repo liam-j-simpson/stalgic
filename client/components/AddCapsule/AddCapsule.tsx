@@ -60,10 +60,6 @@ function AddCapsule({ form, setForm }: Props) {
     if (date) {
       setDate(date)
       setForm({ ...form, time: format(date, 'dd/MM/yyyy HH:mm') })
-      console.log('setForm', {
-        ...form,
-        time: format(date, 'dd/MM/yyyy HH:mm'),
-      })
     }
   }
 
