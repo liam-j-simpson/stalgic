@@ -65,14 +65,14 @@ function UpdateCapsule({ capsuleId, initialData }: Props) {
             <div className="flex space-x-4">
               <button
                 type="submit"
-                className="rounded-full bg-[#13A25B] px-4 py-2 text-white hover:bg-[#0f7c47]"
+                className="rounded-full bg-[#13A25B] object-cover px-4 py-2 text-white transition-transform hover:scale-105 hover:bg-[#0f7c47] focus:outline-none"
               >
                 Save
               </button>
               <button
                 type="button"
                 onClick={() => setEditing(false)}
-                className="rounded-full bg-[#FE5801] px-4 py-2 text-white hover:bg-[#D94E01]"
+                className="rounded-full bg-[#FE5801] object-cover px-4 py-2 text-white transition-transform hover:scale-105 hover:bg-[#D94E01] focus:outline-none"
               >
                 Cancel
               </button>
@@ -81,7 +81,7 @@ function UpdateCapsule({ capsuleId, initialData }: Props) {
         ) : (
           <button
             onClick={() => setEditing(true)}
-            className="ml-4 rounded-full bg-[#13A25B] px-4 py-2 pt-2 text-white hover:bg-[#FE5801]"
+            className="ml-4 rounded-full bg-[#13A25B] object-cover px-4 py-2 pt-2 text-white transition-transform hover:scale-105 hover:bg-[#FE5801] focus:outline-none"
           >
             EDIT
           </button>

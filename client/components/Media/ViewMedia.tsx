@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useViewMyMedia } from '../../hooks/useViewMedia'
+import LoadingPage from '../Loading/LoadingPage'
+import ErrorPage from '../Error/ErrorPage'
 
 interface Props {
   capsuleId: number
@@ -23,11 +25,11 @@ function ViewMedia(props: Props) {
   }
 
   if (isLoading) {
-    return <p>Capsules coming soon...</p>
+    return <LoadingPage />
   }
 
   if (isError) {
-    return <p>Please try again later...</p>
+    return <ErrorPage />
   }
 
   if (data) {
@@ -66,7 +68,7 @@ function ViewMedia(props: Props) {
                 onClick={handlePrevious}
                 aria-label="Previous image"
               >
-                &#8249;
+                &#x2770;
               </button>
               <div className="relative bg-transparent">
                 <button
@@ -87,7 +89,7 @@ function ViewMedia(props: Props) {
                 onClick={handleNext}
                 aria-label="Next image"
               >
-                &#8250;
+                &#x2771;
               </button>
             </div>
           </>

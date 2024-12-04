@@ -31,14 +31,9 @@ function ListAllCapsules() {
             <h1 className="be-cover pt-20 text-9xl font-bold tracking-wider text-white">
               CAPSULES
             </h1>
-            <Link key="add-new-capsule" to={`/addcapsule`}>
-              <button className="mr-28 inline-block h-14 w-36 rounded-full bg-[#ffffff] text-4xl font-bold text-[#13A25B] hover:bg-[#FE5801] hover:text-[#ffffff]">
-                ADD +
-              </button>
-            </Link>
           </div>
           <IfAuthenticated>
-            <div className="flex flex-row">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4">
               {data && data.results.length > 0 ? (
                 data.results.map((capsule: CapsuleData) => {
                   return (
@@ -55,6 +50,11 @@ function ListAllCapsules() {
                   Please create a capsule to continue!
                 </p>
               )}
+              <Link key="add-new-capsule" to={`/addcapsule`}>
+                <button className=" m-4 h-96 w-80 rounded-lg bg-[#ffffff] p-6 text-[60px] text-[#13A25B] opacity-55 transition-transform hover:scale-105 focus:outline-none">
+                  &#x271A;
+                </button>
+              </Link>
             </div>
           </IfAuthenticated>
           <IfNotAuthenticated>
