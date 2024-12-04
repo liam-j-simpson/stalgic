@@ -44,9 +44,9 @@ function CapsuleListItem(props: Props) {
       <div
         onMouseEnter={handleHover}
         onMouseLeave={handleNoHover}
-        className={`mb-96 mr-12 flex h-96 w-80 flex-col rounded-lg bg-[#ffffff] p-6 text-[#13A25B] ${hover.divBg} ${hover.divText}`}
+        className={`m-4 h-96 w-80 rounded-lg bg-[#ffffff] p-6 text-[#13A25B] ${hover.divBg} ${hover.divText} object-cover transition-transform hover:scale-105 focus:outline-none`}
       >
-        <div className="">
+        <div>
           {time}
           <div className="pb-4">
             <h2 className="pb-2 pt-4">{capsule.title}</h2>
@@ -56,7 +56,7 @@ function CapsuleListItem(props: Props) {
             {capsule.tags.map((item, idx) => (
               <li
                 key={idx}
-                className={`mr-2 inline-block rounded-full px-4 py-2 mt-2 pt-2 ${hover.tagBg} ${hover.tagText}`}
+                className={`mr-2 mt-2 inline-block rounded-full px-4 py-2 pt-2 ${hover.tagBg} ${hover.tagText}`}
               >
                 {item}
               </li>

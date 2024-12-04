@@ -6,6 +6,8 @@ import UpdateCapsule from '../EditCapsule/EditCapsule'
 import ViewMedia from '../Media/ViewMedia'
 import { useState } from 'react'
 import moment from 'moment-timezone'
+import LoadingPage from '../Loading/LoadingPage'
+import ErrorPage from '../Error/ErrorPage'
 
 function ViewOneCapsule() {
   const { id } = useParams()
@@ -17,11 +19,11 @@ function ViewOneCapsule() {
   }
 
   if (isLoading) {
-    return <p>Capsules coming soon...</p>
+    return <LoadingPage />
   }
 
   if (isError) {
-    return <p>Please try again later...</p>
+    return <ErrorPage />
   }
 
   if (data) {
@@ -77,7 +79,7 @@ function ViewOneCapsule() {
               </div>
               {todayFormatted >= unlockedTime && (
                 <button
-                  className="m-4 inline-block rounded-full bg-[#13A25B] px-4 py-2 text-white hover:bg-[#FE5801] focus:outline-none"
+                  className="m-4 inline-block rounded-full bg-[#13A25B] px-4 py-2 text-white transition-transform hover:scale-105 hover:bg-[#FE5801] hover:bg-[#FE5801] focus:outline-none focus:outline-none"
                   onClick={() => setShowContents(true)}
                 >
                   View {data.title} Contents!

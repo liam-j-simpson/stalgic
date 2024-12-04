@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 function TimeFunction(timeString: string | undefined) {
- 
   const [timeRemaining, setTimeRemaining] = useState<{
     years: number
     days: number
@@ -45,12 +44,12 @@ function TimeFunction(timeString: string | undefined) {
   return (
     <>
       {timeRemaining ? (
-        <div>
+        <div className="flex flex-col space-y-1">
           <div className="text-[48px]">
             {timeRemaining.years > 0 && <span>{timeRemaining.years}y </span>}
             {timeRemaining.days > 0 && <span>{timeRemaining.days}d </span>}
           </div>
-          <div className="text-[22px]">
+          <div className="mb-10 text-[22px]">
             {timeRemaining.hours > 0 && <span>{timeRemaining.hours}h </span>}
             {timeRemaining.minutes > 0 && (
               <span>{timeRemaining.minutes}m </span>
