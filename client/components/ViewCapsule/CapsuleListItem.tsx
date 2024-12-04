@@ -8,8 +8,6 @@ interface Props {
 }
 
 function CapsuleListItem(props: Props) {
-  // TODO: add tracker for how many items are in a capsule
-
   const { capsule } = props
 
   const [hover, setHover] = useState({
@@ -46,11 +44,11 @@ function CapsuleListItem(props: Props) {
         onMouseLeave={handleNoHover}
         className={`m-4 h-96 w-80 rounded-lg bg-[#ffffff] p-6 text-[#13A25B] ${hover.divBg} ${hover.divText} relative object-cover transition-transform hover:scale-105 focus:outline-none`}
       >
-        <div className="">
-          <div className="">
+        <div>
+          <div>
             <h1 className="-mb-2 text-[36px]">{capsule.title}</h1>
             {time}
-            <p className="text-[22px] font-labrada">{capsule.description}</p>
+            <p className="font-labrada text-[22px]">{capsule.description}</p>
           </div>
           <ul className="absolute bottom-0 left-0 mb-4 ml-4">
             {capsule.tags.map((item, idx) => (
