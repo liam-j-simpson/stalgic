@@ -45,10 +45,10 @@ function TimeFunction(timeString: string | undefined) {
     <>
       {timeRemaining ? (
         <div className="flex flex-col space-y-1">
-          <div className="text-[48px]">
+          <div className="text-[36px]">
             {timeRemaining.years > 0 && <span>{timeRemaining.years}y </span>}
             {timeRemaining.days > 0 && <span>{timeRemaining.days}d </span>}
-            <div className="-mt-5 text-[22px]">
+            <div className="-mt-4 text-[22px]">
               {timeRemaining.hours > 0 && <span>{timeRemaining.hours}h </span>}
               {timeRemaining.minutes > 0 && (
                 <span>{timeRemaining.minutes}m </span>
