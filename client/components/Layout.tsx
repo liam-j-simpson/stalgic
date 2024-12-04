@@ -7,7 +7,7 @@ export default function Layout() {
       <header>
         <Nav />
       </header>
-      <main className="bg-[#13A25B] max-h-full min-h-screen">
+      <main className="max-h-full min-h-screen bg-[#13A25B]">
         <Outlet />
       </main>
       <footer></footer>

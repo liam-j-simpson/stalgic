@@ -18,8 +18,6 @@ export async function uploadMedia(media: MediaDataDraft) {
 
 export async function getCapsuleMedia(capsule_id: number) {
   try {
-    console.log('Fetching all media for capsule:', capsule_id)
-
     const media = await db('medias').where('capsule_id', capsule_id).select('*')
     return media
   } catch (error) {
