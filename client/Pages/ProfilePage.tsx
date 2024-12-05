@@ -77,15 +77,11 @@ function ProfilePage() {
         <div
           className={`group m-16 flex h-80 w-80 items-center justify-center rounded-full bg-[#ffffff] p-6 text-[#13A25B]`}
         >
-          <img
-            src={data.profile_image}
-            className="size-40"
-            alt="user profile"
-          ></img>
+          <img src={'/profile.png'} alt="user profile"></img>
           <div className="absolute hidden group-hover:block">
-            <button className="rounded-full  bg-[#13A25B] text-[#ffffff]">
-              <p className="p-2 px-4 font-labrada text-xl">Edit Photo</p>
-            </button>
+            {/* <button className="rounded-full  bg-[#13A25B] text-[#ffffff]"> */}
+            {/* <p className="p-2 px-4 font-labrada text-xl">Edit Photo</p> */}
+            {/* </button> */}
           </div>
         </div>
 
