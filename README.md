@@ -1,36 +1,26 @@
-# Boilerplate: Fullstack with Sass
+# Stalgic
+
+## Introduction 
+This project was our final group project at Dev Academy Aotearoa's Full Stack Web Development Bootcamp. I worked on this project alongside @nikki-cupples and @abdullah-daulatzai. We used agile roles and methodologies throughout the project, Nikki was Front End Lead, Abdullah was Back End Lead and I took on the role of Product Owner. 
+
+Stalgic allows its users to create digital time capsules that are unaccessible until a set expiry date. For example, a user may take up a new hobby such as painting so they create a painting time capsule with an expiry date of one year. This user can then upload images to the capsule over the next year however, they won't be able to view these images untill the year is up. Intentionally choosing to hide these memories creates a moment of nostalgia for the user to enjoy in future.
+
+## Aim
+To collaboratively create an app that achieved our MVP requirements:
+- Users can create an account and authenticate.
+- Users can create, view and edit their time capsules.
+- Users can add images to their time capsules but can't view their capsules contents untill the expiry time has arrived.
+- Users can update their profile information.
+- Users are emailed with a yearly reminder to keep uploading to their capsule.
+- Users are emailed when a capsule expires and they can now view the capsule contents.
+
+
+## Stack
+- SQLite3
+- Express.js
+- React
+- Node.js
 
 ## Setup
 
-### What's included
-
-This repo includes:
-
-* a single, simple API endpoint (`/api/v1/fruits`)
-* frontend routing via react-router
-* an auth0 setup waiting to be configured
-* an example database module (`server/db/fruits.js`)
-* an API client module (`client/apis/fruits.js`)
-* configuration for Vitest and testing library
-* configuration for server-side debugging in VS Code
-* configuration for preprocessing css with tailwind support
-
-### Installation
-
-#### **From the Github UI**
-
-See the instructions [here](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) to use Github's feature to create a new repo from a template.
-
-#### **From the command line**
-
-```
-git clone https://github.com/dev-academy-challenges/boilerplate-fullstack [your-project-name]
-cd [your-project-name]
-npm install # to install dependencies
-npm run dev # to start the dev server
-```
-
-You can find the server running on [http://localhost:3000](http://localhost:3000) and the client running on [http://localhost:5173](http://localhost:5173).
-
----
-[Provide feedback on this repo](https://docs.google.com/forms/d/e/1FAIpQLSfw4FGdWkLwMLlUaNQ8FtP2CTJdGDUv6Xoxrh19zIrJSkvT4Q/viewform?usp=pp_url&entry.1958421517=boilerplate-fullstack)
+- [ ] Clone this repo, navigate to it, install packages, and start the server with `npm run dev`
